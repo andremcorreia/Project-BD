@@ -118,7 +118,7 @@ CREATE TABLE contains (
     qty                 INT             NOT NULL,
     CONSTRAINT fk_contains_product FOREIGN KEY (sku) REFERENCES product (sku),
     CONSTRAINT fk_contains_order FOREIGN KEY (order_no) REFERENCES "order" (order_no),
-    CONSTRAINT uc_contains_order_no_sku UNIQUE (order_no, sku)                              --idk
+    CONSTRAINT uc_contains_order_no_sku UNIQUE (order_no, sku)                              
 );
 
 CREATE TABLE works (
