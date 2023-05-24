@@ -1,0 +1,26 @@
+ customer_name
+---------------
+ Joao Silva
+ Maria Santos
+ Joao Trocado
+ Pedro Freitas
+(4 rows)
+
+ employee_name
+---------------
+ Joao Bidao
+ Marcel Rebel
+(2 rows)
+
+ best_seller
+-------------
+ Apple
+(1 row)
+
+ sale_number | total_value
+-------------+-------------
+           2 |         120
+           3 |       134.5
+           8 |      162.07
+           9 |       50.01
+(4 rows)

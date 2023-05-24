@@ -17,7 +17,9 @@ DROP TABLE IF EXISTS delivery CASCADE;
 
 -- Named constraints are global to the database.
 -- Therefore, use the following naming rules:
---   1. pk_something for names of primary key constraints
+--   1. pk_table for names of primary key constraints
+--   2. fk_table_another for names of foreign key constraints
+--   3. uc_table_atributes for constraints of key pairs
 
 CREATE TABLE customer (
     cust_no             INT             NOT NULL UNIQUE,
@@ -34,7 +36,9 @@ CREATE TABLE "order" (
     order_date          DATE            NOT NULL,
     cust_no             INT             NOT NULL,
     CONSTRAINT pk_order PRIMARY KEY (order_no),
-    CONSTRAINT fk_order_customer FOREIGN KEY (cust_no) REFERENCES customer(cust_no)
+    CONSTRAINT fk_order_customer FOREIGN KEY (cust_no) REFERENCES customer(cust_no),
+    CONSTRAINT uc_order_cust_no UNIQUE (order_no, cust_no)
+    -- Every order (order_no) must participate in the contains association
 );
 
 CREATE TABLE sale (
@@ -48,6 +52,7 @@ CREATE TABLE employee (
     bdate               DATE            NOT NULL,
     employee_name       VARCHAR(255)    NOT NULL,
     CONSTRAINT pk_employee PRIMARY KEY (ssn)
+    -- Every employee (ssn) must participate in the works association
 );
 
 CREATE TABLE department (
@@ -74,15 +79,16 @@ CREATE TABLE warehouse (
 );
 
 CREATE TABLE product (
-    sku                 INT             NOT NULL UNIQUE,
+    sku                 VARCHAR(10)     NOT NULL UNIQUE,
     product_name        VARCHAR(255)    NOT NULL,
     product_description VARCHAR(255)    NOT NULL,
     price               FLOAT           NOT NULL CHECK (price > 0),
     CONSTRAINT pk_product PRIMARY KEY (sku)
+    -- Every product (sku) must participate in the supplier relation
 );
 
 CREATE TABLE ean_product (
-    sku                 INT             NOT NULL,
+    sku                 VARCHAR(10)     NOT NULL,
     ean                 BIGINT          NOT NULL,
     CONSTRAINT fk_ean_product FOREIGN KEY (sku) REFERENCES product (sku)
 );
@@ -91,7 +97,7 @@ CREATE TABLE supplier (
     TIN                 INT             NOT NULL UNIQUE,
     supplier_name       VARCHAR(255)    NOT NULL,
     supplier_address    VARCHAR(255)    NOT NULL,
-    sku                 INT             NOT NULL,
+    sku                 VARCHAR(10)     NOT NULL,
     contract_date       DATE            NOT NULL,
     CONSTRAINT pk_supplier PRIMARY KEY (TIN),
     CONSTRAINT fk_supplier_product FOREIGN KEY (sku) REFERENCES product (sku),
@@ -102,7 +108,9 @@ CREATE TABLE pay (
     cust_no             INT             NOT NULL,
     order_no            INT             NOT NULL,
     CONSTRAINT fk_pay_customer FOREIGN KEY (cust_no) REFERENCES customer (cust_no),
-    CONSTRAINT fk_pay_order FOREIGN KEY (order_no) REFERENCES "order" (order_no)
+    CONSTRAINT fk_pay_order FOREIGN KEY (order_no) REFERENCES "order" (order_no),
+    CONSTRAINT fk_pay_customer_order FOREIGN KEY (cust_no, order_no) REFERENCES "order" (cust_no, order_no)
+
 );
 
 CREATE TABLE process (
@@ -114,7 +122,7 @@ CREATE TABLE process (
 
 CREATE TABLE contains (
     order_no            INT             NOT NULL,
-    sku                 INT             NOT NULL,
+    sku                 VARCHAR(10)     NOT NULL,
     qty                 INT             NOT NULL,
     CONSTRAINT fk_contains_product FOREIGN KEY (sku) REFERENCES product (sku),
     CONSTRAINT fk_contains_order FOREIGN KEY (order_no) REFERENCES "order" (order_no),
@@ -131,7 +139,7 @@ CREATE TABLE works (
 );
 
 CREATE TABLE delivery (
-    sku                 INT             NOT NULL,
+    sku                 VARCHAR(10)     NOT NULL,
     TIN                 INT             NOT NULL,
     warehouse_address   VARCHAR(255)    NOT NULL,
     CONSTRAINT fk_delivery_supplier FOREIGN KEY (sku, TIN) REFERENCES supplier (sku, TIN),

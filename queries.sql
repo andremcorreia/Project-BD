@@ -1,6 +1,5 @@
 -- Ex 1
 -- 1.	List the name of all customers who placed orders containing higher priced products than €50 in the year 2023.
--- π_name (σ_price > 50 ∧ date ≥ '2023-01-01' ∧ date ≤ '2023-12-31' (customer ⨝ "order") ⨝ contains) ⨝ π_sku_price (product)))))
 
 SELECT c.customer_name
 FROM customer c
@@ -12,7 +11,6 @@ WHERE p.price > 50 AND EXTRACT(YEAR FROM o.order_date) = 2023; -- >= '2023-01-01
 
 -- Ex 2
 -- 2.	List the name of all employees who work in warehouses and not in offices and processed orders in January 2023.
--- π_name (σ(date ≥ "2023-01-01" ∧ date ≤ "2023-01-31") ((employee ⨝ works) ⨝ process) ⨝ order) ⋂ warehouse) - office)
 
 SELECT e.employee_name
 FROM employee e
@@ -27,7 +25,7 @@ WHERE w.workplace_address IN (SELECT warehouse_address FROM warehouse)
 -- Ex 3
 -- 3.	Indicate the name of the bestselling product.
 
-SELECT p.product_name
+SELECT p.product_name AS best_seller
 FROM product p
 JOIN contains c ON c.sku = p.sku
 JOIN sale s ON s.order_no = c.order_no
@@ -38,7 +36,8 @@ LIMIT 1;
 
 -- Ex 4
 -- 4.	Indicate the total value of each sale made.
-SELECT s.order_no, SUM(c.qty * p.price) AS total_value
+
+SELECT s.order_no AS sale_number, SUM(c.qty * p.price) AS total_value
 FROM sale s
 JOIN contains c ON c.order_no = s.order_no
 JOIN product p ON p.sku = c.sku
