@@ -1,7 +1,7 @@
 -- Ex 1
 -- 1.	List the name of all customers who placed orders containing higher priced products than €50 in the year 2023.
 
-SELECT c.customer_name
+SELECT c.name
 FROM customer c
 JOIN "order" o ON c.cust_no = o.cust_no
 JOIN contains ct ON o.order_no = ct.order_no
@@ -12,20 +12,20 @@ WHERE p.price > 50 AND EXTRACT(YEAR FROM o.order_date) = 2023; -- >= '2023-01-01
 -- Ex 2
 -- 2.	List the name of all employees who work in warehouses and not in offices and processed orders in January 2023.
 
-SELECT e.employee_name
+SELECT e.name
 FROM employee e
 JOIN works w ON e.ssn = w.ssn
 JOIN process p ON e.ssn = p.ssn
 JOIN "order" o ON p.order_no = o.order_no
-WHERE w.workplace_address IN (SELECT warehouse_address FROM warehouse) 
-    AND w.workplace_address NOT IN (SELECT office_address FROM office) 
-    AND EXTRACT(YEAR FROM o.order_date) = 2023
-    AND EXTRACT(MONTH FROM o.order_date) = 1;
+WHERE w.address IN (SELECT "address" FROM warehouse) 
+    AND w.address NOT IN (SELECT "address" FROM office) 
+    AND EXTRACT(YEAR FROM o.date) = 2023
+    AND EXTRACT(MONTH FROM o.date) = 1;
 
 -- Ex 3
 -- 3.	Indicate the name of the bestselling product.
 
-SELECT p.product_name AS best_seller
+SELECT p.name AS best_seller
 FROM product p
 JOIN contains c ON c.sku = p.sku
 JOIN sale s ON s.order_no = c.order_no
