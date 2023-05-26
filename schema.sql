@@ -22,19 +22,19 @@ DROP TABLE IF EXISTS delivery CASCADE;
 --   3. uc_table_atributes for constraints of key pairs
 
 CREATE TABLE customer (
-    cust_no             INT             NOT NULL UNIQUE,
-    customer_name       VARCHAR(255)    NOT NULL,
-    email               VARCHAR(100)    NOT NULL UNIQUE,
-    phone               INT             NOT NULL,
-    customer_address    VARCHAR(255)    NOT NULL,
+    cust_no             NUMERIC(9)      NOT NULL UNIQUE,
+    "name"              VARCHAR(80)     NOT NULL,
+    email               VARCHAR(254)    NOT NULL UNIQUE,
+    phone               VARCHAR(15)     NOT NULL,
+    "address"           VARCHAR(255)    NOT NULL,
     CONSTRAINT pk_customer PRIMARY KEY (cust_no)
 );
 
 
 CREATE TABLE "order" (
-    order_no            INT             NOT NULL UNIQUE,
-    order_date          DATE            NOT NULL,
-    cust_no             INT             NOT NULL,
+    order_no            NUMERIC(9)      NOT NULL UNIQUE,
+    "date"              DATE            NOT NULL,
+    cust_no             NUMERIC(9)      NOT NULL,
     CONSTRAINT pk_order PRIMARY KEY (order_no),
     CONSTRAINT fk_order_customer FOREIGN KEY (cust_no) REFERENCES customer(cust_no),
     CONSTRAINT uc_order_cust_no UNIQUE (order_no, cust_no)
@@ -42,106 +42,113 @@ CREATE TABLE "order" (
 );
 
 CREATE TABLE sale (
-    order_no            INT             NOT NULL,
+    order_no            NUMERIC(9)      NOT NULL,
+    CONSTRAINT pk_sale PRIMARY KEY (order_no),
     CONSTRAINT fk_sale_order FOREIGN KEY (order_no) REFERENCES "order" (order_no)
 );
 
 CREATE TABLE employee (
-    ssn                 INT             NOT NULL UNIQUE,
-    TIN                 INT             NOT NULL UNIQUE,
+    ssn                 NUMERIC(11)     NOT NULL UNIQUE,
+    TIN                 VARCHAR(20)     NOT NULL UNIQUE,
     bdate               DATE            NOT NULL,
-    employee_name       VARCHAR(255)    NOT NULL,
+    "name"              VARCHAR(80)     NOT NULL,
     CONSTRAINT pk_employee PRIMARY KEY (ssn)
     -- Every employee (ssn) must participate in the works association
 );
 
 CREATE TABLE department (
-    department_name     VARCHAR(255)    NOT NULL UNIQUE,
-    CONSTRAINT pk_department PRIMARY KEY (department_name)
+    "name"              VARCHAR(200)    NOT NULL UNIQUE,
+    CONSTRAINT pk_department PRIMARY KEY ("name")
 );
 
 CREATE TABLE workplace (
-    workplace_address   VARCHAR(255)    NOT NULL UNIQUE,
-    lat                 FLOAT           NOT NULL UNIQUE,
-    "long"              FLOAT           NOT NULL UNIQUE,
-    CONSTRAINT pk_workplace PRIMARY KEY (workplace_address)
+    "address"           VARCHAR(255)    NOT NULL UNIQUE,
+    lat                 NUMERIC(8,6)    NOT NULL,
+    "long"              NUMERIC(9,6)    NOT NULL,
+    CONSTRAINT pk_workplace PRIMARY KEY ("address"),
+    CONSTRAINT uc_lat_long UNIQUE (lat, "long")
 );
 
 CREATE TABLE office (
-    office_address      VARCHAR(255)    NOT NULL,
-    CONSTRAINT fk_office_workplace FOREIGN KEY (office_address) REFERENCES workplace (workplace_address)
+    "address"           VARCHAR(255)    NOT NULL,
+    CONSTRAINT pk_office PRIMARY KEY ("address"),
+    CONSTRAINT fk_office_workplace FOREIGN KEY ("address") REFERENCES workplace ("address")
 );
 
 CREATE TABLE warehouse (
-    warehouse_address   VARCHAR(255)    NOT NULL,
-    CONSTRAINT fk_warehouse_workplace FOREIGN KEY (warehouse_address) REFERENCES workplace (workplace_address),
-    CONSTRAINT fk_warehouse UNIQUE (warehouse_address)
+    "address"   VARCHAR(255)    NOT NULL,
+    CONSTRAINT pk_warehouse PRIMARY KEY ("address"),
+    CONSTRAINT fk_warehouse_workplace FOREIGN KEY ("address") REFERENCES workplace ("address")
 );
 
 CREATE TABLE product (
     sku                 VARCHAR(10)     NOT NULL UNIQUE,
-    product_name        VARCHAR(255)    NOT NULL,
-    product_description VARCHAR(255)    NOT NULL,
-    price               FLOAT           NOT NULL CHECK (price > 0),
+    "name"              VARCHAR(50)     NOT NULL,
+    "description"       TEXT            NOT NULL,
+    price               NUMERIC(16,4)   NOT NULL CHECK (price > 0),
     CONSTRAINT pk_product PRIMARY KEY (sku)
     -- Every product (sku) must participate in the supplier relation
 );
 
 CREATE TABLE ean_product (
     sku                 VARCHAR(10)     NOT NULL,
-    ean                 BIGINT          NOT NULL,
+    ean                 NUMERIC(13)     NOT NULL,
+    CONSTRAINT pk_ean_product PRIMARY KEY (sku),
     CONSTRAINT fk_ean_product FOREIGN KEY (sku) REFERENCES product (sku)
 );
 
 CREATE TABLE supplier (
-    TIN                 INT             NOT NULL UNIQUE,
-    supplier_name       VARCHAR(255)    NOT NULL,
-    supplier_address    VARCHAR(255)    NOT NULL,
+    TIN                 VARCHAR(20)     NOT NULL UNIQUE,
+    "name"              VARCHAR(80)     NOT NULL,
+    "address"           VARCHAR(255)    NOT NULL,
     sku                 VARCHAR(10)     NOT NULL,
-    contract_date       DATE            NOT NULL,
+    "date"              DATE            NOT NULL,
     CONSTRAINT pk_supplier PRIMARY KEY (TIN),
     CONSTRAINT fk_supplier_product FOREIGN KEY (sku) REFERENCES product (sku),
     CONSTRAINT uc_supplier_sku_tin UNIQUE (sku, TIN)
 );
 
 CREATE TABLE pay (
-    cust_no             INT             NOT NULL,
-    order_no            INT             NOT NULL,
+    cust_no             NUMERIC(9)      NOT NULL,
+    order_no            NUMERIC(9)      NOT NULL,
+    CONSTRAINT pk_pay PRIMARY KEY (order_no),
     CONSTRAINT fk_pay_customer FOREIGN KEY (cust_no) REFERENCES customer (cust_no),
     CONSTRAINT fk_pay_order FOREIGN KEY (order_no) REFERENCES "order" (order_no),
     CONSTRAINT fk_pay_customer_order FOREIGN KEY (cust_no, order_no) REFERENCES "order" (cust_no, order_no)
-
 );
 
 CREATE TABLE process (
-    ssn                 INT             NOT NULL,
-    order_no            INT             NOT NULL,
+    ssn                 NUMERIC(9)      NOT NULL,
+    order_no            NUMERIC(9)      NOT NULL,
+    CONSTRAINT pk_process PRIMARY KEY (ssn, order_no),
     CONSTRAINT fk_process_employee FOREIGN KEY (ssn) REFERENCES employee (ssn),
     CONSTRAINT fk_process_order FOREIGN KEY (order_no) REFERENCES "order" (order_no)
 );
 
 CREATE TABLE contains (
-    order_no            INT             NOT NULL,
+    order_no            NUMERIC(9)      NOT NULL,
     sku                 VARCHAR(10)     NOT NULL,
-    qty                 INT             NOT NULL,
+    qty                 SMALLINT        NOT NULL CHECK (qty > 0),
+    CONSTRAINT pk_contains PRIMARY KEY (order_no, sku),                      
     CONSTRAINT fk_contains_product FOREIGN KEY (sku) REFERENCES product (sku),
-    CONSTRAINT fk_contains_order FOREIGN KEY (order_no) REFERENCES "order" (order_no),
-    CONSTRAINT uc_contains_order_no_sku UNIQUE (order_no, sku)                              
+    CONSTRAINT fk_contains_order FOREIGN KEY (order_no) REFERENCES "order" (order_no)
 );
 
 CREATE TABLE works (
-    ssn                 INT             NOT NULL,
-    department_name     VARCHAR(255)    NOT NULL,
-    workplace_address   VARCHAR(255)    NOT NULL,
+    ssn                 NUMERIC(9)      NOT NULL,
+    "name"              VARCHAR(200)    NOT NULL,
+    "address"           VARCHAR(255)    NOT NULL,
+    CONSTRAINT pk_works PRIMARY KEY (ssn, "name", "address"),
     CONSTRAINT fk_works_employee FOREIGN KEY (ssn) REFERENCES employee (ssn),
-    CONSTRAINT fk_works_workplace FOREIGN KEY (workplace_address) REFERENCES workplace (workplace_address),
-    CONSTRAINT fk_works_department FOREIGN KEY (department_name) REFERENCES department (department_name)
+    CONSTRAINT fk_works_workplace FOREIGN KEY ("address") REFERENCES workplace ("address"),
+    CONSTRAINT fk_works_department FOREIGN KEY ("name") REFERENCES department ("name")
 );
 
 CREATE TABLE delivery (
     sku                 VARCHAR(10)     NOT NULL,
-    TIN                 INT             NOT NULL,
-    warehouse_address   VARCHAR(255)    NOT NULL,
+    TIN                 VARCHAR(20)     NOT NULL,
+    "address"           VARCHAR(255)    NOT NULL,
+    CONSTRAINT pk_delivery PRIMARY KEY (sku, TIN, "address"),
     CONSTRAINT fk_delivery_supplier FOREIGN KEY (sku, TIN) REFERENCES supplier (sku, TIN),
-    CONSTRAINT fk_delivery_warehouse FOREIGN KEY (warehouse_address) REFERENCES warehouse (warehouse_address)
+    CONSTRAINT fk_delivery_warehouse FOREIGN KEY ("address") REFERENCES warehouse ("address")
 );
