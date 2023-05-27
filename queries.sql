@@ -6,7 +6,7 @@ FROM customer c
 JOIN "order" o ON c.cust_no = o.cust_no
 JOIN contains ct ON o.order_no = ct.order_no
 JOIN product p ON ct.sku = p.sku
-WHERE p.price > 50 AND EXTRACT(YEAR FROM o.order_date) = 2023; -- >= '2023-01-01' AND o.order_date <= '2023-12-31';
+WHERE p.price > 50 AND EXTRACT(YEAR FROM o.date) = 2023;
 
 
 -- Ex 2

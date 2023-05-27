@@ -1,4 +1,4 @@
- customer_name
+     name
 ---------------
  Joao Silva
  Maria Santos
@@ -6,8 +6,8 @@
  Pedro Freitas
 (4 rows)
 
- employee_name
----------------
+     name
+--------------
  Joao Bidao
  Marcel Rebel
 (2 rows)
@@ -19,8 +19,8 @@
 
  sale_number | total_value
 -------------+-------------
-           2 |         120
-           3 |       134.5
-           8 |      162.07
-           9 |       50.01
+           2 |    120.0000
+           9 |     50.0100
+           3 |    134.5000
+           8 |    162.0700
 (4 rows)
