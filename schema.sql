@@ -118,7 +118,7 @@ CREATE TABLE pay (
 );
 
 CREATE TABLE process (
-    ssn                 NUMERIC(9),
+    ssn                 NUMERIC(11),
     order_no            NUMERIC(9),
     CONSTRAINT pk_process PRIMARY KEY (ssn, order_no),
     CONSTRAINT fk_process_employee FOREIGN KEY (ssn) REFERENCES employee (ssn),
@@ -135,7 +135,7 @@ CREATE TABLE contains (
 );
 
 CREATE TABLE works (
-    ssn                 NUMERIC(9),
+    ssn                 NUMERIC(11),
     "name"              VARCHAR(200),
     "address"           VARCHAR(255),
     CONSTRAINT pk_works PRIMARY KEY (ssn, "name", "address"),
