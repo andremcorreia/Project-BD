@@ -6,7 +6,8 @@ FROM customer c
 JOIN "order" o ON c.cust_no = o.cust_no
 JOIN contains ct ON o.order_no = ct.order_no
 JOIN product p ON ct.sku = p.sku
-WHERE p.price > 50 AND EXTRACT(YEAR FROM o.date) = 2023;
+WHERE p.price > 50 AND EXTRACT(YEAR FROM o.date) = 2023
+GROUP BY c.cust_no;
 
 
 -- Ex 2
@@ -20,7 +21,8 @@ JOIN "order" o ON p.order_no = o.order_no
 WHERE w.address IN (SELECT "address" FROM warehouse) 
     AND w.address NOT IN (SELECT "address" FROM office) 
     AND EXTRACT(YEAR FROM o.date) = 2023
-    AND EXTRACT(MONTH FROM o.date) = 1;
+    AND EXTRACT(MONTH FROM o.date) = 1
+GROUP BY e.ssn;
 
 -- Ex 3
 -- 3.	Indicate the name of the bestselling product.

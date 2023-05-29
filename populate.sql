@@ -11,7 +11,8 @@ VALUES
     (6, 'Joao Trocado',  'joao.mainchar@mail.com',    '(555)921-2134', 'Entrecampos, Lisboa'),              -- Has a large sale above 50€ and an order in the wrong year
     (7, 'Marco Marques', 'marco.marquense@nokia.com', '(555)411-0034', 'Marques de Pombal, Lisboa'),        -- Orders alot of small products, the sum is bellow 50€
     (8, 'Ernest Chad',   'ernest.giga@chad.com',      '(555)969-4201', 'Giga Farm, Chad'),                  -- Buys multiple product that together cost above 50€
-    (9, 'Rui Because',   'because.rui@outlook.com',   '(555)694-2054', 'Rua com dois Mcdonalds, Massama');  -- Orders a product costing exactly 50€
+    (9, 'Rui Because',   'because.rui@outlook.com',   '(555)694-2054', 'Rua com dois Mcdonalds, Massama'),  -- Orders a product costing exactly 50€
+    (10,'Passado Joaquin','passado.passou@jocas.com', '(555)555-5555', 'Chelas, Lisboa');                   -- Customer with 2 orders containing products above 50€, to check if its name appears twice
 
 -- Insert sample data into "order" table
 INSERT INTO "order" (order_no, "date", cust_no)
@@ -25,7 +26,9 @@ VALUES
     (7, '2023-01-03', 7),
     (8, '2023-01-12', 5),
     (9, '2023-01-03', 8),
-    (10,'2023-01-30', 9);
+    (10,'2023-01-30', 9),
+    (11,'2023-01-05', 10),
+    (12,'2023-05-10', 10); 
 
 -- Insert sample data into sale table
 INSERT INTO sale (order_no)
@@ -109,7 +112,8 @@ INSERT INTO process (ssn, order_no)
 VALUES (100000004, 7), (100000009, 7), 
        (100000001, 7), (100000002, 7), 
        (100000003, 4), (100000005, 7), 
-       (100000006, 1), (100000007, 5);
+       (100000006, 1), (100000007, 5),
+       (100000009, 11);
 
 -- Insert sample data into contains table
 INSERT INTO contains (order_no, sku, qty)
@@ -117,7 +121,8 @@ VALUES (1, '1A02', 1), (2, '1A03', 1), (3, '1A03', 1),
        (3, '1A04', 10), (3, '1A01', 15), (4, '1A02', 1), 
        (5, '1A02', 1), (6, '1A02', 1), (7, '1A07', 100), 
        (8, '1A10', 3), (8, '1A04', 10), (9, '1A08', 1), 
-       (9, '1A07', 2), (10, '1A09', 1);
+       (9, '1A07', 2), (10, '1A09', 1), (11, '1A02', 1),
+       (12, '1A05', 1);
 
 -- Insert sample data into works table
 INSERT INTO works (ssn, "name", "address")
