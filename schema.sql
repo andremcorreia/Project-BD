@@ -25,7 +25,7 @@ CREATE TABLE customer (
     cust_no             INTEGER,                               -- datatype INTEGER so the customer identifier is a number with appropriate precision and scale
     "name"              VARCHAR(80)     NOT NULL,
     email               VARCHAR(254)    NOT NULL UNIQUE,
-    phone               VARCHAR(15)     NOT NULL,              -- datatype VARCHAR(15) that uses the american convention: enclose the area code in parentheses, and then hyphenate the three-digit exchange code with the four-digit number.
+    phone               VARCHAR(15)     NOT NULL,              -- datatype VARCHAR(15) that uses the american convention: enclose the area code in parentheses, and then hyphenate the three-digit exchange code with the four-digit number
     "address"           VARCHAR(255)    NOT NULL,
     CONSTRAINT pk_customer PRIMARY KEY (cust_no)
 );
@@ -49,7 +49,7 @@ CREATE TABLE sale (
 
 CREATE TABLE employee (
     ssn                 NUMERIC(9),                            -- datatype NUMERIC(9) because of the convention: the ssn data type is used for columns holding 9-digit social security numbers where "-" are excluded (Example: 999999999)
-    TIN                 VARCHAR(20)     NOT NULL UNIQUE,       -- datatype VARCHAR(20) used to be compatible with a large number of countries
+    TIN                 VARCHAR(20)     NOT NULL UNIQUE,       -- datatype VARCHAR(20) so it can be compatible with a large number of countries
     bdate               DATE            NOT NULL,       
     "name"              VARCHAR(80)     NOT NULL,
     CONSTRAINT pk_employee PRIMARY KEY (ssn)
@@ -57,7 +57,7 @@ CREATE TABLE employee (
 );
 
 CREATE TABLE department (
-    "name"              VARCHAR(200),                          -- datatype VARCHAR(200) because it references a Company(Organisation) Name convention
+    "name"              VARCHAR(200),                          -- datatype VARCHAR(200) because it references a company (organisation) name convention
     CONSTRAINT pk_department PRIMARY KEY ("name")
 );
 
@@ -92,13 +92,13 @@ CREATE TABLE product (
 
 CREATE TABLE ean_product (
     sku                 VARCHAR(10),
-    ean                 NUMERIC(13)     NOT NULL,              -- datatype NUMERIC(13) because an ean code consists of 13 digits that consist of a combination of country code, company code and article number. The last digit is the check digit.
+    ean                 NUMERIC(13)     NOT NULL,              -- datatype NUMERIC(13) because an ean code consists of 13 digits that consist of a combination of country code, company code, article number and a check digit
     CONSTRAINT pk_ean_product PRIMARY KEY (sku),
     CONSTRAINT fk_ean_product FOREIGN KEY (sku) REFERENCES product (sku)
 );
 
 CREATE TABLE supplier (
-    TIN                 VARCHAR(20),                           -- datatype VARCHAR(20) used to be compatible with a large amount of countries' TIN
+    TIN                 VARCHAR(20),                           -- datatype VARCHAR(20) so it can be compatible with a large number of countries
     "name"              VARCHAR(80)     NOT NULL,
     "address"           VARCHAR(255)    NOT NULL,
     sku                 VARCHAR(10)     NOT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE process (
 CREATE TABLE contains (
     order_no            INTEGER,
     sku                 VARCHAR(10),
-    qty                 SMALLINT        NOT NULL CHECK (qty > 0), -- datatype SMALLINT because the datatype's limit is what we set to be the database's quantity maximum value
+    qty                 INTEGER        NOT NULL CHECK (qty > 0),       -- datatype INTEGER because its limit is the qty maximum value
     CONSTRAINT pk_contains PRIMARY KEY (order_no, sku),                      
     CONSTRAINT fk_contains_product FOREIGN KEY (sku) REFERENCES product (sku),
     CONSTRAINT fk_contains_order FOREIGN KEY (order_no) REFERENCES "order" (order_no)
