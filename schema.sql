@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS delivery CASCADE;
 --   3. uc_table_atributes for constraints of key pairs
 
 CREATE TABLE customer (
-    cust_no             INTEGER,                               -- datatype NUMERIC(9) so the customer identifier is a number with appropriate precision and scale with a maximum of 9 digits, which occupies
+    cust_no             INTEGER,                               -- datatype INTEGER so the customer identifier is a number with appropriate precision and scale with a maximum of 9 digits, which occupies
     "name"              VARCHAR(80)     NOT NULL,
     email               VARCHAR(254)    NOT NULL UNIQUE,
     phone               VARCHAR(15)     NOT NULL,              -- datatype VARCHAR(15) that uses the american convention: enclose the area code in parentheses, and then hyphenate the three-digit exchange code with the four-digit number.
@@ -32,7 +32,7 @@ CREATE TABLE customer (
 
 
 CREATE TABLE "order" (
-    order_no            INTEGER,                               -- datatype NUMERIC(9) so the order identifier is a number with appropriate precision and scale with a maximum of 9 digits
+    order_no            INTEGER,                               -- datatype INTEGER so the order identifier is a number with appropriate precision and scale with a maximum of 9 digits
     "date"              DATE            NOT NULL,
     cust_no             INTEGER      NOT NULL,
     CONSTRAINT pk_order PRIMARY KEY (order_no),
