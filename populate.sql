@@ -3,20 +3,20 @@
 -- Insert sample data into customer table
 INSERT INTO customer (cust_no, "name", email, phone, "address") 
 VALUES 
-    (1, 'Joao Silva',   'joao.silva@mail.com',      '+991123456789', 'TagusPark, Oeiras'),                -- Orders 1 object above 50€
-    (2, 'Maria Santos', 'maria.santos@mail.com',    '+991987654321', 'Praca da Liberdade, Porto'),        -- Orders and pays for 1 object above 50€
-    (3, 'Manuel Costa', 'manuel.costa@mail.com',    '+991976455242', 'Rua do Peixe, Lisboa'),             -- Orders 1 object above 50€ in the wrong year
-    (4, 'Ana Pereira',  'ana.pereira@mail.com',     '+991989765432', 'Avenida Brasil, Lisboa'),           -- Has no orders
-    (5, 'Pedro Freitas','pedro.das@ldil.com',       '+991918756463', 'Pontinha, Lisboa'),                 -- Has one order on the wrong date and one sale on the right date, both above 50€
-    (6, 'Joao Trocado', 'joao.mainchar@mail.com',   '+991911213432', 'Entrecampos, Lisboa'),              -- Has a large Sale above 50€ and an order in the wrong year
-    (7, 'Marco Marques','marco.marquense@nokia.com','+991911003432', 'Marques de Pombal, Lisboa'),        -- Orders alot of small products, the sum is bellow 50€
-    (8, 'Ernest Chad', 'ernest.giga@chad.com',      '+991969420158', 'Giga Farm, Chad'),                  -- Buys multiple objects that together cost above 50€
-    (9, 'Rui Because', 'because.rui@outlook.com',   '+991694205458', 'Rua com dois Mcdonalds, Massama');  -- Orders a product costing exactly 50€
+    (1, 'Joao Silva',    'joao.silva@mail.com',       '(555)123-4567', 'TagusPark, Oeiras'),                -- Orders 1 product above 50€
+    (2, 'Maria Santos',  'maria.santos@mail.com',     '(555)987-6543', 'Praca da Liberdade, Porto'),        -- Orders and pays for 1 product above 50€
+    (3, 'Manuel Costa',  'manuel.costa@mail.com',     '(555)976-4552', 'Rua do Peixe, Lisboa'),             -- Orders 1 product above 50€ in the wrong year
+    (4, 'Ana Pereira',   'ana.pereira@mail.com',      '(555)289-7654', 'Avenida Brasil, Lisboa'),           -- Has no orders
+    (5, 'Pedro Freitas', 'pedro.das@ldil.com',        '(555)918-7564', 'Pontinha, Lisboa'),                 -- Has one order on the wrong date and one sale on the right date, both above 50€
+    (6, 'Joao Trocado',  'joao.mainchar@mail.com',    '(555)921-2134', 'Entrecampos, Lisboa'),              -- Has a large sale above 50€ and an order in the wrong year
+    (7, 'Marco Marques', 'marco.marquense@nokia.com', '(555)411-0034', 'Marques de Pombal, Lisboa'),        -- Orders alot of small products, the sum is bellow 50€
+    (8, 'Ernest Chad',   'ernest.giga@chad.com',      '(555)969-4201', 'Giga Farm, Chad'),                  -- Buys multiple product that together cost above 50€
+    (9, 'Rui Because',   'because.rui@outlook.com',   '(555)694-2054', 'Rua com dois Mcdonalds, Massama');  -- Orders a product costing exactly 50€
 
 -- Insert sample data into "order" table
 INSERT INTO "order" (order_no, "date", cust_no)
 VALUES 
-    (1, '2023-05-01', 1),   -- not january  
+    (1, '2023-05-01', 1),   -- not january
     (2, '2023-04-05', 2),   -- not january
     (3, '2023-12-02', 6),   -- not january
     (4, '2022-01-01', 6),   -- Year < 2023
@@ -34,16 +34,15 @@ VALUES (2), (3), (8), (9); -- Values: 120€ | 134.5€ | 162.07€ | 50.01€
 -- Insert sample data into employee table
 INSERT INTO employee (ssn, TIN, bdate, "name")
 VALUES 
-    (1001, '10001', '1945-09-02', 'Adolfo Chaplin'),        -- Works in an office, processes an order in jan 2023
-    (1002, '10002', '2001-09-11', 'Dwayne Johnson'),        -- Works in a warehouse and an office, processes an order in jan 2023 
-    (1003, '10003', '1975-01-01', 'Xi JinPing'),            -- Works in a warehouse, processes an order in jan (but 2022)
-    (1004, '10004', '1911-05-23', 'Joao Bidao'),            -- Works in a warehouse, processes an order in jan 2023
-    (1005, '10005', '1444-09-10', 'Tiago Pode'),            -- Works in a cafe probably selling coffee, processes an order in jan 2023 somehow 
-    (1006, '10006', '2020-01-01', 'Maria Pequena'),         -- Works in a warehouse, processes an order in 2023 (not in jan)
-    (1007, '10007', '2024-01-01', 'Joao Futuro'),           -- Works in a warehouse, processes an order (but 2024 and not in jan)
-    (1008, '10008', '1983-01-15', 'Andre Fartura'),         -- Works in a warehouse, doesn't do much
-    (1009, '10009', '1948-12-12', 'Marcel Rebel');          -- Works in a warehouse, processes an order in jan 2023
-
+    (100000001, '10001', '1945-09-02', 'Adolfo Chaplin'),        -- Works in an office, processes an order in jan 2023
+    (100000002, '10002', '2001-09-11', 'Dwayne Johnson'),        -- Works in a warehouse and an office, processes an order in jan 2023 
+    (100000003, '10003', '1975-01-01', 'Xi JinPing'),            -- Works in a warehouse, processes an order in jan (but 2022)
+    (100000004, '10004', '1911-05-23', 'Joao Bidao'),            -- Works in a warehouse, processes an order in jan 2023
+    (100000005, '10005', '1444-09-10', 'Tiago Pode'),            -- Works in a cafe probably selling coffee, processes an order in jan 2023 somehow 
+    (100000006, '10006', '2020-01-01', 'Maria Pequena'),         -- Works in a warehouse, processes an order in 2023 (not in jan)
+    (100000007, '10007', '2024-01-01', 'Joao Futuro'),           -- Works in a warehouse, processes an order (but 2024 and not in jan)
+    (100000008, '10008', '1983-01-15', 'Andre Fartura'),         -- Works in a warehouse, doesn't do much
+    (100000009, '10009', '1948-12-12', 'Marcel Rebel');          -- Works in a warehouse, processes an order in jan 2023
 
 -- Insert sample data into department table
 INSERT INTO department ("name")
@@ -52,11 +51,10 @@ VALUES ('Sales'), ('Warehouse'), ('IT');
 -- Insert sample data into workplace table
 INSERT INTO workplace ("address", lat, "long")
 VALUES 
-    ('Rua da Cafeina, PodeVille', -90.000, 45.000), -- Caffe
+    ('Rua da Cafeina, PodeVille', -90.000, 45.000), -- Cafe
     ('Parque do Tejo, Oeiras', 38.737, -9.302),     -- Warehouse
     ('Avenida do Japao, Lisboa', 67.420, 40.000),   -- Office and Warehouse
     ('Rua do Piano, Lisboa', 76.787, 75.654);       -- Only Office
-
 
 -- Insert sample data into office table
 INSERT INTO office ("address")
@@ -108,7 +106,10 @@ VALUES (2, 2), (6, 3), (5, 8), (8, 9);
 
 -- Insert sample data into process table
 INSERT INTO process (ssn, order_no)
-VALUES (1004, 7), (1009, 7), (1001, 7), (1002, 7), (1003, 4), (1005, 7), (1006, 1), (1007, 5);
+VALUES (100000004, 7), (100000009, 7), 
+       (100000001, 7), (100000002, 7), 
+       (100000003, 4), (100000005, 7), 
+       (100000006, 1), (100000007, 5);
 
 -- Insert sample data into contains table
 INSERT INTO contains (order_no, sku, qty)
@@ -121,20 +122,18 @@ VALUES (1, '1A02', 1), (2, '1A03', 1), (3, '1A03', 1),
 -- Insert sample data into works table
 INSERT INTO works (ssn, "name", "address")
 VALUES 
-    (1004, 'Warehouse', 'Parque do Tejo, Oeiras'),
-    (1009, 'Warehouse', 'Parque do Tejo, Oeiras'),    
-    (1003, 'Warehouse', 'Parque do Tejo, Oeiras'),
-    (1006, 'Warehouse', 'Parque do Tejo, Oeiras'),
-    (1007, 'Warehouse', 'Parque do Tejo, Oeiras'),
-    (1008, 'Warehouse', 'Parque do Tejo, Oeiras'),
-    (1001, 'IT', 'Rua do Piano, Lisboa'),
-    (1002, 'Warehouse', 'Avenida do Japao, Lisboa'),
-    (1005, 'Sales', 'Rua da Cafeina, PodeVille');
-
+    (100000004, 'Warehouse', 'Parque do Tejo, Oeiras'),
+    (100000009, 'Warehouse', 'Parque do Tejo, Oeiras'),    
+    (100000003, 'Warehouse', 'Parque do Tejo, Oeiras'),
+    (100000006, 'Warehouse', 'Parque do Tejo, Oeiras'),
+    (100000007, 'Warehouse', 'Parque do Tejo, Oeiras'),
+    (100000008, 'Warehouse', 'Parque do Tejo, Oeiras'),
+    (100000001, 'IT', 'Rua do Piano, Lisboa'),
+    (100000002, 'Warehouse', 'Avenida do Japao, Lisboa'),
+    (100000005, 'Sales', 'Rua da Cafeina, PodeVille');
 
 -- Insert sample data into delivery table
 INSERT INTO delivery (sku, TIN, "address")
 VALUES 
     ('1A09', '20004', 'Avenida do Japao, Lisboa'),
     ('1A10', '20010', 'Avenida do Japao, Lisboa');
-
