@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS delivery CASCADE;
 CREATE TABLE customer (
     cust_no             INTEGER,                               -- datatype INTEGER so the customer identifier is a number with appropriate precision and scale
     "name"              VARCHAR(80)     NOT NULL,
-    email               VARCHAR(254)    NOT NULL UNIQUE,       -- email has to be valid (has to exist and be of the type xxxxx@xxxxx.xxx
+    email               VARCHAR(254)    NOT NULL UNIQUE,       -- email has to be valid (has to exist and be of the type xxxxx@xxxxx.xxx)
     phone               VARCHAR(15)     NOT NULL,              -- datatype VARCHAR(15) that uses the american convention: enclose the area code in parentheses, and then hyphenate the three-digit exchange code with the four-digit number
     "address"           VARCHAR(255)    NOT NULL,
     CONSTRAINT pk_customer PRIMARY KEY (cust_no)
