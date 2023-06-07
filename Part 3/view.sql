@@ -1,3 +1,5 @@
+DROP VIEW IF EXISTS product_sales;
+
 CREATE VIEW product_sales(SKU, order_no, qty, total_price, year, month, day_of_month, day_of_week, city)
 AS 
 SELECT p.SKU,
