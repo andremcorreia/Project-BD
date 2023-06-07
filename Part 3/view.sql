@@ -13,4 +13,4 @@ FROM product p
 JOIN contains c ON p.SKU = c.SKU
 JOIN "order" o ON c.order_no = o.order_no
 JOIN pay pa ON pa.order_no = o.order_no
-JOIN customer cust ON pay.cust_no = cust.cust_no
+JOIN customer cust ON pa.cust_no = cust.cust_no
