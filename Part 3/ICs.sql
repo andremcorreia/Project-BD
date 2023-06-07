@@ -3,8 +3,13 @@ RETURNS TRIGGER AS
 $$
 BEGIN			
 		IF AGE(NEW.bdate, CURRENT_DATE) < INTERVAL '18 years' THEN			
-				RAISE	EXCEPTION	'Underage alert'
+			RAISE EXCEPTION	'Underage alert'
 		END IF;	
 		RETURN NEW;
 END;
-$$	LANGUAGE	plpgsql;
+$$	LANGUAGE plpgsql;
+
+CREATE TRIGGER check_employee_age
+BEFORE INSERT OR UPDATE ON employee
+FOR EACH ROW
+EXECUTE FUNCTION chk_age_employee();
