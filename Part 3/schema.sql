@@ -43,7 +43,7 @@ CREATE TABLE employee(
 
 CREATE TABLE process(
     ssn VARCHAR(20) REFERENCES employee,
-    order_no INTEGER REFERENCES orders,
+    order_no INTEGER REFERENCES order,
     PRIMARY KEY (ssn, order_no)
 );
 
@@ -84,7 +84,7 @@ CREATE TABLE product(
 );
 
 CREATE TABLE contains(
-    order_no INTEGER REFERENCES orders,
+    order_no INTEGER REFERENCES order,
     SKU VARCHAR(25) REFERENCES product,
     qty INTEGER,
     PRIMARY KEY (order_no, SKU)
