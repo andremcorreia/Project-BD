@@ -2,7 +2,7 @@
 
 DROP TRIGGER check_employee_age ON employee [IF EXISTS]
 
-CREATE OR REPLACE FUNCTION chk_age_employee()	
+CREATE OR REPLACE FUNCTION check_age_employee()	
 RETURNS TRIGGER AS
 $$
 BEGIN			
@@ -16,13 +16,13 @@ $$	LANGUAGE plpgsql;
 CREATE TRIGGER check_employee_age
 BEFORE INSERT OR UPDATE ON employee
 FOR EACH ROW
-EXECUTE FUNCTION chk_age_employee();
+EXECUTE FUNCTION check_age_employee();
 
 -- IC 2
 
-DROP TRIGGER tg_chk_mandatory_workplace_office_warehouse ON workplace [IF EXISTS]
+DROP TRIGGER tg_check_mandatory_workplace_office_warehouse ON workplace [IF EXISTS]
 
-CREATE OR REPLACE FUNCTION	chk_mandatory_workplace_office_warehouse()
+CREATE OR REPLACE FUNCTION	check_mandatory_workplace_office_warehouse()
 		RETURNS TRIGGER AS
 $$
 BEGIN
@@ -34,6 +34,6 @@ BEGIN
 END;
 $$	LANGUAGE plpgsql;
 
-CREATE TRIGGER	tg_chk_mandatory_workplace_office_warehouse
+CREATE TRIGGER	tg_check_mandatory_workplace_office_warehouse
 AFTER INSERT ON workplace
-FOR EACH ROW EXECUTE PROCEDURE chk_mandatory_workplace_office_warehouse();
+FOR EACH ROW EXECUTE PROCEDURE check_mandatory_workplace_office_warehouse();
