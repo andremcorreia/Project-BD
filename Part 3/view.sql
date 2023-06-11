@@ -10,7 +10,7 @@ SELECT p.SKU,
        EXTRACT(MONTH FROM o.date) AS month,
        EXTRACT(DAY FROM o.date) AS day_of_month,
        to_char(o.date::date, 'Day') AS day_of_week
-       SUBSTRING(address from E'\\d{4}-\\d{3} (.+)$' ) AS city
+       SUBSTRING(cust.address from E'\\d{4}-\\d{3} (.+)$' ) AS city
 FROM product p
 JOIN contains c ON p.SKU = c.SKU
 JOIN "order" o ON c.order_no = o.order_no
