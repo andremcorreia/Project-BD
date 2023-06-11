@@ -1,27 +1,27 @@
 IC time
 
-try um menor (employee)
-workplace e ambos
-workplace e Cafe
-order no contains?
+try um menor (employee) - CHECK
+workplace e ambos - CHECK
+workplace e Cafe - CHECK
+order no contains? - CHECK
 
 Query time
 
-no order
-not paid 100 orders
-some paid but not enough for top , not paid excede top
-top by single sale
-top by multiple sales
+no order - CHECK
+not paid 100 orders - CHECK
+some paid but not enough for top , not paid excede top - CHECK
+top by single sale - CHECK
+top by multiple sales - CHECK
 
 1 dia a menos
 every day 
 every day exepto 1 no ano errado
 every day + extras no wrong year
 
-month so com cenas pagas
-month so com n pagas
-month com ambas
-month sem nenhuma
-month com pagas mas no ano errado
-month nao pagas mas no ano errado
+month so com cenas pagas - CHECK
+month so com n pagas - CHECK
+month com ambas - CHECK
+month sem nenhuma - CHECK
+month com pagas mas no ano errado - CHECK
+month nao pagas mas no ano errado - CHECK
 
