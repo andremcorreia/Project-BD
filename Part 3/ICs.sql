@@ -1,32 +1,17 @@
----- IC 1
---
---DROP TRIGGER check_employee_age ON employee [IF EXISTS]
---
---CREATE OR REPLACE FUNCTION check_age_employee()	
---RETURNS TRIGGER AS
---$$
---BEGIN			
---	IF AGE(NEW.bdate, CURRENT_DATE) < INTERVAL '18 years' THEN			
---		RAISE EXCEPTION	'Underage alert | MINOR EXPLORATION'
---	END IF;	
---	RETURN NEW;
---END;
---$$	LANGUAGE plpgsql;
---
---CREATE TRIGGER check_employee_age
---BEFORE INSERT OR UPDATE ON employee
---FOR EACH ROW
---EXECUTE FUNCTION check_age_employee();
+-- IC1 no triggers?
+
+ALTER TABLE employee
+ADD CONSTRAINT check_employee_age CHECK (AGE(bdate, CURRENT_DATE) >= INTERVAL '18 years');
 
 -- IC 2
 
-DROP TRIGGER IF EXISTS tg_check_mandatory_workplace_office_warehouse ON workplace 
+DROP TRIGGER IF EXISTS tg_check_mandatory_workplace_office_warehouse ON workplace;
 
 CREATE OR REPLACE FUNCTION	check_mandatory_workplace_office_warehouse()
 		RETURNS TRIGGER AS
 $$
 BEGIN
-	IF NEW.address NOT IN (SELECT address FROM office UNION SELECT address FROM warehouse) THEN
+	IF NEW.address NOT IN (SELECT address FROM office UNION SELECT address FROM warehouse EXCEPT (SELECT address FROM office INTERSECT SELECT address FROM warehouse)) THEN
 		RAISE EXCEPTION	'The workplace at %	must be either an office or warehouse.',	
         NEW.address;
 	END IF;
@@ -34,19 +19,11 @@ BEGIN
 END;
 $$	LANGUAGE plpgsql;
 
-CREATE TRIGGER	tg_check_mandatory_workplace_office_warehouse
-BEFORE INSERT ON workplace                                                           --Maybe update? maybe after
+CREATE CONSTRAINT TRIGGER	tg_check_mandatory_workplace_office_warehouse
+AFTER INSERT ON workplace DEFERRABLE                                                           --Maybe update? maybe after
 FOR EACH ROW EXECUTE FUNCTION check_mandatory_workplace_office_warehouse();
 
---O uso de extensões procedimentais (Stored Procedures e Triggers) deve ser reservado a restrições de
---integridade que não podem ser implementadas usando outros mecanismos mais simples.
-
 -- IC 3
-
-CREATE TRIGGER check_contains_order
-    BEFORE INSERT OR UPDATE ON "order"
-    FOR EACH ROW
-    EXECUTE FUNCTION check_contains_order();
 
 -- Stored Procedure to check order existence in 'Contains'
 CREATE OR REPLACE FUNCTION check_contains_order()
@@ -62,15 +39,14 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- IC1 no triggers?
+CREATE CONSTRAINT TRIGGER tg_contains_order
+    AFTER INSERT ON "order" DEFERRABLE
+    FOR EACH ROW
+    EXECUTE FUNCTION check_contains_order();
 
-ALTER TABLE employee
-ADD CONSTRAINT check_employee_age CHECK (AGE(bdate, CURRENT_DATE) >= INTERVAL '18 years');
 
--- IC2 macacada
-
---ALTER TABLE workplace
---ADD COLUMN type VARCHAR(10) NOT NULL CHECK (type IN ('office', 'warehouse'));
+--O uso de extensões procedimentais (Stored Procedures e Triggers) deve ser reservado a restrições de
+--integridade que não podem ser implementadas usando outros mecanismos mais simples.
 
 
 

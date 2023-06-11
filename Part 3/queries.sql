@@ -18,14 +18,14 @@ WHERE t.total_value = (
 SELECT e.name
 FROM employee e
 WHERE NOT EXISTS (
-    SELECT o.date
+    SELECT o.order_no
     FROM "order" o
     WHERE EXTRACT(YEAR FROM o.date) = 2022
     EXCEPT
     SELECT p.order_no
     FROM process p
     WHERE p.ssn = e.ssn
-)
+);
 
 -- saca todos os employees em que
 -- e vazio:
@@ -39,5 +39,5 @@ FROM "order" o
 LEFT JOIN pay p ON o.order_no = p.order_no
 WHERE EXTRACT(YEAR FROM o.date) = 2022
     AND p.order_no IS NULL
-GROUP BY month
+GROUP BY month;
 

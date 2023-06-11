@@ -9,8 +9,17 @@ VALUES
     (4, 'Rico V2', 'rico.v2@mail.com', NULL, NULL),     -- top by multiple sales
     (5, 'Pedro Pobre', 'pedro.pobre@mail.com', NULL, NULL);     -- doesn't pay
 
--- Insert sample data into order table
-INSERT INTO order (order_no, cust_no, date)
+-- Insert sample data into product table
+INSERT INTO product (SKU, name, description, price, ean)
+VALUES 
+    ('1A01', 'Banana', NULL, 0.50, 1234567890001),
+    ('1A02', 'TV 1K',  NULL, 499.00, NULL),
+    ('1A03', 'Switch',  NULL, 299.00, NULL),
+    ('1A04', 'BMW', NULL, 5485.00, NULL);
+
+START	TRANSACTION;
+SET	CONSTRAINTS	ALL	DEFERRED;
+INSERT INTO "order" (order_no, cust_no, date)
 VALUES 
     (1, 2, '2022-01-01'),
     (2, 2, '2022-01-01'),
@@ -19,8 +28,18 @@ VALUES
     (5, 4, '2023-04-01'),
     (6, 4, '2022-06-01'),
     (7, 5, '2022-06-01'),
-    (8, 5, '2023-07-01'),
-    (99, 1, '2023-01-01');      -- check not in contains IC
+    (8, 5, '2023-07-01');
+
+INSERT INTO contains (order_no, SKU, qty)
+VALUES
+    (1, '1A01', 25), (2, '1A03', 2), (3, '1A04', 2),
+    (4, '1A04', 1), (5, '1A02', 5), (6, '1A03', 10),
+    (7, '1A04', 1), (8, '1A02', 2);
+
+COMMIT;	
+
+INSERT INTO "order" (order_no, cust_no, date)
+VALUES (99, 1, '2023-01-01');                -- check not in contains IC
 
 -- Insert sample data into sale table
 INSERT INTO pay (order_no, cust_no)
@@ -36,8 +55,8 @@ VALUES
     (100000005, '10006', '2022-01-01', 'Minor');        -- check age < 18 IC
 
 -- Insert sample data into process table
-INSERT INTO process (ssn, order_no)
-VALUES
+--INSERT INTO process (ssn, order_no)
+--VALUES
     --(100000001, 1), (100000002, 2);
 
 -- Insert sample data into department table
@@ -45,46 +64,53 @@ INSERT INTO department (name)
 VALUES
     ('Sales'), ('Logistics'), ('IT');
 
+START	TRANSACTION;
+SET	CONSTRAINTS	ALL	DEFERRED;
+    -- Insert sample data into workplace table
+    INSERT INTO workplace (address, lat, long)
+    VALUES 
+        ('Rua do Poder, 6290-500 PodeVille', 0.000, 45.000),
+        ('Parque do Tejo, 2340-123 Oeiras', 38.737, -9.302);
+
+    INSERT INTO office (address)
+    VALUES
+        ('Parque do Tejo, 2340-123 Oeiras');
+
+    -- Insert sample data into warehouse table
+    INSERT INTO warehouse (address)
+    VALUES
+        ('Rua do Poder, 6290-500 PodeVille');
+
+COMMIT;	
+
+START	TRANSACTION;
+SET	CONSTRAINTS	ALL	DEFERRED;
+    -- Insert sample data into workplace table
+    INSERT INTO workplace (address, lat, long)
+    VALUES 
+        ('Rua Ambos, 5555-555 AmbosLand', 45.000, 45.000);      -- check both IC
+
+    INSERT INTO office (address)
+    VALUES
+        ('Rua Ambos, 5555-555 AmbosLand');      -- for both IC
+
+    -- Insert sample data into warehouse table
+    INSERT INTO warehouse (address)
+    VALUES
+        ('Rua Ambos, 5555-555 AmbosLand');      -- for both IC
+
+COMMIT;	
+
 -- Insert sample data into workplace table
 INSERT INTO workplace (address, lat, long)
 VALUES 
-    ('Rua do Poder, 6290-500 PodeVille', 0.000, 45.000),
-    ('Parque do Tejo, 2340-123 Oeiras', 38.737, -9.302),
-    ('Rua do Cafe, 1111-111 CafeLand', 0.000, 0.000),       -- check none IC
-    ('Rua Ambos, 5555-555 AmbosLand', 45.000, 45.000);      -- check both IC
-
--- Insert sample data into office table
-INSERT INTO office (address)
-VALUES
-    ('Parque do Tejo, 2340-123 Oeiras'),
-    ('Rua Ambos, 5555-555 AmbosLand');      -- for both IC
-
--- Insert sample data into warehouse table
-INSERT INTO warehouse (address)
-VALUES
-    ('Rua do Poder, 6290-500 PodeVille'),
-    ('Rua Ambos, 5555-555 AmbosLand');      -- for both IC
+    ('Rua do Cafe, 1111-111 CafeLand', 0.000, 0.000);       -- check none IC
 
 -- Insert sample data into works table
-INSERT INTO works (ssn, name, address)
-VALUES 
+--INSERT INTO works (ssn, name, address)
+--VALUES 
     --(100000001, 'Sales', 'Parque do Tejo, 2340-123 Oeiras'),
     --(100000002, 'Logistics', 'Rua do Poder, 6290-500 PodeVille');
-
--- Insert sample data into product table
-INSERT INTO product (SKU, name, description, price, ean)
-VALUES 
-    ('1A01', 'Banana', NULL, 0.50, 1234567890001),
-    ('1A02', 'TV 1K',  NULL, 499.00, NULL),
-    ('1A03', 'Switch',  NULL, 299.00, NULL),
-    ('1A04', 'BMW', NULL, 5485.00, NULL);
-
--- Insert sample data into contains table
-INSERT INTO contains (order_no, SKU, qty)
-VALUES
-    (1, '1A01', 25), (2, '1A03', 2), (3, '1A04', 2),
-    (4, '1A04', 1), (5, '1A02', 5), (6, '1A03', 10),
-    (7, '1A04', 1), (8, '1A02', 2);
 
 -- Insert sample data into supplier table
 INSERT INTO supplier (TIN, name, address, SKU, date)
