@@ -5,8 +5,8 @@ INSERT INTO customer (cust_no, name, email, phone, address)
 VALUES 
     (1, 'Pobre', 'pobre@mail.com', NULL, NULL),       -- no orders 
     (2, 'Maria Santos',  'maria.santos@mail.com', '(351)911111111', 'Praca da Liberdade, 1360-490 Porto'),      -- some paid (not top), unpaid excede top
-    (3, 'Rico', 'rico@mail.com', NULL, NULL),       -- top by single sale
-    (4, 'Rico V2', 'rico.v2@mail.com', NULL, NULL),     -- top by multiple sales
+    (3, 'Rico', 'rico@mail.com', NULL, 'Avenida da Liberdade, 1660-491 Lisboa'),       -- top by single sale
+    (4, 'Rico V2', 'rico.v2@mail.com', NULL, 'Casino Estoril, 2060-495 Cascais'),     -- top by multiple sales
     (5, 'Pedro Pobre', 'pedro.pobre@mail.com', NULL, NULL);     -- doesn't pay
 
 -- Insert sample data into product table
@@ -21,14 +21,14 @@ START	TRANSACTION;
 SET	CONSTRAINTS	ALL	DEFERRED;
 INSERT INTO "order" (order_no, cust_no, date)
 VALUES 
-    (1, 2, '2022-01-01'),
-    (2, 2, '2022-01-01'),
-    (3, 2, '2022-02-01'),
+    (1, 2, '2022-01-08'),
+    (2, 2, '2022-01-30'),
+    (3, 2, '2022-02-02'),
     (4, 3, '2022-03-01'),
-    (5, 4, '2023-04-01'),
-    (6, 4, '2022-06-01'),
-    (7, 5, '2022-06-01'),
-    (8, 5, '2023-07-01');
+    (5, 4, '2023-04-12'),
+    (6, 4, '2022-06-23'),
+    (7, 5, '2022-06-05'),
+    (8, 5, '2023-07-10');
 
 INSERT INTO contains (order_no, SKU, qty)
 VALUES
