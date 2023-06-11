@@ -1,7 +1,7 @@
 -- IC1 no triggers?
 
 ALTER TABLE employee
-ADD CONSTRAINT check_employee_age CHECK (AGE(bdate, CURRENT_DATE) >= INTERVAL '18 years');
+ADD CONSTRAINT check_employee_age CHECK (EXTRACT(YEAR FROM AGE(bdate)) >= 18);
 
 -- IC 2
 

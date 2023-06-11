@@ -15,15 +15,16 @@ WHERE t.total_value = (
 );
 
 -- 2
-SELECT e.name
+SELECT DISTINCT e.name
 FROM employee e
 WHERE NOT EXISTS (
-    SELECT o.order_no
+    SELECT DISTINCT o.date
     FROM "order" o
     WHERE EXTRACT(YEAR FROM o.date) = 2022
     EXCEPT
-    SELECT p.order_no
+    SELECT o.date
     FROM process p
+    JOIN "order" o ON p.order_no = o.order_no
     WHERE p.ssn = e.ssn
 );
 
