@@ -1,26 +1,26 @@
--- IC 1
-
-DROP TRIGGER check_employee_age ON employee [IF EXISTS]
-
-CREATE OR REPLACE FUNCTION check_age_employee()	
-RETURNS TRIGGER AS
-$$
-BEGIN			
-	IF AGE(NEW.bdate, CURRENT_DATE) < INTERVAL '18 years' THEN			
-		RAISE EXCEPTION	'Underage alert | MINOR EXPLORATION'
-	END IF;	
-	RETURN NEW;
-END;
-$$	LANGUAGE plpgsql;
-
-CREATE TRIGGER check_employee_age
-BEFORE INSERT OR UPDATE ON employee
-FOR EACH ROW
-EXECUTE FUNCTION check_age_employee();
+---- IC 1
+--
+--DROP TRIGGER check_employee_age ON employee [IF EXISTS]
+--
+--CREATE OR REPLACE FUNCTION check_age_employee()	
+--RETURNS TRIGGER AS
+--$$
+--BEGIN			
+--	IF AGE(NEW.bdate, CURRENT_DATE) < INTERVAL '18 years' THEN			
+--		RAISE EXCEPTION	'Underage alert | MINOR EXPLORATION'
+--	END IF;	
+--	RETURN NEW;
+--END;
+--$$	LANGUAGE plpgsql;
+--
+--CREATE TRIGGER check_employee_age
+--BEFORE INSERT OR UPDATE ON employee
+--FOR EACH ROW
+--EXECUTE FUNCTION check_age_employee();
 
 -- IC 2
 
-DROP TRIGGER tg_check_mandatory_workplace_office_warehouse ON workplace [IF EXISTS]
+DROP TRIGGER IF EXISTS tg_check_mandatory_workplace_office_warehouse ON workplace 
 
 CREATE OR REPLACE FUNCTION	check_mandatory_workplace_office_warehouse()
 		RETURNS TRIGGER AS
@@ -36,7 +36,7 @@ $$	LANGUAGE plpgsql;
 
 CREATE TRIGGER	tg_check_mandatory_workplace_office_warehouse
 BEFORE INSERT ON workplace                                                           --Maybe update? maybe after
-FOR EACH ROW EXECUTE PROCEDURE check_mandatory_workplace_office_warehouse();
+FOR EACH ROW EXECUTE FUNCTION check_mandatory_workplace_office_warehouse();
 
 --O uso de extensões procedimentais (Stored Procedures e Triggers) deve ser reservado a restrições de
 --integridade que não podem ser implementadas usando outros mecanismos mais simples.
@@ -69,15 +69,9 @@ ADD CONSTRAINT check_employee_age CHECK (AGE(bdate, CURRENT_DATE) >= INTERVAL '1
 
 -- IC2 macacada
 
-ALTER TABLE workplace
-ADD COLUMN type VARCHAR(10) NOT NULL CHECK (type IN ('office', 'warehouse'));
+--ALTER TABLE workplace
+--ADD COLUMN type VARCHAR(10) NOT NULL CHECK (type IN ('office', 'warehouse'));
 
--- IC3 no trigers?
-
-ALTER TABLE "order"
-ADD CONSTRAINT fk_contains_order_no
-FOREIGN KEY (order_no)
-REFERENCES contains (order_no);
 
 
 

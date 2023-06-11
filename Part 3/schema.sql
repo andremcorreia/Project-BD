@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS customer CASCADE;
-DROP TABLE IF EXISTS order CASCADE;
+DROP TABLE IF EXISTS "order" CASCADE;
 DROP TABLE IF EXISTS pay CASCADE;
 DROP TABLE IF EXISTS employee CASCADE;
 DROP TABLE IF EXISTS process CASCADE;
@@ -15,13 +15,13 @@ DROP TABLE IF EXISTS delivery CASCADE;
 
 CREATE TABLE customer (
     cust_no INTEGER PRIMARY KEY,
-    name VARCHAR(80) NOT NULL,
+    "name" VARCHAR(80) NOT NULL,
     email VARCHAR(254) UNIQUE NOT NULL,
     phone VARCHAR(15),
     address VARCHAR(255)
 );
 
-CREATE TABLE order (
+CREATE TABLE "order" (
     order_no INTEGER PRIMARY KEY,
     cust_no INTEGER NOT NULL REFERENCES customer,
     date DATE NOT NULL
@@ -29,26 +29,26 @@ CREATE TABLE order (
 );
 
 CREATE TABLE pay(
-    order_no INTEGER PRIMARY KEY REFERENCES order,
-    cust_no INTEGER NOT NULL REFERENCES customer,
+    order_no INTEGER PRIMARY KEY REFERENCES "order",
+    cust_no INTEGER NOT NULL REFERENCES customer
 );
 
 CREATE TABLE employee(
     ssn VARCHAR(20) PRIMARY KEY,
     TIN VARCHAR(20) UNIQUE NOT NULL,
     bdate DATE,
-    name VARCHAR NOT NULL
+    "name" VARCHAR NOT NULL
     --age must be >=18
 );
 
 CREATE TABLE process(
     ssn VARCHAR(20) REFERENCES employee,
-    order_no INTEGER REFERENCES order,
+    order_no INTEGER REFERENCES "order",
     PRIMARY KEY (ssn, order_no)
 );
 
 CREATE TABLE department(
-    name VARCHAR PRIMARY KEY
+    "name" VARCHAR PRIMARY KEY
 );
 
 CREATE TABLE workplace(
@@ -70,21 +70,21 @@ CREATE TABLE warehouse(
 
 CREATE TABLE works(
     ssn VARCHAR(20) REFERENCES employee,
-    name VARCHAR(200) REFERENCES department,
+    "name" VARCHAR(200) REFERENCES department,
     address VARCHAR(255) REFERENCES workplace,
-    PRIMARY KEY (ssn, name, address)
+    PRIMARY KEY (ssn, "name", address)
 );
 
 CREATE TABLE product(
     SKU VARCHAR(25) PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
+    "name" VARCHAR(200) NOT NULL,
     description VARCHAR,
     price NUMERIC(10, 2) NOT NULL,
     ean NUMERIC(13) UNIQUE
 );
 
 CREATE TABLE contains(
-    order_no INTEGER REFERENCES order,
+    order_no INTEGER REFERENCES "order",
     SKU VARCHAR(25) REFERENCES product,
     qty INTEGER,
     PRIMARY KEY (order_no, SKU)
@@ -92,7 +92,7 @@ CREATE TABLE contains(
 
 CREATE TABLE supplier(
     TIN VARCHAR(20) PRIMARY KEY,
-    name VARCHAR(200),
+    "name" VARCHAR(200),
     address VARCHAR(255),
     SKU VARCHAR(25) REFERENCES product,
     date DATE
