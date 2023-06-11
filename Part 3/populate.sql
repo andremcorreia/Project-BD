@@ -17,7 +17,8 @@ VALUES
     ('1A03', 'Switch',  NULL, 299.00, NULL),
     ('1A04', 'BMW', NULL, 5485.00, NULL);
 
-START	TRANSACTION;
+-- Insert sample data into order and contains tables
+START TRANSACTION;
 SET	CONSTRAINTS	ALL	DEFERRED;
 INSERT INTO "order" (order_no, cust_no, date)
 VALUES 
@@ -39,6 +40,7 @@ VALUES
 
 COMMIT;	
 
+-- Insert sample data into order table (to check IC)
 INSERT INTO "order" (order_no, cust_no, date)
 VALUES (99, 1, '2023-01-01');                -- check not in contains IC
 
@@ -75,7 +77,8 @@ INSERT INTO department (name)
 VALUES
     ('Sales'), ('Logistics'), ('IT');
 
-START	TRANSACTION;
+-- Insert sample data into wworkplace, office and warehouse tables
+START TRANSACTION;
 SET	CONSTRAINTS	ALL	DEFERRED;
     -- Insert sample data into workplace table
     INSERT INTO workplace (address, lat, long)
@@ -94,7 +97,8 @@ SET	CONSTRAINTS	ALL	DEFERRED;
 
 COMMIT;	
 
-START	TRANSACTION;
+-- Insert sample data into wworkplace, office and warehouse tables (to check IC)
+START TRANSACTION;
 SET	CONSTRAINTS	ALL	DEFERRED;
     -- Insert sample data into workplace table
     INSERT INTO workplace (address, lat, long)
