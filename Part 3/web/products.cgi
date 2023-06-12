@@ -57,8 +57,6 @@ try:
         print('<td>{}</td>'.format(row[4]))
         print('<td>{}</td>'.format(row[5]))
         print('<td>{}</td>'.format(row[6]))
-        print('<td>{}</td>'.format(row[7]))
-        print('<td>{}</td>'.format(row[9]))
         print('<td><a href="update.cgi?table={}?request={}?SKU={}"><span style="color: red;">{}</span></a></td>'.format("product","delete",row[0],"X"))
         print('</tr>')
 
