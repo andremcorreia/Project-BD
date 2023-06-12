@@ -37,7 +37,7 @@ try:
     cursor = connection.cursor()
 
     # Making query
-    sql = 'SELECT p.SKU, p.name, p.description, p.price FROM product p JOIN supplier s ON p.sku = s.sku;'
+    sql = 'SELECT p.SKU, p.name, p.description, p.price, s.name, s.date FROM product p JOIN supplier s USING (SKU);'
     cursor.execute(sql)
     result = cursor.fetchall()
     num = len(result)
@@ -46,7 +46,7 @@ try:
     print('<div class="table-container">')
     print('<p>Products and Suppliers</p>')
     print('<table border="5">')
-    print('<tr><td>SKU</td><td>Name</td><td>Description</td><td>Price</td><td>ean</td><td>Supplier TIN</td><td>Supplier Name</td><td>Supplier Address</td><td>Contract Date</td></tr>')
+    print('<tr><td>SKU</td><td>Name</td><td>Description</td><td>Price</td><td>Supplier TIN</td><td>Supplier Name</td><td>Supplier Address</td><td>Contract Date</td></tr>')
     
     for row in result:
         print('<tr>')
