@@ -37,29 +37,6 @@ try:
     cursor = connection.cursor()
 
     # Making query
-    sql = 'SELECT * FROM customer;'
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    num = len(result)
-
-    # Displaying results
-    print('<div class="table-container">')
-    print('<p>Customers</p>')
-    print('<table border="5">')
-    print('<tr><td>ID</td><td>Name</td><td>E-mail</td><td>Phone</td><td>Address</td></tr>')
-    
-    for row in result:
-        print('<tr>')
-        for value in row:
-            print('<td>{}</td>'.format(value))
-        print('<td><a href="update.cgi?table={}?request={}?SKU={}"><span style="color: red;">{}</span></a></td>'.format("customer","delete",row[0],"X"))
-        print('</tr>')
-    
-    print('</table>')
-    print('<td><a href="update.cgi?table={}?request={}"><span style="color: #0c86cc;">{}</span></a></td>'.format("customer","add","Add a Client"))
-    print('</div>')
-
-    # Making query
     sql = 'SELECT * FROM product p JOIN supplier s ON p.sku = s.sku;'
     cursor.execute(sql)
     result = cursor.fetchall()
@@ -88,30 +65,6 @@ try:
     print('</table>')
     print('<td><a href="update.cgi?table={}?request={}"><span style="color: #0c86cc;">{}</span></a></td>'.format("product","add","Add Product and Supplier"))
     print('</div>')
-
-    # Making query
-    sql = 'SELECT * FROM "order";'
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    num = len(result)
-
-    # Displaying results
-    print('<div class="table-container">')
-    print('<p>Orders</p>')
-    print('<table border="5">')
-    print('<tr><td>ID</td><td>Customer ID</td><td>Date</td></tr>')
-    
-    for row in result:
-        print('<tr>')
-        for value in row:
-            print('<td>{}</td>'.format(value))
-        print('<td><a href="update.cgi?table={}?request={}?SKU={}"><span style="color: #1fb622;">{}</span></a></td>'.format("order","pay",row[0],"pay"))
-        print('</tr>')
-
-    print('</table>')
-    print('<td><a href="update.cgi?table={}?request={}"><span style="color: #0c86cc;">{}</span></a></td>'.format("order","add","Place an Order"))
-    print('</div>')
-
 
     # Closing connection
     cursor.close()
