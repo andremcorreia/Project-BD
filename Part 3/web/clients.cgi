@@ -7,6 +7,8 @@ print('<html>')
 print('<head>')
 print('<title>Project</title>')
 print('<style>')
+
+# General
 print('body {')
 print('  display: flex;')
 print('  flex-direction: column;')
@@ -18,16 +20,39 @@ print('  height: 100vh;')
 print('  font-size: 18px;')
 print('}')
 
+# Header
+print('header {')
+print('  display: flex;')
+print('  flex-direction: column;')
+print('  background-color: #fff;')
+print('  color: #fff;')
+print('  position: fixed;')
+print('  top: 25;')
+print('  left: 50;')
+print('}')
+
+# Footer
+print('footer {')
+print('  background-color: #fff;')
+print('  color: #fff;')
+print('  position: fixed;')
+print('  top: 75;')
+print('  left: 50;')
+print('}')
+
+# Table Outside
 print('.table-container {')
-print('  margin: 10px;')
 print('  background-color: #1e2124;')
 print('  color: #fff;')
 print('}')
 
+# Table Inside
 print('.table-container td {')
+#print('  border-style: groove;')
 print('  color: #fff;')
 print('}')
 
+# Tabs 
 print('.tabs {')
 print('  display: flex;')
 print('  justify-content: space-between;')
@@ -66,6 +91,7 @@ print('.tab:hover {')
 print('  background-color: #424549;')
 print('}')
 
+# Navigation
 print('.navigation {')
 print('  display: flex;')
 print('  justify-content: space-between;')
@@ -101,10 +127,14 @@ try:
     result = cursor.fetchall()
     num = len(result)
 
+    # Display Header
+    print('<div class="header">')
+    print('<div style="text-align:center; margin-top: 60px;">')
+    print('<p><b>Customers</b></p>') 
+    print('</div>')
+
     # Displaying results
     print('<div class="table-container">')
-    print('<div style="text-align:center; margin-top: 60px;">')
-    print('<p><b>Customers</b></p>')
     print('<table border="5">')
     print('<tr><td>ID</td><td>Name</td><td>E-mail</td><td>Phone</td><td>Address</td></tr>')
     
@@ -123,9 +153,11 @@ try:
     print('<a href="#"><span style="color: #fff;">&rang;</span></a>')
     print('<a href="#"><span style="color: #fff;">&Rang;</span></a>')
     print('</div>')
+    print('</div>')
+
+    print('<div class="footer">')
     print('<div style="text-align: center;">')
     print('<a href="update.cgi?table={}?request={}"><span style="color: #7289da;">{}</span></a>'.format("customer","add","Add a Client"))
-    print('</div>')
     print('</div>')
     
     # Closing connection

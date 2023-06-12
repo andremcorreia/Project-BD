@@ -37,7 +37,7 @@ try:
     cursor = connection.cursor()
 
     # Making query
-    sql = 'SELECT p.SKU, p.name, p.description, p.price, s.TIN, s.name, s.date FROM product p JOIN supplier s USING (SKU);'
+    sql = 'SELECT product.SKU, product.name, product.description, product.price, supplier.name, supplier.date FROM product JOIN supplier USING (SKU);'
     cursor.execute(sql)
     result = cursor.fetchall()
     num = len(result)
