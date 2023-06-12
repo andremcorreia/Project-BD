@@ -6,11 +6,12 @@ SELECT
   EXTRACT(MONTH FROM o.date) AS month,
   EXTRACT(DAY FROM o.date) AS day_of_month,
   to_char(o.date::date, 'Day') AS day_of_week,
-  SUM(c.qty) AS total_quantity,
-  SUM(c.qty * p.price) AS total_value
+  SUM(co.qty) AS total_quantity,
+  SUM(co.qty * p.price) AS total_value
 FROM product_sales ps
 JOIN product p ON ps.SKU = p.SKU
 JOIN "order" o ON ps.order_no = o.order_no
+JOin contains co ON co.order_no = o.order_no
 JOIN customer cust ON o.cust_no = cust.cust_no
 WHERE EXTRACT(YEAR FROM o.date) = 2022
 GROUP BY ROLLUP (p.SKU, city, year, month, day_of_month, day_of_week)
@@ -28,7 +29,7 @@ ORDER BY p.SKU, city, year, month, day_of_month, day_of_week;
 SELECT
   EXTRACT(MONTH FROM o.date) AS month,
   to_char(o.date::date, 'Day') AS day_of_week,
-  AVG(ps.total_value) AS average_daily_value
+  AVG(ps.total_price) AS average_daily_value
 FROM product_sales ps
 JOIN "order" o ON ps.order_no = o.order_no
 WHERE EXTRACT(YEAR FROM o.date) = 2022
