@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS delivery CASCADE;
 
 CREATE TABLE customer (
     cust_no INTEGER PRIMARY KEY,
-    "name" VARCHAR(80) NOT NULL,
+    name VARCHAR(80) NOT NULL,
     email VARCHAR(254) UNIQUE NOT NULL,
     phone VARCHAR(15),
     address VARCHAR(255)
@@ -37,7 +37,7 @@ CREATE TABLE employee(
     ssn VARCHAR(20) PRIMARY KEY,
     TIN VARCHAR(20) UNIQUE NOT NULL,
     bdate DATE,
-    "name" VARCHAR NOT NULL
+    name VARCHAR NOT NULL
     --age must be >=18
 );
 
@@ -48,7 +48,7 @@ CREATE TABLE process(
 );
 
 CREATE TABLE department(
-    "name" VARCHAR PRIMARY KEY
+    name VARCHAR PRIMARY KEY
 );
 
 CREATE TABLE workplace(
@@ -70,14 +70,14 @@ CREATE TABLE warehouse(
 
 CREATE TABLE works(
     ssn VARCHAR(20) REFERENCES employee,
-    "name" VARCHAR(200) REFERENCES department,
+    name VARCHAR(200) REFERENCES department,
     address VARCHAR(255) REFERENCES workplace,
-    PRIMARY KEY (ssn, "name", address)
+    PRIMARY KEY (ssn, name, address)
 );
 
 CREATE TABLE product(
     SKU VARCHAR(25) PRIMARY KEY,
-    "name" VARCHAR(200) NOT NULL,
+    name VARCHAR(200) NOT NULL,
     description VARCHAR,
     price NUMERIC(10, 2) NOT NULL,
     ean NUMERIC(13) UNIQUE
@@ -92,7 +92,7 @@ CREATE TABLE contains(
 
 CREATE TABLE supplier(
     TIN VARCHAR(20) PRIMARY KEY,
-    "name" VARCHAR(200),
+    name VARCHAR(200),
     address VARCHAR(255),
     SKU VARCHAR(25) REFERENCES product,
     date DATE
