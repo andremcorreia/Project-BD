@@ -48,6 +48,16 @@ CREATE CONSTRAINT TRIGGER tg_contains_order
 --O uso de extensões procedimentais (Stored Procedures e Triggers) deve ser reservado a restrições de
 --integridade que não podem ser implementadas usando outros mecanismos mais simples.
 
+-- IC ADDRESSES
 
+ALTER TABLE customer
+ADD CONSTRAINT check_cust_address
+CHECK (address ~ '^[\w\s]+,\s\d{4}-\d{3}\s[\w\s]+$');
 
+ALTER TABLE supplier
+ADD CONSTRAINT check_supp_address
+CHECK (address ~ '^[\w\s]+,\s\d{4}-\d{3}\s[\w\s]+$');
 
+ALTER TABLE workplace
+ADD CONSTRAINT check_workplace_address
+CHECK (address ~ '^[\w\s]+,\s\d{4}-\d{3}\s[\w\s]+$');
