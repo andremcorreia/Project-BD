@@ -11,53 +11,23 @@ print('body {')
 print('  display: flex;')
 print('  justify-content: center;')
 print('  align-items: center;')
-print('  background-color: #f5f5f5;')
-print('  color: #333;')
-print('}')
-
-print('.dark-mode body {')
-print('  background-color: #222;')
-print('  color: #fff;')
+print('  background-color: #444;')  # Change background color to dark mode
+print('  color: #fff;')  # Change text color to white
 print('}')
 
 print('.table-container {')
 print('  margin: 10px;')
-print('  background-color: #f5f5f5;')
-print('  color: #333;')
+print('  background-color: #444;')  # Change table container background color to dark mode
+print('  color: #fff;')  # Change table text color to white
 print('}')
 
-print('.dark-mode .table-container {')
-print('  background-color: #444;')
-print('  color: #fff;')
-print('}')
-
-print('.dark-mode .table-container td {')
-print('  color: #fff;')
-print('}')
-
-print('.dark-mode button {')
-print('  background-color: #55a1d5;')
-print('  color: #fff;')
-print('}')
-
-print('.light-mode button {')
-print('  background-color: #308014;')
-print('  color: #fff;')
-print('}')
-
-print('.toggle-button {')
-print('  position: fixed;')
-print('  bottom: 20px;')
-print('  right: 20px;')
-print('}')
-
-print('body.dark-mode {')
-print('  background-color: #444;')
+print('.table-container td {')
+print('  color: #fff;')  # Change table data text color to white
 print('}')
 
 print('</style>')
 print('</head>')
-print('<body class="dark-mode">')
+print('<body>')
 
 connection = None
 
@@ -154,14 +124,5 @@ finally:
     if connection is not None:
         connection.close()
 
-print('<div class="toggle-button">')
-print('<button onclick="toggleDarkMode()">Toggle Dark Mode</button>')
-print('</div>')
-print('<script>')
-print('function toggleDarkMode() {')
-print('  var body = document.body;')
-print('  body.classList.toggle("dark-mode");')
-print('}')
-print('</script>')
 print('</body>')
 print('</html>')
