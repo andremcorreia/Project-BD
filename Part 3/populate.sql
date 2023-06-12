@@ -3,19 +3,19 @@
 -- Insert sample data into customer table
 INSERT INTO customer (cust_no, name, email, phone, address) 
 VALUES 
-    (1, 'Pobre', 'pobre@mail.com', NULL, NULL),       -- no orders 
+    (1, 'Pobre', 'pobre@mail.com','(351)966666666', 'Chelas Central, 1111-283 Lisboa'),       -- no orders 
     (2, 'Maria Santos',  'maria.santos@mail.com', '(351)911111111', 'Praca da Liberdade, 1360-490 Porto'),      -- some paid (not top), unpaid excede top
-    (3, 'Rico', 'rico@mail.com', NULL, 'Avenida da Liberdade, 1660-491 Lisboa'),       -- top by single sale
-    (4, 'Rico V2', 'rico.v2@mail.com', NULL, 'Casino Estoril, 2060-495 Cascais'),     -- top by multiple sales
-    (5, 'Pedro Pobre', 'pedro.pobre@mail.com', NULL, NULL);     -- doesn't pay
+    (3, 'Rico', 'rico@mail.com', '(351)922222222', 'Avenida da Liberdade, 1660-491 Lisboa'),       -- top by single sale
+    (4, 'Rico V2', 'rico.v2@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),     -- top by multiple sales
+    (5, 'Pedro Pobre', 'pedro.pobre@mail.com', '(351)933333333', 'Estacao Cacem, 3012-420 Sintra');     -- doesn't pay
 
 -- Insert sample data into product table
 INSERT INTO product (SKU, name, description, price, ean)
 VALUES 
-    ('1A01', 'Banana', NULL, 0.50, 1234567890001),
-    ('1A02', 'TV 1K',  NULL, 499.00, NULL),
-    ('1A03', 'Switch',  NULL, 299.00, NULL),
-    ('1A04', 'BMW', NULL, 5485.00, NULL);
+    ('1A01', 'Banana', 'Monke Like', 0.50, NULL),
+    ('1A02', 'TV 1K',  'Ultra HD', 499.00, NULL),
+    ('1A03', 'Switch',  'Zelda Gaming', 299.00, 1234567890001),
+    ('1A04', 'BMW', 'Aus Freude am Fahren', 5485.00, NULL);
 
 -- Insert sample data into order and contains tables
 START TRANSACTION;
@@ -122,18 +122,20 @@ VALUES
     ('Rua do Cafe, 1111-111 CafeLand', 0.000, 0.000);       -- check none IC
 
 -- Insert sample data into works table
---INSERT INTO works (ssn, name, address)
---VALUES 
-    --(100000001, 'Sales', 'Parque do Tejo, 2340-123 Oeiras'),
-    --(100000002, 'Logistics', 'Rua do Poder, 6290-500 PodeVille');
+INSERT INTO works (ssn, name, address)
+VALUES 
+    (100000001, 'Sales', 'Parque do Tejo, 2340-123 Oeiras'),
+    (100000002, 'Logistics', 'Rua do Poder, 6290-500 PodeVille'),
+    (100000003, 'IT', 'Rua do Poder, 6290-500 PodeVille'),
+    (100000004, 'IT', 'Parque do Tejo, 2340-123 Oeiras');
 
 -- Insert sample data into supplier table
 INSERT INTO supplier (TIN, name, address, SKU, date)
 VALUES 
     (20001, 'Bausk', 'Parque das Lagoas, 5350-250 Lagoa', '1A01', '2021-01-01'),
-    (20002, 'Tvusk', NULL, '1A02', '2021-01-01'),
-    (20003, 'Swusk', NULL, '1A03', '2021-01-01'),
-    (20004, 'Causk', NULL, '1A04', '2021-01-01');
+    (20002, 'Tvusk', 'Avenida Duque dAvila, 2202-111 Lisboa', '1A02', '2021-01-01'),
+    (20003, 'Swusk', 'Rua da Luz, 4321-123 Lisboa', '1A03', '2021-01-01'),
+    (20004, 'Causk', 'Alameda dos Oceanos, 3020-291 Lisboa', '1A04', '2021-01-01');
 
 -- Insert sample data into delivery table
 INSERT INTO delivery (address, TIN)
