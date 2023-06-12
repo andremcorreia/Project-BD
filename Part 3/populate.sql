@@ -7,7 +7,32 @@ VALUES
     (2, 'Maria Santos',  'maria.santos@mail.com', '(351)911111111', 'Praca da Liberdade, 1360-490 Porto'),      -- some paid (not top), unpaid excede top
     (3, 'Rico', 'rico@mail.com', '(351)922222222', 'Avenida da Liberdade, 1660-491 Lisboa'),       -- top by single sale
     (4, 'Rico V2', 'rico.v2@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),     -- top by multiple sales
-    (5, 'Pedro Pobre', 'pedro.pobre@mail.com', '(351)933333333', 'Estacao Cacem, 3012-420 Sintra');     -- doesn't pay
+    (5, 'Pedro Pobre', 'pedro.pobre@mail.com', '(351)933333333', 'Estacao Cacem, 3012-420 Sintra'),     -- doesn't pay
+    (6, 'Rico V2', 'rico.v2@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (7, 'testing1', 'testing.v1@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (8, 'testing2', 'testing.v2@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (9, 'testing3', 'testing.v3@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (10, 'testing4', 'testing.v4@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (11, 'testing5', 'testing.v5@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (12, 'testing6', 'testing.v6@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (13, 'testing7', 'testing.v7@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (14, 'testing8', 'testing.v8@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (15, 'testing9', 'testing.v9@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (16, 'testing10', 'testing.v10@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (17, 'testing11', 'testing.v11@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (18, 'testing12', 'testing.v12@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (19, 'testing13', 'testing.v13@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (20, 'testing14', 'testing.v14@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (21, 'testing15', 'testing.v15@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (22, 'testing16', 'testing.v16@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (23, 'testing17', 'testing.v17@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (24, 'testing18', 'testing.v18@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (25, 'testing19', 'testing.v19@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (26, 'testing20', 'testing.v20@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (27, 'testing21', 'testing.v21@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (28, 'testing22', 'testing.v22@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (29, 'testing23', 'testing.v23@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (30, 'testing24', 'testing.v24@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais');
 
 -- Insert sample data into product table
 INSERT INTO product (SKU, name, description, price, ean)
