@@ -35,12 +35,12 @@ try:
 
     # Query
     sql = "INSERT INTO \"order\" (order_no, cust_no, date) VALUES ('%(param)s')"
-    data = (order_no, cust_no, date)
+    data = {'param': (order_no, cust_no, date)}
 
     # The string has the {}, the variables inside format() will replace the {}
     print('<p>{}</p>'.format(sql % data))
     # Feed the data to the SQL query as follows to avoid SQL injection
-    cursor.execute(sql, {'param':data})
+    cursor.execute(sql, data)
 
     # Commit the update (without this step the database will not change)
     connection.commit()
