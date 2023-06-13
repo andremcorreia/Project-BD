@@ -1,15 +1,10 @@
 #!/usr/bin/python3
 import psycopg2, cgi
-import login
+import login, base
 
 form = cgi.FieldStorage()
 
-print('Content-type:text/html\n\n')
-print('<html>')
-print('<head>')
-print('<title>Project - Add Order</title>')
-print('</head>')
-print('<body>')
+base.Setup()
 
 if not form.getvalue('order_no'):
     print('<h3>Adding a new order</h3>')
@@ -27,6 +22,8 @@ else:
     order_no = form.getvalue('order_no')
     cust_no = form.getvalue('cust_no')
     date = form.getvalue('date')
+    SKU = form.getvalue('SKU')
+    qty = form.getvalue('quantity')
 
     connection = None
 
@@ -35,31 +32,38 @@ else:
         connection = psycopg2.connect(login.credentials)
         cursor = connection.cursor()
 
-        # Query
-        sql = "INSERT INTO \"order\" (order_no, cust_no, date) VALUES %(param)s;"
-        data = {'param': (order_no, cust_no, date)}
+        # Start the transaction
+        connection.autocommit = False
 
-        print('<p>{}</p>'.format(sql % data))
 
-        # The string has the {}, the variables inside format() will replace the {}
-        # Feed the data to the SQL query as follows to avoid SQL injection
-        cursor.execute(sql, data)
+        # Insert Order
+        sql_order = "INSERT INTO \"order\" (order_no, cust_no, date) VALUES %(param)s;"
+        data_order = {'param': (order_no, cust_no, date)}
+        cursor.execute(sql_order, data_order)
 
-        # Commit the update (without this step the database will not change)
+        # Insert Contains
+        sql_contains = "INSERT INTO contains (order_no, SKU, qty) VALUES %(param)s;"
+        data_contains = {'param': (order_no, SKU, qty)}
+        cursor.execute(sql_contains, data_contains)
+
+        # Commit the transaction
         connection.commit()
-        # Closing connection
-        cursor.close()
+        
+        # Reset autocommit mode
+        connection.autocommit = True
+
     except Exception as e:
+        # Rollback the transaction on error
+        connection.rollback()
         print('<h1>An error occurred.</h1>')
 
     finally:
         if connection is not None:
             connection.close()
 
-    print('<meta http-equiv="refresh" content="10; url=orders.cgi" />')
+    print('<meta http-equiv="refresh" content="0; url=orders.cgi" />')
 
-print('</body>')
-print('</html>')
+base.finish()
 
 
 # TRANSACTION
