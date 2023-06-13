@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import psycopg2
+import psycopg2, math
 import login
 import base
 
@@ -30,6 +30,8 @@ try:
     print('<div class="table-container">')
     print('<table border="0">')
     print('<tr><td>ID</td><td>Customer ID</td><td>Date</td></tr>')
+
+    count = len(result)
     
     for row in result:
         print('<tr>')
@@ -51,7 +53,7 @@ try:
     print('<div class="navigation">')
     print('<a href="#"><span style="color: #fff;">&Lang;</span></a>')
     print('<a href="#"><span style="color: #fff;">&lang;</span></a>')
-    print('<p>Page 0/0</p>')
+    print('<p>Page 0/{}</p>'.format(math.ceil(count/20)))
     print('<a href="#"><span style="color: #fff;">&rang;</span></a>')
     print('<a href="#"><span style="color: #fff;">&Rang;</span></a>')
     print('</div>')
