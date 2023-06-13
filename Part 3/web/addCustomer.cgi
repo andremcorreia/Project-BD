@@ -1,17 +1,11 @@
 #!/usr/bin/python3
 import psycopg2, cgi
-import login
+import login, base
 
 form = cgi.FieldStorage()
 
-print('Content-type:text/html\n\n')
-print('<html>')
-print('<head>')
-print('<title>Project - Add Customer</title>')
-print('</head>')
-print('<body>')
+base.Setup()
 
-    
 
 if not form.getvalue('cust_no'):
     print('<h3>Adding a new customer</h3>')
@@ -61,5 +55,4 @@ else:
 
     print('<meta http-equiv="refresh" content="0; url=clients.cgi" />')
 
-print('</body>')
-print('</html>')
+base.finish()
