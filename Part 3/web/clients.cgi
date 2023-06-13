@@ -1,7 +1,17 @@
 #!/usr/bin/python3
-import psycopg2
+import psycopg2, cgi, math
 import login
 import base
+
+form = cgi.FieldStorage()
+current = form.getvalue('current')
+if not current:
+    current = 0
+else:
+    current = int(current)
+
+if current < 0:
+    current = 0
 
 MAX = 20
 
@@ -31,9 +41,13 @@ try:
     print('<table border="0">')
     print('<thead><tr><th>ID</th><th>Name</th><th>E-mail</th><th>Phone</th><th>Address</th></tr></thead>')
     
+    count = len(result)
+    if current > count:
+        current = math.floor(count/MAX)*MAX
+
     print('<tbody>')
-    for i in range(len(result)):
-        if i >= MAX:
+    for i in range(current, len(result)):
+        if i >= MAX + current:
                 break
         print('<tr>')
         for value in result[i]:
@@ -45,11 +59,11 @@ try:
     print('</table>')
     print('</div>')
     print('<div class="navigation">')
-    print('<a href="#"><span style="color: #fff;">&Lang;</span></a>')
-    print('<a href="#"><span style="color: #fff;">&lang;</span></a>')
-    print('<p>Page 0/0</p>')
-    print('<a href="#"><span style="color: #fff;">&rang;</span></a>')
-    print('<a href="#"><span style="color: #fff;">&Rang;</span></a>')
+    print('<a href="clients.cgi?current={}"><span style="color: #fff;">&Lang;</span></a>'.format(0))
+    print('<a href="clients.cgi?current={}"><span style="color: #fff;">&lang;</span></a>'.format(current - MAX))
+    print('<p>Page {}/{}</p>'.format(math.floor(current/MAX) + 1, math.ceil(count/MAX)))
+    print('<a href="clients.cgi?current={}"><span style="color: #fff;">&rang;</span></a>'.format(current + MAX))
+    print('<a href="clients.cgi?current={}"><span style="color: #fff;">&Rang;</span></a>'.format(math.floor(count/MAX)*MAX))
     print('</div>')
     print('<div class="footer">')
     print('<div style="text-align: center;">')

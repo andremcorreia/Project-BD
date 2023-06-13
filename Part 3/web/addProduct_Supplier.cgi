@@ -65,7 +65,6 @@ else:
         # Reset autocommit mode
         connection.autocommit = True
 
-        print('<p>Product and Supplier added successfully.</p>')
     except Exception as e:
         # Rollback the transaction on error
         connection.rollback()
@@ -74,7 +73,7 @@ else:
         if connection is not None:
             connection.close()
 
-    print('<meta http-equiv="refresh" content="0; url=orders.cgi" />')
+    print('<meta http-equiv="refresh" content="0; url=products.cgi" />')
 
 print('</body>')
 print('</html>')

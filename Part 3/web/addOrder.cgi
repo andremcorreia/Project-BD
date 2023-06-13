@@ -39,6 +39,8 @@ else:
         sql = "INSERT INTO \"order\" (order_no, cust_no, date) VALUES %(param)s;"
         data = {'param': (order_no, cust_no, date)}
 
+        print('<p>{}</p>'.format(sql % data))
+
         # The string has the {}, the variables inside format() will replace the {}
         # Feed the data to the SQL query as follows to avoid SQL injection
         cursor.execute(sql, data)
@@ -54,7 +56,10 @@ else:
         if connection is not None:
             connection.close()
 
-    print('<meta http-equiv="refresh" content="0; url=orders.cgi" />')
+    print('<meta http-equiv="refresh" content="10; url=orders.cgi" />')
 
 print('</body>')
 print('</html>')
+
+
+# TRANSACTION

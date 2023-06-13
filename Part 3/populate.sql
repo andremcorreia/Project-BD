@@ -33,6 +33,7 @@ VALUES
     (28, 'testing22', 'testing.v22@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
     (29, 'testing23', 'testing.v23@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
     (30, 'testing24', 'testing.v24@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais');
+    
 
 -- Insert sample data into product table
 INSERT INTO product (SKU, name, description, price, ean)
