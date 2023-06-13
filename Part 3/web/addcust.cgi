@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 import psycopg2, cgi
 import login
+
 form = cgi.FieldStorage()
 customer_number = form.getvalue('customer_number')
-customer_name = form.getvalue('customer_name', '')
-customer_email = form.getvalue('customer_email')
-customer_phone = form.getvalue('customer_phone', '')
-customer_address = form.getvalue('customer_address', '')
+customer_name   = form.getvalue('customer_name', '')
+customer_email  = form.getvalue('customer_email')
+customer_phone  = form.getvalue('customer_phone', '')
+customer_address= form.getvalue('customer_address', '')
+
 print('Content-type:text/html\n\n')
 print('<html>')
 print('<head>')
@@ -30,7 +32,8 @@ try:
     cursor = connection.cursor()
     
     # Making query
-    cursor.execute("INSERT INTO customer (cust_no, name, email, phone, address) VALUES ('%(cust_no)s', %(name)s', %(email)s', %(phone)s', %(address)s')", {'cust_no':customer_number, 'name': customer_name, 'email': customer_email, 'phone': customer_phone, 'address': customer_address});
+    cursor.execute("INSERT INTO customer (cust_no, name, email, phone, address) VALUES (%(cust_no)s, %(name)s, %(email)s, %(phone)s, %(address)s);", {'cust_no': customer_number, 'name': customer_name, 'email': customer_email, 'phone': customer_phone, 'address': customer_address})
+
     # Commit the update (without this step the database will not change)
     connection.commit()
 

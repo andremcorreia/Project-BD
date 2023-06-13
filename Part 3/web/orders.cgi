@@ -15,7 +15,7 @@ try:
     base.addTabs(2)
 
     # Making query
-    sql = 'SELECT o.order_no, o.cust_no, o.date, p.order_no AS pay_check FROM "order" o LEFT JOIN pay p ON o.order_no = p.order_no;'
+    sql = 'SELECT * FROM "order";'
     cursor.execute(sql)
     result = cursor.fetchall()
     num = len(result)
@@ -33,12 +33,17 @@ try:
     
     for row in result:
         print('<tr>')
-        for value in row[:3]:
+        for value in row:
             print('<td>{}</td>'.format(value))
-        if row[3] is not None:
-            print('<td><a href="update.cgi?table={}?request={}?SKU={}"><span style="color: #1fb622;">{}</span></a></td>'.format("order","pay",row[0],"pay"))
+        # Check if order_no is in pay table
+        sql = 'SELECT * FROM pay WHERE order_no={};'.format(row[0])
+        cursor.execute(sql)
+        pay_result = cursor.fetchone()
+        
+        if pay_result:
+            print('<td>Already Paid</td>')
         else:
-            print('<td>Already Payed</td>')
+            print('<td><a href="update.cgi?table={}?request={}?SKU={}"><span style="color: #1fb622;">{}</span></a></td>'.format("order","pay",row[0],"pay"))
         print('</tr>')
 
     print('</table>')
