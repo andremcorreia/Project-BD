@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 import psycopg2
 import cgi
-import login
+import login, base
 
 form = cgi.FieldStorage()
 
-basee.Setup()
+base.Setup()
 
 if not form.getvalue('SKU'):
     print('<h3>Adding a new Product and Supplier</h3>')

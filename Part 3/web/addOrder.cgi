@@ -14,6 +14,8 @@ if not form.getvalue('order_no'):
     print('<p>Order Number: <input type="text" name="order_no"/></p>')
     print('<p>Customer Number: <input type="text" name="cust_no"/></p>')
     print('<p>Date: <input type="text" name="date"/></p>')
+    print('<p>Product SKU: <input type="text" name="SKU"/></p>')
+    print('<p>Quantity: <input type="text" name="quantity"/></p>')
     print('<p><input type="submit" value="Submit"/></p>')
     print('</form>')
 
@@ -37,13 +39,19 @@ else:
 
 
         # Insert Order
-        sql_order = "INSERT INTO \"order\" (order_no, cust_no, date) VALUES %(param)s;"
+        sql_order = 'INSERT INTO "order" (order_no, cust_no, date) VALUES %(param)s;'
         data_order = {'param': (order_no, cust_no, date)}
+
+        print('<p>{}</p>'.format(sql_order % data_order))
+
         cursor.execute(sql_order, data_order)
 
         # Insert Contains
         sql_contains = "INSERT INTO contains (order_no, SKU, qty) VALUES %(param)s;"
         data_contains = {'param': (order_no, SKU, qty)}
+
+        print('<p>{}</p>'.format(sql_contains % data_contains))
+
         cursor.execute(sql_contains, data_contains)
 
         # Commit the transaction
@@ -61,7 +69,7 @@ else:
         if connection is not None:
             connection.close()
 
-    print('<meta http-equiv="refresh" content="0; url=orders.cgi" />')
+    print('<meta http-equiv="refresh" content="10; url=orders.cgi" />')
 
 base.finish()
 
