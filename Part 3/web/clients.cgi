@@ -66,8 +66,8 @@ try:
     print('<a href="clients.cgi?current={}"><span style="color: #fff;">&Rang;</span></a>'.format(math.floor(count/MAX)*MAX))
     print('</div>')
     print('<div class="footer">')
-    print('<div style="text-align: center;">')
-    print('<a href="addCustomer.cgi?"><span style="color: #7289da;">{}</span></a>'.format("Add a Client"))
+    print('<div style="text-align: center; margin-top: 0px; margin-bottom: 20px;">')
+    print('<a href="addCustomer.cgi"><button class="button" style="background-color: #7289da; width: 200px;">{}</button></a>'.format("Add a Client"))
     print('</div>')
 
     # Closing connection

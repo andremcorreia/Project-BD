@@ -9,13 +9,15 @@ custID = form.getvalue('custID')
 base.Setup()
 
 if not form.getvalue('confirmation'):
-    print('<p>Are you sure you wish to pay order {} from customer {}?</p>'.format(orderID, custID))
-
+    print('<p style="font-size:30px;">Are you sure you wish to pay order {} from customer {}?</p>'.format(orderID, custID))
 
     # The form will send the info needed for the SQL query
-    print('<form action="pay.cgi?orderID={}&custID={}&confirmation={}" method="post">'.format(orderID, custID,"yes"))
-    print('<p><input type="submit" value="Confirm"/></p>')
+    print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
+    print('<button href="orders.cgi" class="button" style="background-color: grey;">Cancel</button>')
+    print('<form action="pay.cgi?orderID={}&custID={}&confirmation={}" method="post" style="margin-left: 20px; margin-right: 20px;">'.format(orderID, custID, "yes"))
+    print('<button type="submit" class="button" style="background-color: #25b80b;">Confirm</button>')
     print('</form>')
+    print('</div>')
 
 else:
 

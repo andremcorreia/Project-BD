@@ -22,6 +22,23 @@ def Setup():
     print('  font-size: 18px;')
     print('  margin: 0;')
     print('  padding: 0;')
+    print('  font-family: Arial, Helvetica, sans-serif;')
+    print('}')
+
+    # Buttons
+    print('.button {')
+    print('  box-sizing: border-box;')
+    print('  text-decoration: none;')
+    print('  height: 50px;')
+    print('  width: 120px;')
+    print('  text-align: center;')
+    print('  line-height: 50px;')
+    print('  font-size: 20px;')
+    print('  color: white;')
+    print('  border-radius: 10px;')
+    print('}')
+    print('.button:hover {')
+    print('  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);')
     print('}')
 
     # Header
@@ -54,11 +71,18 @@ def Setup():
     print('.table-container td, .table-container th {')
     print('  border-collapse: collapse;')
     print('  border: none;')
-    print('  padding: 5pt 10pt;')
+    print('  padding: 3.5pt 10pt;')
     print('  word-wrap: break-word;') # Prevent text overflow
     print('}')
     print('.table-container tr:nth-child(even) td {')
     print('  background-color: #36393e;')
+    print('}')
+
+    print('.table-container tr {')
+    print('  padding: 10px;')
+    print('}')
+    print('.table-container tr:hover td {')
+    print('  background-color: #6b6e70;')
     print('}')
 
     # Additional styles for table header
@@ -86,6 +110,7 @@ def Setup():
     print('  background-color: #36393e;')
     print('  border: 1px solid #1e2124;')
     print('  text-decoration: none;')
+    print('  text-align: center;')
     print('  color: #fff;')
     print('  font-size: 24px;')
     print('}')
@@ -98,6 +123,7 @@ def Setup():
     print('  height: 50px;')
     print('  background-color: #1e2124;')
     print('  color: #fff;')
+    print('  text-align: center;')
     print('  text-decoration: none;')
     print('  font-size: 24px;')
     print('}')
@@ -110,12 +136,16 @@ def Setup():
     print('.navigation {')
     print('  display: flex;')
     print('  justify-content: space-between;')
-    print('  margin-bottom: 10px;')
+    print('  margin-bottom: 0px;')
     print('}')
 
     print('.navigation a {')
     print('  text-decoration: none;')
     print('  color: #fff;')
+    print('}')
+
+    print('.navigation a:hover {')
+    print('  color: #7289da;')
     print('}')
 
     print('</style>')
