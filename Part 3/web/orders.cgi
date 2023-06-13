@@ -1,67 +1,63 @@
 #!/usr/bin/python3
 import psycopg2
 import login
+import base
 
-print('Content-type:text/html\n\n')
-print('<html>')
-print('<head>')
-print('<title>Project</title>')
-print('<style>')
-print('body {')
-print('  display: flex;')
-print('  justify-content: center;')
-print('  align-items: center;')
-print('  background-color: #444;')  # Change background color to dark mode
-print('  color: #fff;')  # Change text color to white
-print('}')
+MAX = 20
 
-print('.table-container {')
-print('  margin: 10px;')
-print('  background-color: #444;')  # Change table container background color to dark mode
-print('  color: #fff;')  # Change table text color to white
-print('}')
-
-print('.table-container td {')
-print('  color: #fff;')  # Change table data text color to white
-print('}')
-
-print('</style>')
-print('</head>')
-print('<body>')
+base.Setup()
 
 connection = None
-
 try:
     # Creating connection
     connection = psycopg2.connect(login.credentials)
     cursor = connection.cursor()
+    base.addTabs(2)
 
     # Making query
-    sql = 'SELECT * FROM "order";'
+    sql = 'SELECT o.order_no, o.cust_no, o.date, p.order_no AS pay_check FROM "order" o LEFT JOIN pay p ON o.order_no = p.order_no;'
     cursor.execute(sql)
     result = cursor.fetchall()
     num = len(result)
 
+    # Display Header
+    print('<div class="header">')
+    print('<div style="text-align:center; margin-top: 60px;">')
+    print('<p><b>Orders</b></p>') 
+    print('</div>')
+
     # Displaying results
     print('<div class="table-container">')
-    print('<p>Orders</p>')
-    print('<table border="5">')
+    print('<table border="0">')
     print('<tr><td>ID</td><td>Customer ID</td><td>Date</td></tr>')
     
     for row in result:
         print('<tr>')
-        for value in row:
+        for value in row[:3]:
             print('<td>{}</td>'.format(value))
-        print('<td><a href="update.cgi?table={}?request={}?SKU={}"><span style="color: #1fb622;">{}</span></a></td>'.format("order","pay",row[0],"pay"))
+        if row[3] is not None:
+            print('<td><a href="update.cgi?table={}?request={}?SKU={}"><span style="color: #1fb622;">{}</span></a></td>'.format("order","pay",row[0],"pay"))
+        else:
+            print('<td>Already Payed</td>')
         print('</tr>')
 
     print('</table>')
+    print('</div>')
+    print('<div class="navigation">')
+    print('<a href="#"><span style="color: #fff;">&Lang;</span></a>')
+    print('<a href="#"><span style="color: #fff;">&lang;</span></a>')
+    print('<p>Page 0/0</p>')
+    print('<a href="#"><span style="color: #fff;">&rang;</span></a>')
+    print('<a href="#"><span style="color: #fff;">&Rang;</span></a>')
+    print('</div>')
+    print('<div class="footer">')
+    print('<div style="text-align: center;">')
     print('<td><a href="update.cgi?table={}?request={}"><span style="color: #0c86cc;">{}</span></a></td>'.format("order","add","Place an Order"))
     print('</div>')
 
-
     # Closing connection
     cursor.close()
+    base.finish()
 
 except Exception as e:
     print('<h1>An error occurred.</h1>')
@@ -70,6 +66,3 @@ except Exception as e:
 finally:
     if connection is not None:
         connection.close()
-
-print('</body>')
-print('</html>')

@@ -8,7 +8,7 @@ VALUES
     (3, 'Rico', 'rico@mail.com', '(351)922222222', 'Avenida da Liberdade, 1660-491 Lisboa'),       -- top by single sale
     (4, 'Rico V2', 'rico.v2@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),     -- top by multiple sales
     (5, 'Pedro Pobre', 'pedro.pobre@mail.com', '(351)933333333', 'Estacao Cacem, 3012-420 Sintra'),     -- doesn't pay
-    (6, 'Rico V2', 'rico.v2@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
+    (6, 'Rico V2', 'rico.v0@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
     (7, 'testing1', 'testing.v1@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
     (8, 'testing2', 'testing.v2@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
     (9, 'testing3', 'testing.v3@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
