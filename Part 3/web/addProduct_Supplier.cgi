@@ -5,12 +5,7 @@ import login
 
 form = cgi.FieldStorage()
 
-print('Content-type:text/html\n\n')
-print('<html>')
-print('<head>')
-print('<title>Project - Add Product/Supplier</title>')
-print('</head>')
-print('<body>')
+basee.Setup()
 
 if not form.getvalue('SKU'):
     print('<h3>Adding a new Product and Supplier</h3>')
@@ -75,5 +70,4 @@ else:
 
     print('<meta http-equiv="refresh" content="0; url=products.cgi" />')
 
-print('</body>')
-print('</html>')
+base.finish()
