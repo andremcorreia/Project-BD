@@ -29,8 +29,6 @@ try:
     # Displaying results
     print('<div class="table-container">')
     print('<table border="0">')
-    print('<thead><tr><th>ID</th><th>Name</th><th>E-mail</th><th>Phone</th><th>Address</th></tr></thead>')
-    
     print('<tr><td>SKU</td><td>Name</td><td>Description</td><td>Price</td><td>Supplier TIN</td><td>Supplier Name</td><td>Contract Date</td></tr>')
     
     for row in result:
@@ -58,7 +56,7 @@ try:
     print('</div>')
     print('<div class="footer">')
     print('<div style="text-align: center;">')
-    print('<a href="update.cgi?table={}&request={}"><span style="color: #7289da;">{}</span></a>'.format("customer","add","Add a Client"))
+    print('<a href="update.cgi?table={}&request={}"><span style="color: #7289da;">{}</span></a>'.format("customer","add","Add a Product"))
     print('</div>')
 
     # Closing connection

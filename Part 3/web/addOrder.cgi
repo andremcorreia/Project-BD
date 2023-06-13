@@ -34,7 +34,7 @@ try:
     cursor = connection.cursor()
 
     # Query
-    sql = "INSERT INTO \"order\" (order_no, cust_no, date) VALUES ('%(param)s')"
+    sql = "INSERT INTO \"order\" (order_no, cust_no, date) VALUES '%(param)s';"
     data = {'param': (order_no, cust_no, date)}
 
     # The string has the {}, the variables inside format() will replace the {}
@@ -52,6 +52,8 @@ except Exception as e:
 finally:
     if connection is not None:
         connection.close()
+
+print('<meta http-equiv="refresh" content="0; url=orders.cgi" />')
 
 print('</body>')
 print('</html>')

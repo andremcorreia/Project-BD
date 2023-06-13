@@ -57,7 +57,7 @@ try:
     print('</div>')
     print('<div class="footer">')
     print('<div style="text-align: center;">')
-    print('<td><a href="update.cgi?table={}?request={}"><span style="color: #0c86cc;">{}</span></a></td>'.format("order","add","Place an Order"))
+    print('<td><a href="addOrder.cgi?"><span style="color: #0c86cc;">{}</span></a></td>'.format("Place an Order"))
     print('</div>')
 
     # Closing connection

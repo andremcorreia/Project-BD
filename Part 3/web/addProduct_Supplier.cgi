@@ -47,7 +47,7 @@ try:
     cursor = connection.cursor()
 
     # Query
-    sql_product = "INSERT INTO product (SKU, name, description, price, ean) VALUES (%(param)s)"
+    sql_product = "INSERT INTO product (SKU, name, description, price, ean) VALUES %(param)s;"
     data_product = {'param': (SKU, name_product, description, price, ean)}
 
     # The string has the {}, the variables inside format() will replace the {}
@@ -56,7 +56,7 @@ try:
     cursor.execute(sql_product, data_product)
 
     # Query
-    sql_supplier = "INSERT INTO supplier (TIN, name, address, SKU, date) VALUES (%(param)s)"
+    sql_supplier = "INSERT INTO supplier (TIN, name, address, SKU, date) VALUES %(param)s;"
     data_supplier = {'param': (TIN, name_supplier, address, SKU, date)}
 
     # The string has the {}, the variables inside format() will replace the {}
