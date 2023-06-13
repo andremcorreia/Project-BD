@@ -57,7 +57,7 @@ try:
         if pay_result:
             print('<td>Already Paid</td>')
         else:
-            print('<td><a href="update.cgi?table={}?request={}?SKU={}"><span style="color: #1fb622;">{}</span></a></td>'.format("order","pay",row[0],"pay"))
+            print('<td><a href="pay.cgi?orderID={}&custID={}"><span style="color: #1fb622;">{}</span></a></td>'.format(row[0],row[1],"pay"))
         print('</tr>')
 
     print('</table>')
