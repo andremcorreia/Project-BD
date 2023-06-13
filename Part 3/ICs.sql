@@ -40,7 +40,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE CONSTRAINT TRIGGER tg_contains_order
-    AFTER INSERT ON "order" DEFERRABLE
+    AFTER INSERT ON "order" 
+    DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW
     EXECUTE FUNCTION check_contains_order();
 
