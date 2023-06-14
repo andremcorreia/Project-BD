@@ -6,18 +6,35 @@ form = cgi.FieldStorage()
 
 base.Setup()
 
-
 if not form.getvalue('cust_no'):
     print('<h3>Adding a new customer</h3>')
 
     # The form will send the info needed for the SQL query
     print('<form action="addCustomer.cgi" method="post">')
-    print('<p>Number: <input type="text" name="cust_no"/></p>')
-    print('<p>Name: <input type="text" name="name"/></p>')
-    print('<p>Email: <input type="text" name="email"/></p>')
-    print('<p>Phone (optional): <input type="text" name="phone"/></p>')
-    print('<p>Address (optional): <input type="text" name="address"/></p>')
-    print('<p><input type="submit" value="Submit"/></p>')
+    print('<div style="margin-left: -20px;">')
+    print('<p>Number:</p> <input type="text" name="cust_no" style="background-color: lightgrey; width: 110%;"/>')
+    print('</div>')
+    print('<div style="margin-left: -20px;">')
+    print('<p>Name:</p> <input type="text" name="name" style="background-color: lightgrey; width: 110%;"/>')
+    print('</div>')
+    print('<div style="margin-left: -20px;">')
+    print('<p>Email:</p> <input type="text" name="email" style="background-color: lightgrey; width: 110%;"/>')
+    print('</div>')
+    print('<div style="margin-left: -20px;">')
+    print('<p>Phone (optional):</p> <input type="text" name="phone" style="background-color: lightgrey; width: 110%;"/>')
+    print('</div>')
+    print('<div style="margin-left: -20px;">')
+    print('<p>Address (optional):</p> <input type="text" name="address" style="background-color: lightgrey; width: 110%;"/>')
+    print('</div>')
+
+    # Add a cancel button to the left of the submit button
+    print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
+    print('<button href="clients.cgi" class="button" style="background-color: grey; margin-left: -20px;">Cancel</button>')
+    print('<form action="addCustomer.cgi" method="post" style="margin-left: 20px; margin-right: 20px;">')
+    print('<button type="submit" class="button" style="background-color: #25b80b; margin-right: -20px;">Submit</button>')
+    print('</form>')
+    print('</div>')
+
     print('</form>')
 
 else:
