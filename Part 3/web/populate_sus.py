@@ -302,21 +302,19 @@ def generate_insert_queries(n):
         random_numbers = f"{random.randint(1000, 9999)}-{random.randint(100, 999)}"
         random_street = random.choice(street_names)
         random_city = random.choice(city_names)
-        address = f"{random_street}, {random_numbers} {random_city}"
+        address = f"'{random_street}, {random_numbers} {random_city}'"
         lat = round(0.0000 + i * 0.0001, 4)
         lon = round(0.0000 - i * 0.0001, 4)
-        entry = f"    ({address}, {lat}, {lon})"
+        entry = f"({address}, {lat}, {lon})"
         if i < n - 1:
             entry += ","
         print(entry)
 
 
-print(""" -- workplace and offices/warehouse need to be populated in a transaction due to RI-2
-START	TRANSACTION;
-SET	CONSTRAINTS	ALL	DEFERRED;
-        
-INSERT INTO workplace (address, lat, long) \nVALUES"""
-      )
+print("-- workplace and offices/warehouse need to be populated in a transaction due to RI-2")
+print("START TRANSACTION;")
+print("SET CONSTRAINTS ALL DEFERRED;")
+print("INSERT INTO workplace (address, lat, lon) VALUES")
 generate_insert_queries(num_entries)
 print(";")
 
@@ -325,22 +323,22 @@ def generate_address(start, end):
         random_numbers = f"{random.randint(1000, 9999)}-{random.randint(100, 999)}"
         random_street = random.choice(street_names)
         random_city = random.choice(city_names)
-        address = f"('{random_street}, {random_numbers} {random_city}')"
+        address = f"'{random_street}, {random_numbers} {random_city}'"
         if i < end:
             address += ","
         print(address)
 
 
-print("INSERT INTO office (address) \nVALUES")
+print("INSERT INTO office (address) VALUES")
 start_index = 1  # Specify the start index of the street names
-end_index = int(num_entries/2)  # Specify the end index of the street names
-street_names = generate_address(start_index, end_index)
+end_index = int(num_entries / 2)  # Specify the end index of the street names
+generate_address(start_index, end_index)
 print(";")
 
-print("INSERT INTO warehouse (address) \nVALUES")
-start_index = int(num_entries/2)  # Specify the start index of the street names
-end_index = num_entries-1  # Specify the end index of the street names
-street_names = generate_address(start_index, end_index)
+print("INSERT INTO warehouse (address) VALUES")
+start_index = int(num_entries / 2)  # Specify the start index of the street names
+end_index = num_entries - 1  # Specify the end index of the street names
+generate_address(start_index, end_index)
 print(";")
 
 print("\nCOMMIT;\n")
@@ -443,27 +441,97 @@ surnames = [
 ]
 
 from datetime import datetime, timedelta
-def generate_employee_entries(n):
+#def generate_employee_entries(n):
+#    ssn = 100000006
+#    tin = 20005
+#    bdate_start = '1950-01-01'
+#    print("INSERT INTO employee (ssn, TIN, bdate, name)\nVALUES\n")
+#    
+#    for i in range(n):
+#        ssn += 1
+#        tin += 1
+#        if (i%1000==0): bdate = (datetime.strptime(bdate_start, '%Y-%m-%d') + timedelta(days=i)).strftime('%Y-%m-%d')
+#        random_first = random.choice(first_names)
+#        random_sur = random.choice(surnames)
+#        random_name = f'{random_first} {random_sur}'
+#        entry = f"({ssn}, {tin}, '{bdate}', '{random_name}')"
+#        if i < n - 1:
+#            entry += ","
+#        print(entry)
+#
+#    print(";")
+#
+#generate_employee_entries(num_entries)
+
+# Generate a random date of birth between 18 and 60 years ago
+def generate_date_of_birth():
+    #current_year = datetime.datetime.now().year
+    #start_year = current_year - 60
+    #end_year = current_year - 18
+    #birth_year = random.randint(start_year, end_year)
+    #birth_month = random.randint(1, 12)
+    #birth_day = random.randint(1, 28)
+    #date_of_birth = datetime.date(birth_year, birth_month, birth_day)
+    bdate_start = '1950-01-01'
+    if (i%1000==0): bdate = (datetime.strptime(bdate_start, '%Y-%m-%d') + timedelta(days=i)).strftime('%Y-%m-%d')
+
+    return bdate
+
+# Generate a random employee name
+def generate_name():
+    first_name = random.choice(first_names)
+    last_name = random.choice(surnames)
+    return f"'{first_name} {last_name}'"
+
+# Generate random employee data
+def generate_employee_data(n):
     ssn = 100000006
     tin = 20005
-    bdate_start = '1950-01-01'
-    print("INSERT INTO employee (ssn, TIN, bdate, name)\nVALUES\n")
     
-    for i in range(n):
+    for i in range(1, n+1):
         ssn += 1
         tin += 1
-        if (i%1000==0): bdate = (datetime.strptime(bdate_start, '%Y-%m-%d') + timedelta(days=i)).strftime('%Y-%m-%d')
-        random_first = random.choice(first_names)
-        random_sur = random.choice(surnames)
-        random_name = f'{random_first} {random_sur}'
-        entry = f"({ssn}, {tin}, '{bdate}', '{random_name}')"
-        if i < n - 1:
+        name = generate_employee_name()
+        bdate = generate_date_of_birth()
+        entry = f"({ssn}, {tin}, '{bdate}', '{name}')"
+        if i < n:
             entry += ","
         print(entry)
 
-    print(";")
+# Generate INSERT queries for employee table
+print("-- employee table")
+print("INSERT INTO employee (ssn, tin, bdate, name) VALUES")
+generate_employee_data(num_entries)
+print(";")
 
-generate_employee_entries(num_entries)
+# Generate random customer data
+def generate_customer_data(n):
+
+    for i in range(1, n+1):
+        cust_no = 30 + i
+        first_name = random.choice(first_names)
+        last_name = random.choice(surnames)
+        name = f"'{first_name} {last_name}'"
+        email = f"'{first_name}@mail.com'"
+        phone = random.randint(900000000, 999999999)
+        phone_num = f"'(351){phone}"
+        random_numbers = f"{random.randint(1000, 9999)}-{random.randint(100, 999)}"
+        random_street = random.choice(street_names)
+        random_city = random.choice(city_names)
+        address = f"'{random_street}, {random_numbers} {random_city}'"
+
+        entry = f"({cust_no}, {name}, {email}, {phone_num}, {address})"
+        if i < n:
+            entry += ","
+        print(entry)
+
+# Generate INSERT queries for customer table
+print("-- customer table")
+print("INSERT INTO customer (name, address) VALUES")
+generate_customer_data(num_entries)
+print(";")
+
+print("\nCOMMIT;\n")
 
 products = [
     "Smartphone",
@@ -680,7 +748,7 @@ def generate_insert_statements(products, price_ranges):
         description = "Sample description for " + product
         price_range = price_ranges.get(product, (50, 500))
         price = random.uniform(price_range[0], price_range[1])
-        ean = f"1234567890{i + 1:03}"
+        #ean = f"1234567890{i + 1:03}"
 
         insert_statement = f"('{sku}', '{name}', '{description}', {price:.2f}, '{ean}')"
         insert_statements.append(insert_statement)
