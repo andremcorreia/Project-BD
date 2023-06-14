@@ -52,7 +52,7 @@ try:
         print('<tr>')
         for value in result[i]:
             print('<td>{}</td>'.format(value)) 
-        print('<td><a href="update.cgi?table={}&request={}&SKU={}" style="text-decoration: none;"><span style="color: red;">&#10060;</span></a></td>'.format("customer","delete",result[i][0]))
+        print('<td><a href="delete.cgi?table={}&id={}" style="text-decoration: none;"><span style="color: red;">&#10060;</span></a></td>'.format("customer",result[i][0]))
         print('</tr>'),
     print('</tbody>')
 
