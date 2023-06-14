@@ -9,16 +9,17 @@ name = form.getvalue('name')
 
 base.Setup()
 
+back = "clients"
+if table == "product":
+    back = "products"
+
 if not form.getvalue('confirmation'):
     print('<p style="font-size:30px;">Are you sure you wish to delete {}, {}?</p>'.format(table, name))
 
     # The form will send the info needed for the SQL query
     print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
-    back = "clients"
-    if table == "product":
-        back = "products"
     print('<a href="{}.cgi" class="button" style="background-color: grey; margin-left: -20px; line-height: 50px;">Cancel</a>'.format(back))
-    print('<form action="pay.cgi?table={}&id={}&name={}&confirmation={}" method="post" style="margin-left: 40px; margin-right: 40px;">'.format(table, id, name, "yes"))
+    print('<form action="delete.cgi?table={}&id={}&name={}&confirmation={}" method="post" style="margin-left: 40px; margin-right: 40px;">'.format(table, id, name, "yes"))
     print('<button type="submit" class="button" style="background-color: #25b80b;">Confirm</button>')
     print('</form>')
     print('</div>')
@@ -105,6 +106,6 @@ else:
         if connection is not None:
             connection.close()
 
-    print('<meta http-equiv="refresh" content="0; url=products.cgi" />')
+    print('<meta http-equiv="refresh" content="0; url={}.cgi" />'.format(back))
 
 base.finish()

@@ -106,6 +106,7 @@ def Setup():
     print('.tab {')
     print('  display: flex;')
     print('  justify-content: center;')
+    print('  width: 33.33%;')
     print('  align-items: center;')
     print('  flex-grow: 1;')
     print('  height: 50px;')
@@ -121,6 +122,7 @@ def Setup():
 
     print('.tab-active {')
     print('  display: flex;')
+    print('  width: 33.33%;')
     print('  justify-content: center;')
     print('  align-items: center;')
     print('  flex-grow: 1;')
@@ -159,7 +161,7 @@ def Setup():
 
 def addTabs(tabID):
     tabs = ["tab-active" if i == tabID else "tab" for i in range(3)]
-    tabNames = ["Products", "Customers", "Orders"]
+    tabNames = ["Products & Suppliers", "Customers", "Orders"]
     tabLinks = ["products.cgi", "clients.cgi", "orders.cgi"]
     print('<div class="tabs">')
     for i in range(3):

@@ -491,7 +491,7 @@ def generate_employee_data(n):
     for i in range(1, n+1):
         ssn += 1
         tin += 1
-        name = generate_employee_name()
+        name = generate_name()
         bdate = generate_date_of_birth()
         entry = f"({ssn}, {tin}, '{bdate}', '{name}')"
         if i < n:

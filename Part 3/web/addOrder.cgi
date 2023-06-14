@@ -104,6 +104,6 @@ else:
         if connection is not None:
             connection.close()
 
-    print('<meta http-equiv="refresh" content="10; url=orders.cgi" />')
+    print('<meta http-equiv="refresh" content="0; url=orders.cgi" />')
 
 base.finish()
