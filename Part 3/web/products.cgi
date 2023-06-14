@@ -54,7 +54,7 @@ try:
         print('<td>{}</td>'.format(row[4]))
         print('<td>{}</td>'.format(row[5]))
         print('<td>{}</td>'.format(row[6]))
-        print('<td><a href="update.cgi?table={}?request={}?SKU={}"style="text-decoration: none;"><span style="color: red;">&#10060;</span></a></td>'.format("product","delete",row[0]))
+        print('<td><a href="delete.cgi?table={}&id={}&name={}"style="text-decoration: none;"><span style="color: red;">&#10060;</span></a></td>'.format("product",row[0],row[1]))
         print('</tr>')
 
     print('</tbody>')

@@ -25,7 +25,7 @@ if not form.getvalue('new'):
 
     # Add a cancel button to the left of the submit button
     print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
-    print('<a href="products.cgi" class="button" style="background-color: grey; margin-left: -20px;">Cancel</a>')
+    print('<a href="products.cgi" class="button" style="background-color: grey; margin-left: -20px; line-height: 50px;">Cancel</a>')
     print('<form action="edit.cgi?sku={}&name={}&type={}" method="post" style="margin-left: 20px; margin-right: 20px;">'.format(sku, name,type))
     print('<button type="submit" class="button" style="background-color: #25b80b; margin-right: -20px;">Submit</button>')
     print('</form>')
