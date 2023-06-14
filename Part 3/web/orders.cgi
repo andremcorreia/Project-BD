@@ -39,7 +39,7 @@ try:
     # Displaying results
     print('<div class="table-container">')
     print('<table border="0">')
-    print('<tr><td>ID</td><td>Customer ID</td><td>Date</td></tr>')
+    print('<tr><th>ID</th><th>Customer ID</th><th>Date</th></tr>')
     
     count = len(result)
     if current > count:
@@ -57,7 +57,7 @@ try:
         if pay_result:
             print('<td>Already Paid</td>')
         else:
-            print('<td><a href="pay.cgi?orderID={}&custID={}"><span style="color: #1fb622;">{}</span></a></td>'.format(row[0],row[1],"pay"))
+            print('<td><a href="pay.cgi?orderID={}&custID={}"style="text-decoration: none;"><span style="color: #1fb622;">{}</span></a></td>'.format(row[0],row[1],"pay"))
         print('</tr>')
 
     print('</table>')
@@ -71,7 +71,7 @@ try:
     print('</div>')
     print('<div class="footer">')
     print('<div style="text-align: center;">')
-    print('<td><a href="addOrder.cgi?"><span style="color: #0c86cc;">{}</span></a></td>'.format("Place an Order"))
+    print('<a href="addOrder.cgi"><button class="button" style="background-color: #7289da; width: 200px;">{}</button></a>'.format("Place an Order"))
     print('</div>')
 
     # Closing connection

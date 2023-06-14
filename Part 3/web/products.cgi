@@ -39,7 +39,7 @@ try:
     # Displaying results
     print('<div class="table-container">')
     print('<table border="0">')
-    print('<tr><td>SKU</td><td>Name</td><td>Description</td><td>Price</td><td>Supplier TIN</td><td>Supplier Name</td><td>Contract Date</td></tr>')
+    print('<tr><th>SKU</th><th>Name</th><th>Description</th><th>Price</th><th>Supplier TIN</th><th>Supplier Name</th><th>Contract Date</td></tr>')
     
     count = len(result)
     if current > count:
@@ -49,12 +49,12 @@ try:
         print('<tr>')
         print('<td>{}</td>'.format(row[0]))
         print('<td>{}</td>'.format(row[1]))
-        print('<td><a href="edit.cgi?sku={}&name={}&type={}"><span style="color: #7289da;">{}</span></a></td>'.format(row[0],row[1],"Description",row[2]))
-        print('<td><a href="edit.cgi?sku={}&name={}&type={}"><span style="color: #7289da;">{}</span></a></td>'.format(row[0],row[1],"Price",row[3]))
+        print('<td><a href="edit.cgi?sku={}&name={}&type={}"style="text-decoration: none;"><span style="color: #7289da;">{}</span></a></td>'.format(row[0],row[1],"Description",row[2]))
+        print('<td><a href="edit.cgi?sku={}&name={}&type={}"style="text-decoration: none;"><span style="color: #7289da;">{}</span></a></td>'.format(row[0],row[1],"Price",row[3]))
         print('<td>{}</td>'.format(row[4]))
         print('<td>{}</td>'.format(row[5]))
         print('<td>{}</td>'.format(row[6]))
-        print('<td><a href="update.cgi?table={}?request={}?SKU={}"><span style="color: red;">&#10060;</span></a></td>'.format("product","delete",row[0]))
+        print('<td><a href="update.cgi?table={}?request={}?SKU={}"style="text-decoration: none;"><span style="color: red;">&#10060;</span></a></td>'.format("product","delete",row[0]))
         print('</tr>')
 
     print('</tbody>')
@@ -70,7 +70,7 @@ try:
     print('</div>')
     print('<div class="footer">')
     print('<div style="text-align: center;">')
-    print('<a href="addProduct_Supplier.cgi"><span style="color: #7289da;">{}</span></a>'.format("Add a Product"))
+    print('<a href="addProduct_Supplier.cgi"><button class="button" style="background-color: #7289da; width: 200px;">{}</button></a>'.format("Add a Product"))
     print('</div>')
 
     # Closing connection

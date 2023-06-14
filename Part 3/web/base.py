@@ -113,6 +113,7 @@ def Setup():
     print('  text-align: center;')
     print('  color: #fff;')
     print('  font-size: 24px;')
+    print('  border-radius: 10px;')
     print('}')
 
     print('.tab-active {')
