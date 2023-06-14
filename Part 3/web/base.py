@@ -30,12 +30,10 @@ def Setup():
 
     # Buttons
     print('.button {')
-    print('  box-sizing: border-box;')
     print('  text-decoration: none;')
     print('  height: 50px;')
     print('  width: 120px;')
     print('  text-align: center;')
-    print('  line-height: 50px;')
     print('  font-size: 20px;')
     print('  color: white;')
     print('  border-radius: 10px;')
