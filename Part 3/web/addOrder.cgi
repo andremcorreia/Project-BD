@@ -7,16 +7,26 @@ form = cgi.FieldStorage()
 base.Setup()
 
 if not form.getvalue('order_no'):
-    print('<h3>Adding a new order</h3>')
+    print('<h3 style="font-size: 24px;">Adding a new order</h3>')
 
     # The form will send the info needed for the SQL query
     print('<form action="addOrder.cgi" method="post">')
-    print('<p>Order Number: <input type="text" name="order_no"/></p>')
-    print('<p>Customer Number: <input type="text" name="cust_no"/></p>')
-    print('<p>Date: <input type="text" name="date"/></p>')
-    print('<p>Product SKU: <input type="text" name="SKU"/></p>')
-    print('<p>Quantity: <input type="text" name="quantity"/></p>')
-    print('<p><input type="submit" value="Submit"/></p>')
+    print('<div style="margin-left: -20px;">')
+    print('<p>Order Number:</p> <input type="text" name="order_no" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>Customer Number:</p> <input type="text" name="cust_no" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>Date:</p> <input type="text" name="date" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>Product SKU:</p> <input type="text" name="SKU" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>Quantity:</p> <input type="text" name="quantity" style="background-color: lightgrey; width: 110%;"/>')
+    print('</div>')
+
+    # Add a cancel button to the left of the submit button
+    print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
+    print('<a href="orders.cgi" class="button" style="background-color: grey; margin-left: -20px;">Cancel</a>')
+    print('<form action="addOrder.cgi" method="post" style="margin-left: 20px; margin-right: 20px;">')
+    print('<button type="submit" class="button" style="background-color: #25b80b; margin-right: -20px;">Submit</button>')
+    print('</form>')
+    print('</div>')
+    
     print('</form>')
 
 else:
@@ -72,6 +82,3 @@ else:
     print('<meta http-equiv="refresh" content="10; url=orders.cgi" />')
 
 base.finish()
-
-
-# TRANSACTION

@@ -7,7 +7,7 @@ form = cgi.FieldStorage()
 base.Setup()
 
 if not form.getvalue('cust_no'):
-    print('<h3>Adding a new customer</h3>')
+    print('<h3 style="font-size: 24px;">Adding a new customer</h3>')
 
     # The form will send the info needed for the SQL query
     print('<form action="addCustomer.cgi" method="post">')
@@ -29,7 +29,7 @@ if not form.getvalue('cust_no'):
 
     # Add a cancel button to the left of the submit button
     print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
-    print('<button href="clients.cgi" class="button" style="background-color: grey; margin-left: -20px;">Cancel</button>')
+    print('<a href="clients.cgi" class="button" style="background-color: grey; margin-left: -20px;">Cancel</a>')
     print('<form action="addCustomer.cgi" method="post" style="margin-left: 20px; margin-right: 20px;">')
     print('<button type="submit" class="button" style="background-color: #25b80b; margin-right: -20px;">Submit</button>')
     print('</form>')
@@ -64,6 +64,7 @@ else:
         # Closing connection
         cursor.close()
     except Exception as e:
+        print('<h1>{}</h1>'.format(str(e)))
         print('<h1>An error occurred.</h1>')
 
     finally:

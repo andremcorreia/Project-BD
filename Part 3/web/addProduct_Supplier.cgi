@@ -8,21 +8,32 @@ form = cgi.FieldStorage()
 base.Setup()
 
 if not form.getvalue('SKU'):
-    print('<h3>Adding a new Product and Supplier</h3>')
+    print('<h3 style="font-size: 24px;">Adding a new Product and Supplier</h3>')
     # The form will send the info needed for the Product and Supplier SQL query
     print('<form action="addProduct_Supplier.cgi" method="post">')
-    print('<p>SKU: <input type="text" name="SKU"/></p>')
-    print('<p>Product Name: <input type="text" name="name_prod"/></p>')
-    print('<p>Description: <input type="text" name="description"/></p>')
-    print('<p>Price: <input type="text" name="price"/></p>')
-    print('<p>Ean (optional): <input type="text" name="ean"/></p>')
-    print('<p>Supplier TIN: <input type="text" name="TIN"/></p>')
-    print('<p>Supplier Name: <input type="text" name="name_supp"/></p>')
-    print('<p>Supplier Address: <input type="text" name="address"/></p>')
-    print('<p>Contract Date: <input type="text" name="date"/></p>')
-    print('<p><input type="submit" value="Submit"/></p>')
+    print('<div style="margin-left: -20px;">')
+    print('<p>SKU:</p> <input type="text" name="SKU" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>Product Name:</p> <input type="text" name="name_prod" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>Description:</p> <input type="text" name="description" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>Price:</p> <input type="text" name="price" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>Ean (optional):</p> <input type="text" name="ean" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>Supplier TIN:</p> <input type="text" name="TIN" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>Supplier Name:</p> <input type="text" name="name_supp" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>Supplier Address:</p> <input type="text" name="address" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>Contract Date:</p> <input type="text" name="date" style="background-color: lightgrey; width: 110%;"/>')
+    print('</div>')
+
+    # Add a cancel button to the left of the submit button
+    print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
+    print('<a href="products.cgi" class="button" style="background-color: grey; margin-left: -20px;">Cancel</a>')
+    print('<form action="addProduct_Supplier.cgi" method="post" style="margin-left: 20px; margin-right: 20px;">')
+    print('<button type="submit" class="button" style="background-color: #25b80b; margin-right: -20px;">Submit</button>')
     print('</form>')
+    print('</div>')
+    print('</form>')
+
 else:
+
     SKU = form.getvalue('SKU')
     name_product = form.getvalue('name_prod')
     description = form.getvalue('description')

@@ -19,8 +19,18 @@ if not form.getvalue('new'):
 
     # The form will send the info needed for the SQL query
     print('<form action="edit.cgi?sku={}&name={}&type={}" method="post">'.format(sku, name,type))
-    print('<p>{}: <input type="text" name="new"{}/></p>'.format(type, settings))
-    print('<p><input type="submit" value="Confirm"/></p>')
+    print('<div style="margin-left: -20px;">')
+    print('<p>{}:</p> <input type="text" name="new" style="background-color: lightgrey; width: 110%;"{}/>'.format(type, settings))
+    print('</div>')
+
+    # Add a cancel button to the left of the submit button
+    print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
+    print('<a href="products.cgi" class="button" style="background-color: grey; margin-left: -20px;">Cancel</a>')
+    print('<form action="edit.cgi?sku={}&name={}&type={}" method="post" style="margin-left: 20px; margin-right: 20px;">'.format(sku, name,type))
+    print('<button type="submit" class="button" style="background-color: #25b80b; margin-right: -20px;">Submit</button>')
+    print('</form>')
+    print('</div>')
+
     print('</form>')
 
 else:

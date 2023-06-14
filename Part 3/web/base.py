@@ -23,6 +23,9 @@ def Setup():
     print('  margin: 0;')
     print('  padding: 0;')
     print('  font-family: Arial, Helvetica, sans-serif;')
+    print('  background-image: linear-gradient(to bottom, #1e2124, #25292d, #1e2124);')
+    print('  background-repeat: no-repeat;')
+    print('  background-position: center;')
     print('}')
 
     # Buttons
@@ -91,7 +94,7 @@ def Setup():
     print('  padding: 5pt 10pt;')
     print('}')
 
-    # Tabs 
+    # Tabs
     print('.tabs {')
     print('  display: flex;')
     print('  justify-content: space-between;')
@@ -99,6 +102,7 @@ def Setup():
     print('  position: fixed;')
     print('  top: 0;')
     print('  left: 0;')
+    print('  background-color: #1e2124;')
     print('}')
 
     print('.tab {')
@@ -114,6 +118,7 @@ def Setup():
     print('  color: #fff;')
     print('  font-size: 24px;')
     print('  border-radius: 10px;')
+    print('  background-image: linear-gradient(to bottom, #36393e, #25292d);')
     print('}')
 
     print('.tab-active {')
@@ -127,10 +132,11 @@ def Setup():
     print('  text-align: center;')
     print('  text-decoration: none;')
     print('  font-size: 24px;')
+    print('  border-radius: 10px;')
     print('}')
 
     print('.tab:hover {')
-    print('  background-color: #424549;')
+    print('  background-image: linear-gradient(to bottom, #424549, #25292d);')
     print('}')
 
     # Navigation
