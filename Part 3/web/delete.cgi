@@ -67,12 +67,6 @@ else:
             dist_orders = cursor.fetchall()
             
             sql_get_contains = "SELECT DISTINCT SKU FROM contains WHERE order_no = {};"
-
-            # Get all order_no associated with product
-            #sql_get_orders = "SELECT order_no FROM contains WHERE SKU = '{}';".format(id)
-            #cursor.execute(sql_get_orders)
-            #orders = cursor.fetchall()
-
             orders_to_del = []
 
             for order in dist_orders:
@@ -105,18 +99,19 @@ else:
         
         elif table == 'supplier':
             if supp_counter:
-                    supp_counter = int(supp_counter)
+                supp_counter = int(supp_counter)
             if supp_counter > 1:
                 sql_del = "DELETE FROM supplier WHERE TIN = '{}';".format(id)
                 cursor.execute(sql_del)
             else:
-                print('<div class="del last supp">')
-                print('<form action="" method="post">')
-                print('<input type="hidden" name="table" value="\'product\'">')
-                print('<input type="hidden" name="id" value="\'{}\'">'.format(sku))
-                print('<input type="hidden" name="confirmation" value="yes">')
-                print('</form">')
-                print('</div>')
+                print('<meta http-equiv="refresh" content="0; url=delete.cgi?table={}&id={}&confirmation={}" />'.format('product', sku, "yes"))
+                #print('<div class="del last supp">')
+                #print('<form action="" method="post">')
+                #print('<input type="hidden" name="table" value="\'product\'">')
+                #print('<input type="hidden" name="id" value="\'{}\'">'.format(sku))
+                #print('<input type="hidden" name="confirmation" value="yes">')
+                #print('</form">')
+                #print('</div>')
 
         # Commit the update (without this step the database will not change)
         connection.commit()
