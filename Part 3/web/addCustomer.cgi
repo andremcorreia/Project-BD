@@ -18,13 +18,18 @@ if not cust_no or not name or not email:
     # The form will send the info needed for the SQL query
     print('<form action="addCustomer.cgi" method="post">')
     print('<div style="margin-left: -20px;">')
-    
+    if name or email:
+        print('<div style="color: red; font-size: 12px;">Required field</div>') 
     print('<p>Number:</p> <input type="text" name="cust_no" style="background-color: lightgrey; width: 110%;"/>')
     print('</div>')
     print('<div style="margin-left: -20px;">')
+    if cust_no or email:
+        print('<div style="color: red; font-size: 12px;">Required field</div>') 
     print('<p>Name:</p> <input type="text" name="name" style="background-color: lightgrey; width: 110%;"/>')
     print('</div>')
     print('<div style="margin-left: -20px;">')
+    if cust_no or name:
+        print('<div style="color: red; font-size: 12px;">Required field</div>')
     print('<p>Email:</p> <input type="text" name="email" style="background-color: lightgrey; width: 110%;"/>')
     print('</div>')
     print('<div style="margin-left: -20px;">')

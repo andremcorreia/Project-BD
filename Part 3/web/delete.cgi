@@ -7,7 +7,9 @@ table = form.getvalue('table')
 id = form.getvalue('id')
 name = form.getvalue('name')
 # Get the number of suppliers of the product (sku) associated with current supplier
-supp_counter = int(form.getvalue('supp_count'))
+
+supp_counter = form.getvalue('supp_count')
+
 sku = form.getvalue('sku')
 
 base.Setup()
@@ -96,6 +98,8 @@ else:
             cursor.execute(sql_del)
         
         elif table == 'supplier':
+            if supp_counter:
+                    supp_counter = int(supp_counter)
             if supp_counter > 1:
                 sql_del = "DELETE FROM supplier WHERE TIN = '{}';".format(id)
                 cursor.execute(sql_del)
