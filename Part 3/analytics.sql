@@ -26,12 +26,12 @@
 
 -- 2 GROUP BY
 SELECT 
-    p.SKU,
-    COALESCE(city, 'No city value') AS city,
-    COALESCE(month::text, 'No month value') AS month,
-    COALESCE(day_of_month::text, 'No day of month value') AS day_of_month,
-    COALESCE(day_of_week, 'No day of week value') AS day_of_week,
-    SUM(c.qty) AS total_quantity,
+    SKU,
+    COALESCE(city, 'Globally') AS city,
+    COALESCE(month::text, 'Globally') AS month,
+    COALESCE(day_of_month::text, 'Globally') AS day_of_month,
+    COALESCE(day_of_week, 'Globally') AS day_of_week,
+    SUM(qty) AS total_quantity,
     SUM(total_price) AS total_sales_value
 FROM 
     product_sales
@@ -39,11 +39,11 @@ WHERE
     year = 2022
 GROUP BY 
     GROUPING SETS (
-        (p.SKU, city, month, day_of_month, day_of_week),
-        (p.SKU, city, month, day_of_month),
-        (p.SKU, city, month),
-        (p.SKU, city),
-        (p.SKU),
+        (SKU, city, month, day_of_month, day_of_week),
+        (SKU, city, month, day_of_month),
+        (SKU, city, month),
+        (SKU, city),
+        (SKU),
         ()
     );
 
@@ -82,8 +82,8 @@ GROUP BY
 
 -- 2 Grouping sets
 SELECT 
-    COALESCE(month::text, 'No month value') AS month,
-    COALESCE(day_of_week, 'No days of week value') AS day_of_week,
+    COALESCE(month::text, 'Globally') AS month,
+    COALESCE(day_of_week, 'Globally') AS day_of_week,
     AVG(total_price) AS average_daily_sales
 FROM 
     product_sales
