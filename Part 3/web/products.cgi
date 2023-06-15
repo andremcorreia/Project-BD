@@ -36,7 +36,6 @@ try:
 
     cursor.execute(sql)
     result = cursor.fetchall()
-    num = len(result)
     
     # Display Header
     print('<div class="header">')
@@ -50,12 +49,12 @@ try:
     # Displaying results
     print('<div class="table-container">')
     print('<table border="0">')
+    count = len(result)
+    if current >= count:
+        current = math.floor((count - 1)/MAX)*MAX
     #print('<tr><th>SKU</th><th>Name</th><th>Description</th><th>Price</th><th>Supplier TIN</th><th>Supplier Name</th><th>Contract Date</td></tr>')
     if not sku:
         print('<tr><th>SKU</th><th>Name</th><th>Description</th><th>Price</th><th>Suppliers</td></tr>')
-        count = len(result)
-        if current > count:
-            current = math.floor(count/MAX)*MAX
 
         for i in range(current, len(result)):
             row = result[i]
@@ -76,9 +75,6 @@ try:
 
     else:
         print('<tr><th>TIN</th><th>Name</th><th>Address</th><th>SKU</th><th>Date</td></tr>')
-        count = len(result)
-        if current > count:
-            current = math.floor(count/MAX)*MAX
 
         for i in range(current, len(result)):
             row = result[i]

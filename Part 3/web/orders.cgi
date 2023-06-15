@@ -42,8 +42,8 @@ try:
     print('<tr><th>ID</th><th>Customer ID</th><th>Date</th></tr>')
     
     count = len(result)
-    if current > count:
-        current = math.floor(count/MAX)*MAX
+    if current >= count:
+        current = math.floor((count - 1)/MAX)*MAX
 
     for i in range(current, len(result)):
         row = result[i]

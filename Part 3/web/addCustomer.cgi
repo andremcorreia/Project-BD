@@ -6,12 +6,19 @@ form = cgi.FieldStorage()
 
 base.Setup()
 
-if not form.getvalue('cust_no'):
+cust_no = form.getvalue('cust_no')
+name = form.getvalue('name')
+email = form.getvalue('email')
+phone = form.getvalue('phone')
+address = form.getvalue('address')
+
+if not cust_no or not name or not email:
     print('<h3 style="font-size: 24px;">Adding a new customer</h3>')
 
     # The form will send the info needed for the SQL query
     print('<form action="addCustomer.cgi" method="post">')
     print('<div style="margin-left: -20px;">')
+    
     print('<p>Number:</p> <input type="text" name="cust_no" style="background-color: lightgrey; width: 110%;"/>')
     print('</div>')
     print('<div style="margin-left: -20px;">')
@@ -38,12 +45,6 @@ if not form.getvalue('cust_no'):
     print('</form>')
 
 else:
-
-    cust_no = form.getvalue('cust_no')
-    name = form.getvalue('name')
-    email = form.getvalue('email')
-    phone = form.getvalue('phone')
-    address = form.getvalue('address')
 
     connection = None
 

@@ -42,8 +42,8 @@ try:
     print('<thead><tr><th>ID</th><th>Name</th><th>E-mail</th><th>Phone</th><th>Address</th></tr></thead>')
     
     count = len(result)
-    if current > count:
-        current = math.floor(count/MAX)*MAX
+    if current >= count:
+        current = math.floor((count - 1)/MAX)*MAX
 
     print('<tbody>')
     for i in range(current, len(result)):
