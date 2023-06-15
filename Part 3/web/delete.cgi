@@ -7,9 +7,7 @@ table = form.getvalue('table')
 id = form.getvalue('id')
 name = form.getvalue('name')
 # Get the number of suppliers of the product (sku) associated with current supplier
-
 supp_counter = form.getvalue('supp_count')
-
 sku = form.getvalue('sku')
 
 base.Setup()
@@ -68,28 +66,29 @@ else:
             cursor.execute(sql_get_orders)
             dist_orders = cursor.fetchall()
             
+            sql_get_contains = "SELECT DISTINCT SKU FROM contains WHERE order_no = {};"
+
             # Get all order_no associated with product
-            sql_get_orders = "SELECT order_no FROM contains WHERE SKU = '{}';".format(id)
-            cursor.execute(sql_get_orders)
-            orders = cursor.fetchall()
+            #sql_get_orders = "SELECT order_no FROM contains WHERE SKU = '{}';".format(id)
+            #cursor.execute(sql_get_orders)
+            #orders = cursor.fetchall()
 
             connection.autocommit = False
-
-            sql_del = "DELETE FROM delivery WHERE TIN = '{}';"
-            for supp in suppliers:
-                cursor.execute(sql_del.format(supp[0]))
 
             sql_del = "DELETE FROM contains WHERE SKU = '{}';".format(id)
             cursor.execute(sql_del)
             for order in dist_orders:
-                # Count of contains entries with certain order_no
-                if orders.count(order) == 1:
+                if len(sql_get_contains.format(order[0])) == 1:
                     sql_del = 'DELETE FROM pay WHERE order_no = {};'.format(order[0])
                     cursor.execute(sql_del)
                     sql_del = 'DELETE FROM process WHERE order_no = {};'.format(order[0])
                     cursor.execute(sql_del)
                     sql_del = 'DELETE FROM "order" WHERE order_no = {};'.format(order[0])
                     cursor.execute(sql_del)
+
+            sql_del = "DELETE FROM delivery WHERE TIN = '{}';"
+            for supp in suppliers:
+                cursor.execute(sql_del.format(supp[0]))
 
             sql_del = "DELETE FROM supplier WHERE SKU = '{}';".format(id)
             cursor.execute(sql_del)
