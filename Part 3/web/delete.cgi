@@ -6,6 +6,9 @@ form = cgi.FieldStorage()
 table = form.getvalue('table')
 id = form.getvalue('id')
 name = form.getvalue('name')
+# Get the number of suppliers of the product (sku) associated with current supplier
+supp_counter = int(form.getvalue('supp_count'))
+sku = form.getvalue('sku')
 
 base.Setup()
 
@@ -17,10 +20,6 @@ elif table == "supplier":
 
 if not form.getvalue('confirmation'):
     print('<p style="font-size:30px;">Are you sure you wish to delete {}, {}?</p>'.format(table, name))
-
-    # Get the number of suppliers of the product (sku) associated with current supplier
-    supp_counter = int(form.getvalue('supp_count'))
-    sku = form.getvalue('sku')
 
     # The form will send the info needed for the SQL query
     print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
@@ -97,17 +96,17 @@ else:
             cursor.execute(sql_del)
         
         elif table == 'supplier':
-            # Get the number of suppliers of the product (sku) associated with current supplier
-            supp_counter = int(form.getvalue('supp_count'))
-            sku = form.getvalue('sku')
             if supp_counter > 1:
                 sql_del = "DELETE FROM supplier WHERE TIN = '{}';".format(id)
                 cursor.execute(sql_del)
             else:
+                print('<div class="del last supp">')
                 print('<form action="" method="post">')
                 print('<input type="hidden" name="table" value="\'product\'">')
                 print('<input type="hidden" name="id" value="\'{}\'">'.format(sku))
+                print('<input type="hidden" name="confirmation" value="yes">')
                 print('</form">')
+                print('</div>')
 
         # Commit the update (without this step the database will not change)
         connection.commit()
