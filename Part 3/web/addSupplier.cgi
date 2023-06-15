@@ -59,6 +59,6 @@ else:
         if connection is not None:
             connection.close()
 
-    print('<meta http-equiv="refresh" content="10; url=products.cgi?sku={}" />'.format(sku))
+    print('<meta http-equiv="refresh" content="0; url=products.cgi?sku={}" />'.format(sku))
 
 base.finish()

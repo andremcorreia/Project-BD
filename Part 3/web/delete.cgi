@@ -6,6 +6,8 @@ form = cgi.FieldStorage()
 table = form.getvalue('table')
 id = form.getvalue('id')
 name = form.getvalue('name')
+supp_counter = int(form.getvalue('supp_count'))
+sku = form.getvalue('sku')
 
 base.Setup()
 
@@ -19,7 +21,7 @@ if not form.getvalue('confirmation'):
     # The form will send the info needed for the SQL query
     print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
     print('<a href="{}.cgi" class="button" style="background-color: grey; margin-left: -20px; line-height: 50px;">Cancel</a>'.format(back))
-    print('<form action="delete.cgi?table={}&id={}&name={}&confirmation={}" method="post" style="margin-left: 40px; margin-right: 40px;">'.format(table, id, name, "yes"))
+    print('<form action="delete.cgi?table={}&id={}&name={}&confirmation={}&supp_count={}&sku={}" method="post" style="margin-left: 40px; margin-right: 40px;">'.format(table, id, name, "yes", supp_counter, sku))
     print('<button type="submit" class="button" style="background-color: #25b80b;">Confirm</button>')
     print('</form>')
     print('</div>')
@@ -92,11 +94,10 @@ else:
         
         elif table == 'supplier':
             # Get the number of suppliers of the product (sku) associated with current supplier
-            supp_counter = form.getvalue('supp_count')
-            sku = form.getvalue('sku')
+
 
             if supp_counter > 1:
-                sql_del = 'DELETE FROM supplier WHERE TIN = {};'.format(id)
+                sql_del = "DELETE FROM supplier WHERE TIN = '{}';".format(id)
                 cursor.execute(sql_del)
             else:
                 print('<a href="delete.cgi?table={}&id={}">'.format('product', sku))
@@ -117,6 +118,6 @@ else:
         if connection is not None:
             connection.close()
 
-    print('<meta http-equiv="refresh" content="0; url={}.cgi" />'.format(back))
+    print('<meta http-equiv="refresh" content="10; url={}.cgi" />'.format(back))
 
 base.finish()

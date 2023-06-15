@@ -30,7 +30,7 @@ try:
     Pname = form.getvalue('Pname')
 
     if not sku:
-        sql = 'SELECT product.SKU, product.name, product.description, product.price, product.ean FROM product;'
+        sql = 'SELECT product.SKU, product.name, product.description, product.price FROM product;'
     else:
         sql = " SELECT supplier.TIN, supplier.name, supplier.address, supplier.SKU, supplier.date FROM supplier WHERE SKU = '{}';".format(sku)
 
@@ -52,7 +52,7 @@ try:
     print('<table border="0">')
     #print('<tr><th>SKU</th><th>Name</th><th>Description</th><th>Price</th><th>Supplier TIN</th><th>Supplier Name</th><th>Contract Date</td></tr>')
     if not sku:
-        print('<tr><th>SKU</th><th>Name</th><th>Description</th><th>Price</th><th>ean</th><th>Suppliers</td></tr>')
+        print('<tr><th>SKU</th><th>Name</th><th>Description</th><th>Price</th><th>Suppliers</td></tr>')
         count = len(result)
         if current > count:
             current = math.floor(count/MAX)*MAX
@@ -66,9 +66,8 @@ try:
             print('<td>{}</td>'.format(row[1]))
             print('<td><a href="edit.cgi?sku={}&name={}&type={}"style="text-decoration: none;"><span style="color: #7289da;">{}</span></a></td>'.format(row[0],row[1],"Description",row[2]))
             print('<td><a href="edit.cgi?sku={}&name={}&type={}"style="text-decoration: none;"><span style="color: #7289da;">{}</span></a></td>'.format(row[0],row[1],"Price",row[3]))
-            print('<td>{}</td>'.format(row[4]))
             
-            print('<td><a href="products.cgi?current={}&id={}"style="text-decoration: none;"><span style="color: #1fb622;">{}</span></a></td>'.format(0, row[0], "See Suppliers"))
+            print('<td><a href="products.cgi?current={}&id={}&Pname={}"style="text-decoration: none;"><span style="color: #1fb622;">{}</span></a></td>'.format(0, row[0], row[1], "See Suppliers"))
 
             #print('<td>{}</td>'.format(row[5]))
             #print('<td>{}</td>'.format(row[6]))
@@ -92,7 +91,7 @@ try:
             print('<td>{}</td>'.format(row[3]))
             print('<td>{}</td>'.format(row[4]))
             
-            print('<td><a href="delete.cgi?table={}&id={}&name={}"style="text-decoration: none;"><span style="color: red;">&#10060;</span></a></td>'.format("supplier",row[0],row[1]))
+            print('<td><a href="delete.cgi?table={}&id={}&name={}&supp_count={}&sku={}"style="text-decoration: none;"><span style="color: red;">&#10060;</span></a></td>'.format("supplier",row[0],row[1], count, sku))
             print('</tr>')
 
     print('</tbody>')
