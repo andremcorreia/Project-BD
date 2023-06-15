@@ -25,7 +25,8 @@ try:
     base.addTabs(0)
 
     # Making query
-    sql = 'SELECT product.SKU, product.name, product.description, product.price, supplier.TIN, supplier.name, supplier.date FROM product JOIN supplier USING (SKU);'
+    #sql = 'SELECT product.SKU, product.name, product.description, product.price, supplier.TIN, supplier.name, supplier.date FROM product JOIN supplier USING (SKU);'
+    sql = 'SELECT product.SKU, product.name, product.description, product.price, product.ean FROM product;'
     cursor.execute(sql)
     result = cursor.fetchall()
     num = len(result)
@@ -39,8 +40,9 @@ try:
     # Displaying results
     print('<div class="table-container">')
     print('<table border="0">')
-    print('<tr><th>SKU</th><th>Name</th><th>Description</th><th>Price</th><th>Supplier TIN</th><th>Supplier Name</th><th>Contract Date</td></tr>')
-    
+    #print('<tr><th>SKU</th><th>Name</th><th>Description</th><th>Price</th><th>Supplier TIN</th><th>Supplier Name</th><th>Contract Date</td></tr>')
+    print('<tr><th>SKU</th><th>Name</th><th>Description</th><th>Price</th><th>ean</th><th>Suppliers</td></tr>')
+ 
     count = len(result)
     if current > count:
         current = math.floor(count/MAX)*MAX
@@ -55,9 +57,12 @@ try:
         print('<td><a href="edit.cgi?sku={}&name={}&type={}"style="text-decoration: none;"><span style="color: #7289da;">{}</span></a></td>'.format(row[0],row[1],"Description",row[2]))
         print('<td><a href="edit.cgi?sku={}&name={}&type={}"style="text-decoration: none;"><span style="color: #7289da;">{}</span></a></td>'.format(row[0],row[1],"Price",row[3]))
         print('<td>{}</td>'.format(row[4]))
-        print('<td>{}</td>'.format(row[5]))
-        print('<td>{}</td>'.format(row[6]))
-        print('<td><a href="delete.cgi?table={}&id={}&name={}"style="text-decoration: none;"><span style="color: red;">&#10060;</span></a></td>'.format("product",row[0],row[1]))
+        
+        print('<td><a href="products.cgi?orderID={}&custID={}"style="text-decoration: none;"><span style="color: #1fb622;">{}</span></a></td>'.format(row[0],row[1],"pay"))
+
+        #print('<td>{}</td>'.format(row[5]))
+        #print('<td>{}</td>'.format(row[6]))
+        print('<td><a href="delete.cgi?current={}&id={}&name={}"style="text-decoration: none;"><span style="color: red;">&#10060;</span></a></td>'.format("product",row[0],row[1]))
         print('</tr>')
 
     print('</tbody>')
