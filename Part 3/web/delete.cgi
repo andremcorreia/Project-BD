@@ -73,18 +73,25 @@ else:
             #cursor.execute(sql_get_orders)
             #orders = cursor.fetchall()
 
+            orders_to_del = []
+
+            for order in dist_orders:
+                cursor.execute(sql_get_contains.format(order[0]))
+                result = cursor.fetchall()
+                if len(result) == 1:
+                    orders_to_del += [order[0]]
+
             connection.autocommit = False
 
             sql_del = "DELETE FROM contains WHERE SKU = '{}';".format(id)
             cursor.execute(sql_del)
-            for order in dist_orders:
-                if len(sql_get_contains.format(order[0])) == 1:
-                    sql_del = 'DELETE FROM pay WHERE order_no = {};'.format(order[0])
-                    cursor.execute(sql_del)
-                    sql_del = 'DELETE FROM process WHERE order_no = {};'.format(order[0])
-                    cursor.execute(sql_del)
-                    sql_del = 'DELETE FROM "order" WHERE order_no = {};'.format(order[0])
-                    cursor.execute(sql_del)
+            for order in orders_to_del:
+                sql_del = 'DELETE FROM pay WHERE order_no = {};'.format(order[0])
+                cursor.execute(sql_del)
+                sql_del = 'DELETE FROM process WHERE order_no = {};'.format(order[0])
+                cursor.execute(sql_del)
+                sql_del = 'DELETE FROM "order" WHERE order_no = {};'.format(order[0])
+                cursor.execute(sql_del)
 
             sql_del = "DELETE FROM delivery WHERE TIN = '{}';"
             for supp in suppliers:
