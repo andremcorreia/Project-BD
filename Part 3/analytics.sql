@@ -39,12 +39,11 @@ WHERE
     year = 2022
 GROUP BY 
     GROUPING SETS (
-        (SKU, city, month, day_of_month, day_of_week),
-        (SKU, city, month, day_of_month),
-        (SKU, city, month),
         (SKU, city),
-        (SKU),
-        ()
+        (SKU, month),
+        (SKU, day_of_month),
+        (SKU, day_of_week),
+        (SKU)
     );
 
 
@@ -91,7 +90,7 @@ WHERE
     year = 2022
 GROUP BY 
     GROUPING SETS (
-        (month, day_of_week),
         (month),
+        (day_of_week),
         ()
     );
