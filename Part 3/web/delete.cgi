@@ -86,11 +86,11 @@ else:
             sql_del = "DELETE FROM contains WHERE SKU = '{}';".format(id)
             cursor.execute(sql_del)
             for order in orders_to_del:
-                sql_del = 'DELETE FROM pay WHERE order_no = {};'.format(order[0])
+                sql_del = 'DELETE FROM pay WHERE order_no = {};'.format(order)
                 cursor.execute(sql_del)
-                sql_del = 'DELETE FROM process WHERE order_no = {};'.format(order[0])
+                sql_del = 'DELETE FROM process WHERE order_no = {};'.format(order)
                 cursor.execute(sql_del)
-                sql_del = 'DELETE FROM "order" WHERE order_no = {};'.format(order[0])
+                sql_del = 'DELETE FROM "order" WHERE order_no = {};'.format(order)
                 cursor.execute(sql_del)
 
             sql_del = "DELETE FROM delivery WHERE TIN = '{}';"

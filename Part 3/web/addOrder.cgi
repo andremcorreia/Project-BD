@@ -6,13 +6,24 @@ form = cgi.FieldStorage()
 
 base.Setup()
 
-if not form.getvalue('order_no'):
+ # Gets the values for each param
+order_no = form.getvalue('order_no')
+cust_no = form.getvalue('cust_no')
+date = form.getvalue('date')
+
+# Get the list of product SKU and quantity pairs
+SKUs = form.getlist('SKU[]')
+qtys = form.getlist('quantity[]')
+
+if not order_no:
     print('<h3 style="font-size: 24px;">Adding a new order</h3>')
 
     # The form will send the info needed for the SQL query
     print('<form action="addOrder.cgi" method="post">')
     print('<div style="margin-left: -20px;">')
     print('<p>Order Number:</p> <input type="text" name="order_no" style="background-color: lightgrey; width: 110%;"/>')
+    if (name or email) and not cust_no:
+        print('<div style="color: #f5473b; font-size: 12px;">Required field</div>') 
     print('<p>Customer Number:</p> <input type="text" name="cust_no" style="background-color: lightgrey; width: 110%;"/>')
     print('<p>Date:</p> <input type="text" name="date" style="background-color: lightgrey; width: 110%;"/>')
     print('</div>')
@@ -57,14 +68,6 @@ if not form.getvalue('order_no'):
     ''')
 
 else:
-    # Gets the values for each param
-    order_no = form.getvalue('order_no')
-    cust_no = form.getvalue('cust_no')
-    date = form.getvalue('date')
-    
-    # Get the list of product SKU and quantity pairs
-    SKUs = form.getlist('SKU[]')
-    qtys = form.getlist('quantity[]')
 
     connection = None
 
