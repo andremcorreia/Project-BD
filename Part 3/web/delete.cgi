@@ -6,9 +6,6 @@ form = cgi.FieldStorage()
 table = form.getvalue('table')
 id = form.getvalue('id')
 name = form.getvalue('name')
-# Get the number of suppliers of the product (sku) associated with current supplier
-supp_counter = int(form.getvalue('supp_count'))
-sku = form.getvalue('sku')
 
 base.Setup()
 
@@ -30,6 +27,9 @@ if not form.getvalue('confirmation'):
     print('</div>')
 
 else:
+    # Get the number of suppliers of the product (sku) associated with current supplier
+    supp_counter = int(form.getvalue('supp_count'))
+    sku = form.getvalue('sku')
 
     connection = None
     try:
@@ -100,7 +100,10 @@ else:
                 sql_del = "DELETE FROM supplier WHERE TIN = '{}';".format(id)
                 cursor.execute(sql_del)
             else:
-                print('<meta http-equiv="refresh" content="0; url={}.cgi?table={}&id={}" />'.format(back, 'product', sku))
+                print('<form action="" method="post">')
+                print('<input type="hidden" name="table" value="\'product\'">')
+                print('<input type="hidden" name="id" value="\'{}\'">'.format(sku))
+                print('</form">')
 
         # Commit the update (without this step the database will not change)
         connection.commit()
