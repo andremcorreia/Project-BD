@@ -1,8 +1,30 @@
-import random
+import math, random, string
 
-num_entries = 1000000  # Specify the number of entries you want to generate
+size = 100
 
-# List of street names
+first_names = [
+    "John", "David", "Michael", "Sarah", "Jessica", "Jennifer", "James", "Robert", "Daniel", "Emma",
+    "Emily", "William", "Joseph", "Matthew", "Olivia", "Sophia", "Jacob", "Andrew", "Ava", "Madison",
+    "Noah", "Ethan", "Alexander", "Isabella", "Grace", "Logan", "Benjamin", "Mia", "Charlotte", "Lucas",
+    "Henry", "Liam", "Jackson", "Samuel", "Sebastian", "Elijah", "Aiden", "Carter", "Abigail", "Harper",
+    "Ella", "Sofia", "Avery", "Lily", "Chloe", "Evelyn", "Victoria", "Aria", "Scarlett", "Hannah",
+    "Landon", "Gabriel", "Christopher", "David", "Andrew", "Lucas", "Joshua", "Nicholas", "Matthew",
+    "Christopher", "Nathan", "Aaron", "Zachary", "Ryan", "Justin", "Jonathan", "Thomas", "Tyler",
+    "Jason", "Brandon", "Christian", "Dylan", "Samuel", "Elijah", "Anthony", "Isaac", "Joseph",
+    "Gavin", "Jackson", "Hunter", "Evan", "Jordan", "Adam", "Kevin", "Caleb", "Dylan"
+]
+
+surnames = [
+    "Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson",
+    "Martinez", "Anderson", "Taylor", "Thomas", "Hernandez", "Moore", "Martin", "Jackson", "Thompson", "White",
+    "Lopez", "Lee", "Gonzalez", "Harris", "Clark", "Lewis", "Young", "Walker", "Hall", "Allen", "Green",
+    "Adams", "Baker", "Hill", "King", "Wright", "Lopez", "Scott", "Nguyen", "Gonzalez", "Carter",
+    "Mitchell", "Perez", "Roberts", "Turner", "Phillips", "Campbell", "Parker", "Evans", "Edwards", "Collins",
+    "Stewart", "Sanchez", "Morris", "Rogers", "Reed", "Cook", "Morgan", "Bell", "Murphy", "Bailey",
+    "Cooper", "Richardson", "Cox", "Howard", "Ward", "Torres", "Peterson", "Gray", "Ramirez", "James",
+    "Watson", "Brooks", "Kelly", "Sanders", "Price", "Bennett", "Wood", "Barnes", "Ross", "Henderson"
+]
+
 street_names = [
     "Rua da Alegria",
     "Avenida dos Aliados",
@@ -200,7 +222,7 @@ street_names = [
     "Maple Court",
     "River Street"
 ]
-# List of city names
+
 city_names = [
     "Lisbon",
     "Porto",
@@ -297,56 +319,6 @@ city_names = [
     "Lagos"
 ]
 
-def generate_insert_queries(n):
-    for i in range(n):
-        random_numbers = f"{random.randint(1000, 9999)}-{random.randint(100, 999)}"
-        random_street = random.choice(street_names)
-        random_city = random.choice(city_names)
-        address = f"'{random_street}, {random_numbers} {random_city}'"
-        lat = round(0.0000 + i * 0.0001, 4)
-        lon = round(0.0000 - i * 0.0001, 4)
-        entry = f"({address}, {lat}, {lon})"
-        if i < n - 1:
-            entry += ","
-        print(entry)
-
-
-print("-- workplace and offices/warehouse need to be populated in a transaction due to RI-2")
-print("START TRANSACTION;")
-print("SET CONSTRAINTS ALL DEFERRED;")
-print("INSERT INTO workplace (address, lat, lon) VALUES")
-generate_insert_queries(num_entries)
-print(";")
-
-def generate_address(start, end):
-    for i in range(start, end + 1):
-        random_numbers = f"{random.randint(1000, 9999)}-{random.randint(100, 999)}"
-        random_street = random.choice(street_names)
-        random_city = random.choice(city_names)
-        address = f"'{random_street}, {random_numbers} {random_city}'"
-        if i < end:
-            address += ","
-        print(address)
-
-
-print("INSERT INTO office (address) VALUES")
-start_index = 1  # Specify the start index of the street names
-end_index = int(num_entries / 2)  # Specify the end index of the street names
-generate_address(start_index, end_index)
-print(";")
-
-print("INSERT INTO warehouse (address) VALUES")
-start_index = int(num_entries / 2)  # Specify the start index of the street names
-end_index = num_entries - 1  # Specify the end index of the street names
-generate_address(start_index, end_index)
-print(";")
-
-print("\nCOMMIT;\n")
-
-
-#------------------------------------------------------------------------------------------------------------------------
-
-# List of employee departments
 departments = [
     "Accounting",
     "Human Resources",
@@ -401,137 +373,6 @@ departments = [
     "Sustainability",
     "Government Relations"
 ]
-
-def print_departments(departments):
-    print("INSERT INTO department (name)")
-    print("VALUES")
-
-    for department in departments:
-        if department != departments[-1]: print(f"    ('{department}'),")
-        else: print(f"    ('{department}')")
-
-    print(";")
-
-# Call the function
-print_departments(departments)
-
-# List of employee first names
-first_names = [
-    "John", "David", "Michael", "Sarah", "Jessica", "Jennifer", "James", "Robert", "Daniel", "Emma",
-    "Emily", "William", "Joseph", "Matthew", "Olivia", "Sophia", "Jacob", "Andrew", "Ava", "Madison",
-    "Noah", "Ethan", "Alexander", "Isabella", "Grace", "Logan", "Benjamin", "Mia", "Charlotte", "Lucas",
-    "Henry", "Liam", "Jackson", "Samuel", "Sebastian", "Elijah", "Aiden", "Carter", "Abigail", "Harper",
-    "Ella", "Sofia", "Avery", "Lily", "Chloe", "Evelyn", "Victoria", "Aria", "Scarlett", "Hannah",
-    "Landon", "Gabriel", "Christopher", "David", "Andrew", "Lucas", "Joshua", "Nicholas", "Matthew",
-    "Christopher", "Nathan", "Aaron", "Zachary", "Ryan", "Justin", "Jonathan", "Thomas", "Tyler",
-    "Jason", "Brandon", "Christian", "Dylan", "Samuel", "Elijah", "Anthony", "Isaac", "Joseph",
-    "Gavin", "Jackson", "Hunter", "Evan", "Jordan", "Adam", "Kevin", "Caleb", "Dylan"
-]
-
-# List of employee surnames
-surnames = [
-    "Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson",
-    "Martinez", "Anderson", "Taylor", "Thomas", "Hernandez", "Moore", "Martin", "Jackson", "Thompson", "White",
-    "Lopez", "Lee", "Gonzalez", "Harris", "Clark", "Lewis", "Young", "Walker", "Hall", "Allen", "Green",
-    "Adams", "Baker", "Hill", "King", "Wright", "Lopez", "Scott", "Nguyen", "Gonzalez", "Carter",
-    "Mitchell", "Perez", "Roberts", "Turner", "Phillips", "Campbell", "Parker", "Evans", "Edwards", "Collins",
-    "Stewart", "Sanchez", "Morris", "Rogers", "Reed", "Cook", "Morgan", "Bell", "Murphy", "Bailey",
-    "Cooper", "Richardson", "Cox", "Howard", "Ward", "Torres", "Peterson", "Gray", "Ramirez", "James",
-    "Watson", "Brooks", "Kelly", "Sanders", "Price", "Bennett", "Wood", "Barnes", "Ross", "Henderson"
-]
-
-from datetime import datetime, timedelta
-#def generate_employee_entries(n):
-#    ssn = 100000006
-#    tin = 20005
-#    bdate_start = '1950-01-01'
-#    print("INSERT INTO employee (ssn, TIN, bdate, name)\nVALUES\n")
-#    
-#    for i in range(n):
-#        ssn += 1
-#        tin += 1
-#        if (i%1000==0): bdate = (datetime.strptime(bdate_start, '%Y-%m-%d') + timedelta(days=i)).strftime('%Y-%m-%d')
-#        random_first = random.choice(first_names)
-#        random_sur = random.choice(surnames)
-#        random_name = f'{random_first} {random_sur}'
-#        entry = f"({ssn}, {tin}, '{bdate}', '{random_name}')"
-#        if i < n - 1:
-#            entry += ","
-#        print(entry)
-#
-#    print(";")
-#
-#generate_employee_entries(num_entries)
-
-# Generate a random date of birth between 18 and 60 years ago
-def generate_date_of_birth():
-    #current_year = datetime.datetime.now().year
-    #start_year = current_year - 60
-    #end_year = current_year - 18
-    #birth_year = random.randint(start_year, end_year)
-    #birth_month = random.randint(1, 12)
-    #birth_day = random.randint(1, 28)
-    #date_of_birth = datetime.date(birth_year, birth_month, birth_day)
-    bdate_start = '1950-01-01'
-    if (i%1000==0): bdate = (datetime.strptime(bdate_start, '%Y-%m-%d') + timedelta(days=i)).strftime('%Y-%m-%d')
-
-    return bdate
-
-# Generate a random employee name
-def generate_name():
-    first_name = random.choice(first_names)
-    last_name = random.choice(surnames)
-    return f"'{first_name} {last_name}'"
-
-# Generate random employee data
-def generate_employee_data(n):
-    ssn = 100000006
-    tin = 20005
-    
-    for i in range(1, n+1):
-        ssn += 1
-        tin += 1
-        name = generate_name()
-        bdate = generate_date_of_birth()
-        entry = f"({ssn}, {tin}, '{bdate}', '{name}')"
-        if i < n:
-            entry += ","
-        print(entry)
-
-# Generate INSERT queries for employee table
-print("-- employee table")
-print("INSERT INTO employee (ssn, tin, bdate, name) VALUES")
-generate_employee_data(num_entries)
-print(";")
-
-# Generate random customer data
-def generate_customer_data(n):
-
-    for i in range(1, n+1):
-        cust_no = 30 + i
-        first_name = random.choice(first_names)
-        last_name = random.choice(surnames)
-        name = f"'{first_name} {last_name}'"
-        email = f"'{first_name}@mail.com'"
-        phone = random.randint(900000000, 999999999)
-        phone_num = f"'(351){phone}"
-        random_numbers = f"{random.randint(1000, 9999)}-{random.randint(100, 999)}"
-        random_street = random.choice(street_names)
-        random_city = random.choice(city_names)
-        address = f"'{random_street}, {random_numbers} {random_city}'"
-
-        entry = f"({cust_no}, {name}, {email}, {phone_num}, {address})"
-        if i < n:
-            entry += ","
-        print(entry)
-
-# Generate INSERT queries for customer table
-print("-- customer table")
-print("INSERT INTO customer (name, address) VALUES")
-generate_customer_data(num_entries)
-print(";")
-
-print("\nCOMMIT;\n")
 
 products = [
     "Smartphone",
@@ -740,33 +581,6 @@ price_ranges = {
     # Add more price ranges for other products
 }
 
-def generate_insert_statements(products, price_ranges):
-    insert_statements = []
-    for i, product in enumerate(products):
-        sku = f"A{i + 1:03}"
-        name = product
-        description = "Sample description for " + product
-        price_range = price_ranges.get(product, (50, 500))
-        price = random.uniform(price_range[0], price_range[1])
-        #ean = f"1234567890{i + 1:03}"
-
-        insert_statement = f"('{sku}', '{name}', '{description}', {price:.2f}, '{ean}')"
-        insert_statements.append(insert_statement)
-
-    # Join all insert statements with commas and add the header and footer
-    insert_query = "INSERT INTO product (sku, name, description, price, ean)\nVALUES\n"
-    insert_query += ",\n".join(insert_statements)
-    insert_query += ";\n"
-
-    return insert_query
-
-
-# Generate the INSERT statements
-insert_query = generate_insert_statements(products, price_ranges)
-
-# Print the INSERT statements
-print(insert_query)
-
 suppliers = [
     "ABC Suppliers",
     "XYZ Company",
@@ -884,98 +698,76 @@ suppliers = [
     "Superior Trade Connections"
 ]
 
-def print_supplier(suppliers):
-    print("INSERT INTO supplier (TIN, name, address, sku)")
-    print("VALUES")
+def generate_brand_name():
+    vowels = 'aeiou'
+    consonants = ''.join(set(string.ascii_lowercase) - set(vowels))
+    
+    syllables = ['ba', 'be', 'bi', 'bo', 'bu', 'da', 'de', 'di', 'do', 'du', 'ga', 'ge', 'gi', 'go', 'gu',
+                 'ka', 'ke', 'ki', 'ko', 'ku', 'la', 'le', 'li', 'lo', 'lu', 'ma', 'me', 'mi', 'mo', 'mu',
+                 'na', 'ne', 'ni', 'no', 'nu', 'pa', 'pe', 'pi', 'po', 'pu', 'ra', 're', 'ri', 'ro', 'ru',
+                 'sa', 'se', 'si', 'so', 'su', 'ta', 'te', 'ti', 'to', 'tu', 'va', 've', 'vi', 'vo', 'vu',
+                 'za', 'ze', 'zi', 'zo', 'zu']
+    
+    name_length = random.randint(1, 4)
+    name = ''
+    
+    for _ in range(name_length):
+        syllable = random.choice(syllables)
+        name += random.choice([random.choice(vowels), random.choice(consonants)]) + syllable
+    
+    return " " + name.capitalize()
 
-    tin = 20005
-    sku_count = 1
+print("""
+INSERT INTO customer (cust_no, name, email, phone, address) 
+VALUES 
+""")
 
-    for i in enumerate(suppliers):
-        tin += 1
-        sku = f"SKU{sku_count:03}"
-        sku_count += 1
+for i in range(1, size):
+    cust_no = i
+    first_name = random.choice(first_names)
+    last_name = random.choice(surnames)
+    name = f"'{first_name} {last_name}'"
+    email = f"'{first_name}{i}@mail.com'"
+    phone = random.randint(900000000, 999999999)
+    phone_num = f"'(351){phone}'"
+    random_numbers = f"{random.randint(1000, 9999)}-{random.randint(100, 999)}"
+    random_street = random.choice(street_names)
+    random_city = random.choice(city_names)
+    address = f"'{random_street}, {random_numbers} {random_city}'"
+    entry = f"({cust_no}, {name}, {email}, {phone_num}, {address})"
+    if i < size - 1:
+        entry += ","
+    print(entry)
 
-        random_numbers = f"{random.randint(1000, 9999)}-{random.randint(100, 999)}"
-        random_street = random.choice(street_names)
-        random_city = random.choice(city_names)
-        address = f"'{random_street}, {random_numbers} {random_city}'"
+print(";")
 
-        name = random.choice(suppliers)
+print("""
+INSERT INTO product (SKU, name, description, price, ean)
+VALUES 
+""")
+      
+for i in range(1, size):
+    sku = f"A{i}"
+    name = random.choice(products) + generate_brand_name()
+    description = "Sample description for " + name
+    price_range = price_ranges.get(name, (50, 500))
+    price = random.uniform(price_range[0], price_range[1])
+    ean = f"1{'0' * (9 - i)}{i}"
 
-        if i < entries - 1:
-            print(f"    ({tin}, '{name}', {address}, '{sku}'),")
-        else:
-            print(f"    ({tin}, '{name}', {address}, '{sku}')")
-
-    print(";")
-
-print_supplier(suppliers)
-
-
-def print_delivery(entries):
-    print("INSERT INTO delivery (address, TIN)")
-    print("VALUES")
-
-    tin = 20005
-
-    for i in range(entries):
-        tin += 1
-        random_numbers = f"{random.randint(1000, 9999)}-{random.randint(100, 999)}"
-        random_street = random.choice(street_names)
-        random_city = random.choice(city_names)
-        address = f"'{random_street}, {random_numbers} {random_city}'"
-        if i < entries - 1:
-            print(f"    ({address}, {tin}),")
-        else:
-            print(f"    ({address}, {tin})")
-
-    print(";")
-
-print_delivery(num_entries)
-
-
-
-#-------------------------------------------------------------------------------------
-
-def generate_customers(n):
-    for i in range(1, n + 1):
-        cust_no = 30 + i
-        first_name = random.choice(first_names)
-        last_name = random.choice(surnames)
-        name = f"'{first_name} {last_name}'"
-        email = f"'{first_name}@mail.com'"
-        phone = random.randint(900000000, 999999999)
-        phone_num = f"'(351){phone}"
-        random_numbers = f"{random.randint(1000, 9999)}-{random.randint(100, 999)}"
-        random_street = random.choice(street_names)
-        random_city = random.choice(city_names)
-        address = f"'{random_street}, {random_numbers} {random_city}'"
-        entry = (cust_no, name, email, phone_num, address)
-        if i < n:
-            print(f"    {entry},")
-        else:
-            print(f"    {entry};\n")
-
-print("INSERT INTO customer (cust_no, name, email, phone, address)\nVALUES\n")
-generate_customers(num_entries)
+    entry = f"('{sku}', '{name}', '{description}', {price:.2f}, {ean})"    
+    if i < size - 1:
+        entry += ","
+    print(entry)
+print(";")
 
 
-
-def generate_order_entries(num_entries):
-    order_no = 10
-    cust_no = 30
-
-    for i in range(num_entries):
-        order_no += 1
-        cust_no += 1
-        date = random_date()
-        entry = (order_no, date, cust_no)
-        if i < num_entries - 1: print(f"    {entry},")
-        else: print(f"    {entry}")
-
-    print(";")
-
+print("""
+START TRANSACTION;
+SET	CONSTRAINTS	ALL	DEFERRED;
+INSERT INTO "order" (order_no, cust_no, date)
+VALUES  
+""")
+      
 def random_date():
     year = 2022
     month = random.randint(1, 12)
@@ -984,73 +776,94 @@ def random_date():
     date = f"{year:04d}-{month:02d}-{day:02d}"
     return date
 
-print(""" -- orders need to be in contains due to RI-3
-START	TRANSACTION;
-SET	CONSTRAINTS	ALL	DEFERRED;""")
-      
-print("""INSERT INTO order_ (order_no, date, cust_no)
-VALUES""")
-generate_order_entries(num_entries)
+n = 1
+cust_nos = []
+
+for i in range(1, size):
+    if random.randint(0,10) > 0 or i == size - 1:
+        cust_no = i
+        nOrders = random.randint(1,3)
+        if i == size - 1:
+            nOrders = 1
+        j = 0
+        while(j < nOrders):
+            cust_nos += [cust_no]
+            j += 1
+            order_no = n
+            date = random_date()
+            entry = (order_no, cust_no, date)
+            entry = f"({order_no}, {cust_no}, '{date}')" 
+            n += 1
+            if i < size - 1:
+                entry += ","
+            print(entry)
+print(";")
+
+print("""
+INSERT INTO contains (order_no, SKU, qty)
+VALUES
+""")
+
+for i in range(1, n):
+    order_no = i
+    nContains = random.randint(1,5)
+    j = 0
+    while(j < nContains):
+        qty = random.randint(1,15) 
+        sku = f"A{random.randint(1,size)}"
+        j += 1
+        entry = f"({order_no}, '{sku}', {qty})" 
+
+    if i < n - 1:
+        entry += ","
+    print(entry)
+
+print(";")
+print("COMMIT;	")
 
 
 
-def generate_contains_entries(num_entries):
+print("""
+INSERT INTO pay (order_no, cust_no)
+VALUES
+""")
 
-    order_no = 10
-    sku_count = 1
-    for i in range(num_entries):
-        sku = f"SKU{sku_count:03}"
-        sku_count += 1
-        order_no += 1
-        qty = random.randint(1, 10)
+for i in range(1, n):
+    if random.randint(1,2) == 2 or i == n - 1:
+        cust_no = cust_nos[i - 1]
+        entry = (i, cust_no)
+        entry = f"({i}, {cust_no})"
+        if i < n - 1:
+            entry += ","
+        print(entry)
 
-        entry = (sku, order_no, qty)
-        if i < num_entries - 1: print(f"    {entry},")
-        else: print(f"    {entry}")
+print(";")
 
-    print(";")
+print("""
+INSERT INTO supplier (TIN, name, address, SKU, date)
+VALUES 
+""")
+for i in range(1, size):
+    TIN = i
+    sku = f"A{i}"
+    name = random.choice(suppliers) + generate_brand_name()
+    random_numbers = f"{random.randint(1000, 9999)}-{random.randint(100, 999)}"
+    random_street = random.choice(street_names)
+    random_city = random.choice(city_names)
+    address = f"'{random_street}, {random_numbers} {random_city}'"
+    date = random_date()
 
+    entry = f"('{TIN}', '{name}', {address}, '{sku}', '{date}')"    
+    if i < size - 1:
+        entry += ","
+    print(entry)
 
-print("""INSERT INTO contains (sku, order_no, qty)
-VALUES""")
-generate_contains_entries(num_entries)
+print(";")
 
-
-print("COMMIT;")
-
-
-print("""INSERT INTO pay (cust_no, order_no)
-VALUES""")
-def generate_pays(num_entries):
-    cust_no = 30
-    order_no = 10
-
-    for i in range(int(num_entries/2)):
-        cust_no += 1
-        order_no += 1
-        entry = (cust_no, order_no)
-        if i < int(num_entries/2) - 1: print(f"    {entry},")
-        else: print(f"    {entry}")
-
-    print(";")
-
-generate_pays(num_entries)
-
-
-
-print("""INSERT INTO process (ssn, order_no)
-VALUES""")
-def generate_process(num_entries):
-    ssn = 100000006
-    order_no = 10
-
-    for i in range(int(num_entries/2)):
-        ssn += 1
-        order_no += 1
-        entry = (ssn, order_no)
-        if i < int(num_entries/2) - 1: print(f"    {entry},")
-        else: print(f"    {entry}")
-
-    print(";")
-
-generate_process(num_entries)
+#print("""
+#INSERT INTO customer (cust_no, name, email, phone, address) 
+#VALUES 
+#""")
+#
+#
+#print(";")

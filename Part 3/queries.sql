@@ -28,12 +28,6 @@ WHERE NOT EXISTS (
     WHERE p.ssn = e.ssn
 );
 
--- saca todos os employees em que
--- e vazio:
--- retrieves all the dates in 2022 when there were orders.
--- menos
--- retrieves the order numbers processed by each employe
-
 -- 3
 SELECT EXTRACT(MONTH FROM o.date) AS month, COUNT(*) AS unpaid_orders
 FROM "order" o

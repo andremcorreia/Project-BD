@@ -1,4 +1,4 @@
--- IC1 no triggers?
+-- IC 1
 
 ALTER TABLE employee
 ADD CONSTRAINT check_employee_age CHECK (EXTRACT(YEAR FROM AGE(bdate)) >= 18);
@@ -45,20 +45,16 @@ CREATE CONSTRAINT TRIGGER tg_contains_order
     FOR EACH ROW
     EXECUTE FUNCTION check_contains_order();
 
-
---O uso de extensões procedimentais (Stored Procedures e Triggers) deve ser reservado a restrições de
---integridade que não podem ser implementadas usando outros mecanismos mais simples.
-
 -- IC ADDRESSES
 
 ALTER TABLE customer
 ADD CONSTRAINT check_cust_address
-CHECK (address ~ '^[\w\s]+,\s\d{4}-\d{3}\s[\w\s]+$');
+CHECK (address ~ '^.+,\s\d{4}-\d{3}\s.+$');
 
 ALTER TABLE supplier
 ADD CONSTRAINT check_supp_address
-CHECK (address ~ '^[\w\s]+,\s\d{4}-\d{3}\s[\w\s]+$');
+CHECK (address ~ '^.+,\s\d{4}-\d{3}\s.+$');
 
 ALTER TABLE workplace
 ADD CONSTRAINT check_workplace_address
-CHECK (address ~ '^[\w\s]+,\s\d{4}-\d{3}\s[\w\s]+$');
+CHECK (address ~ '^.+,\s\d{4}-\d{3}\s.+$');

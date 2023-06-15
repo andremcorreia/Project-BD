@@ -45,7 +45,10 @@ try:
     if current > count:
         current = math.floor(count/MAX)*MAX
 
-    for row in result:
+    for i in range(current, len(result)):
+        row = result[i]
+        if i >= MAX + current:
+                break
         print('<tr>')
         print('<td>{}</td>'.format(row[0]))
         print('<td>{}</td>'.format(row[1]))
