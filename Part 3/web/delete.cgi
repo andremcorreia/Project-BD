@@ -6,6 +6,9 @@ form = cgi.FieldStorage()
 table = form.getvalue('table')
 id = form.getvalue('id')
 name = form.getvalue('name')
+# Get the number of suppliers of the product (sku) associated with current supplier
+supp_counter = int(form.getvalue('supp_count'))
+sku = form.getvalue('sku')
 
 base.Setup()
 
@@ -27,9 +30,6 @@ if not form.getvalue('confirmation'):
     print('</div>')
 
 else:
-    # Get the number of suppliers of the product (sku) associated with current supplier
-    supp_counter = int(form.getvalue('supp_count'))
-    sku = form.getvalue('sku')
 
     connection = None
     try:
