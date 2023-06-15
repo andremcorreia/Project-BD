@@ -35,5 +35,26 @@ JOIN "order" o ON ps.order_no = o.order_no
 WHERE EXTRACT(YEAR FROM o.date) = 2022
 AND EXTRACT(MONTH FROM o.date) IS NOT NULL
 AND day_of_week IS NOT NULL
-GROUP BY (o.date, ps.total_price, month, day_of_week)
+GROUP BY (o.date, month, day_of_week)
 ORDER BY month, day_of_week;
+
+--WITH daily_sales AS (
+--  SELECT
+--    o.date,
+--    EXTRACT(MONTH FROM o.date) AS month,
+--    to_char(o.date::date, 'Day') AS day_of_week,
+--    SUM(ps.total_price) AS total_daily_value
+--  FROM product_sales ps
+--  JOIN "order" o ON ps.order_no = o.order_no
+--  WHERE EXTRACT(YEAR FROM o.date) = 2022
+--  GROUP BY o.date
+--)
+--
+--SELECT
+--  month,
+--  day_of_week,
+--  AVG(total_daily_value) AS average_daily_value
+--FROM daily_sales
+--GROUP BY month, day_of_week
+--ORDER BY month, day_of_week;
+--
