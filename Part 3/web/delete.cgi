@@ -89,6 +89,17 @@ else:
             
             sql_del = "DELETE FROM product WHERE SKU = '{}';".format(id)
             cursor.execute(sql_del)
+        
+        elif table == 'supplier':
+            # Get the number of suppliers of the product (sku) associated with current supplier
+            supp_counter = form.getvalue('supp_count')
+            sku = form.getvalue('sku')
+
+            if supp_counter > 1:
+                sql_del = 'DELETE FROM supplier WHERE TIN = {};'.format(id)
+                cursor.execute(sql_del)
+            else:
+                print('<a href="delete.cgi?table={}&id={}">'.format('product', sku))
 
         # Commit the update (without this step the database will not change)
         connection.commit()
