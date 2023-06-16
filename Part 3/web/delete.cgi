@@ -19,19 +19,29 @@ if table == "product" or table == "supplier":
 
 # Corfirmation form
 if not form.getvalue('confirmation'):
-    print('<p style="font-size:30px;">Are you sure you wish to delete {}, {}?</p>'.format(table, name))
+    print('<h3 style="font-size:30px;">Are you sure you wish to delete {}, {}? 🗑️</h3>'.format(table, name))
 
     if table == 'supplier':
         if int(supp_counter) == 1:
             print('<p style="font-size:30px;">&#9888;&#65039; Warning: This will delete its associated product, as there\'s no more suppliers &#9888;&#65039;</p>')
 
+
+    print('<form action="delete.cgi?table={}&id={}&name={}&confirmation={}&supp_count={}&sku={}" method="post">'.format(table, id, name, "yes", supp_counter, sku))
+    print('<div style="margin-bottom: 30px;"> </div>') 
+
     # Buttons
     print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
-    print('<a href="{}.cgi" class="button" style="background-color: grey; margin-left: -20px; line-height: 50px;">Cancel</a>'.format(back))
-    print('<form action="delete.cgi?table={}&id={}&name={}&confirmation={}&supp_count={}&sku={}" method="post" style="margin-left: 40px; margin-right: 40px;">'.format(table, id, name, "yes", supp_counter, sku))
-    print('<button type="submit" class="button" style="background-color: #25b80b;">Confirm</button>')
+    print('<form action="delete.cgi?table={}&id={}&name={}&confirmation={}&supp_count={}&sku={}" method="post" style="margin-left: 20px; margin-right: 20px;">'.format(table, id, name, "yes", supp_counter, sku))
+    print('<a href="{}.cgi" class="pushable" style="background-color: #80857f; text-decoration: none;"><span class="front" style="background: #d6dbd5; color: black;">Cancel</span></a>'.format(back))
+    print('<a style="margin-right: 40px;"> </a>')
+    print('<button type="submit" class="pushable" style="background-color: #147303;"><span class="front" style="background: #2cc211;">Submit</button>')    
     print('</form>')
+
     print('</div>')
+    print('</form>')
+
+
+
 
 # Execution of the queries
 else:

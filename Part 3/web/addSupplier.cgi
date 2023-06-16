@@ -15,30 +15,32 @@ date = form.getvalue('date')
 
 # Form
 if not TIN or not name_supplier or not date:
-    print('<h3 style="font-size: 24px;">Adding a new Supplier for {}</h3>'.format(prod_name))
+    print('<h3 style="font-size: 24px;">Adding a new Supplier for {} 🚚</h3>'.format(prod_name))
 
     print('<form action="addSupplier.cgi?SKU={}&Pname={}" method="post">'.format(sku,prod_name))
     print('<div style="margin-left: -20px;">')
-    print('<p>TIN:</p> <input type="text" name="TIN" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>TIN:</p> <input type="text" name="TIN" style="padding:5px; font-size:12px; border-radius:5px; border:0px solid #ccc; width: 110%;"/>')
     if (name_supplier or date) and not TIN:
         print('<div style="color: #f5473b; font-size: 12px;">Required field</div>')
-    print('<p>Supplier Name:</p> <input type="text" name="Sname" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>Supplier Name:</p> <input type="text" name="Sname" style="padding:5px; font-size:12px; border-radius:5px; border:0px solid #ccc; width: 110%;"/>')
     if (TIN or date) and not name_supplier:
         print('<div style="color: #f5473b; font-size: 12px;">Required field</div>')
-    print('<p>Address:</p> <input type="text" name="address" style="background-color: lightgrey; width: 110%;"/>')
-    print('<p>Contract date:</p> <input type="text" name="date" style="background-color: lightgrey; width: 110%;"/>')
+    print('<p>Address:</p> <input type="text" name="address" style="padding:5px; font-size:12px; border-radius:5px; border:0px solid #ccc; width: 110%;"/>')
+    print('<p>Contract date:</p> <input type="text" name="date" style="padding:5px; font-size:12px; border-radius:5px; border:0px solid #ccc; width: 110%;"/>')
     if (TIN or name_supplier) and not date:
         print('<div style="color: #f5473b; font-size: 12px;">Required field</div>')
     print('</div>')
 
+    print('<div style="margin-bottom: 30px;"> </div>') 
+
     # Buttons
     print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
-    print('<a href="products.cgi?id={}&Pname={}" class="button" style="background-color: grey; margin-left: -20px; line-height: 50px;">Cancel</a>'.format(sku,prod_name))
     print('<form action="addSupplier.cgi?SKU={}&Pname={}" method="post" style="margin-left: 20px; margin-right: 20px;">'.format(sku,prod_name))
-    print('<button type="submit" class="button" style="background-color: #25b80b; margin-right: -20px;">Submit</button>')
+    print('<a href="products.cgi?id={}&Pname={}" class="pushable" style="background-color: #80857f; text-decoration: none;"><span class="front" style="background: #d6dbd5; color: black;">Cancel</span></a>'.format(sku,prod_name))
+    print('<a style="margin-right: 40px;"> </a>')
+    print('<button type="submit" class="pushable" style="background-color: #147303;"><span class="front" style="background: #2cc211;">Submit</button>')    
     print('</form>')
     print('</div>')
-
     print('</form>')
 
 # Execution of the queries

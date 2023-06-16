@@ -3,6 +3,7 @@ def Setup():
     print('Content-type:text/html\n\n')
     print('<html>')
     print('<head>')
+    print('<meta charset="utf-8">')
     print('<title>Project</title>')
     print('<meta name="viewport" content="width=device-width, initial-scale=1">')
     print('<style>')
@@ -39,6 +40,29 @@ def Setup():
     print('  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);')
     print('}')
 
+    print('.pushable {')
+    print('  background: hsl(340deg 100% 32%);')
+    print('  border-radius: 12px;')
+    print('  border: none;')
+    print('  padding: 0;')
+    print('  cursor: pointer;')
+    print('  outline-offset: 4px;')
+    print('}')
+    print('.front {')
+    print('  display: block;')
+    print('  padding: 12px 42px;')
+    print('  border-radius: 12px;')
+    print('  font-size: 1.25rem;')
+    print('  background: hsl(345deg 100% 47%);')
+    print('  color: white;')
+    print('  transform: translateY(-6px);')
+    print('}')
+    print('')
+    print('.pushable:active .front {')
+    print('  transform: translateY(-2px);')
+    print('}')
+
+
     # Header
     print('header {')
     print('  background-color: #fff;')
@@ -57,7 +81,6 @@ def Setup():
 
     # Table Outside
     print('.table-container {')
-    print('  background-color: #1e2124;')
     print('  color: #fff;')
     print('  width: 100%;')
     print('}')

@@ -16,21 +16,24 @@ base.Setup()
 
 # Form
 if not form.getvalue('new'):
-    print('<p>Editing the {} from {}</p>'.format(type, name))
+    print('<h3 style="font-size:30px;" > Editing the {} for {} 📝</h3>'.format(type, name))
 
     print('<form action="edit.cgi?sku={}&name={}&type={}" method="post">'.format(sku, name,type))
     print('<div style="margin-left: -20px;">')
-    print('<p>{}:</p> <input type="text" name="new" style="background-color: lightgrey; width: 110%;"{}/>'.format(type, settings))
+    print('<p>{}:</p> <input type="text" name="new" style="padding:5px; font-size:12px; border-radius:5px; border:0px solid #ccc; width: 110%;"{}/>'.format(type, settings))
     print('</div>')
+
+    print('<div style="margin-bottom: 30px;"> </div>') 
 
     # Buttons
     print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
-    print('<a href="products.cgi" class="button" style="background-color: grey; margin-left: -20px; line-height: 50px;">Cancel</a>')
     print('<form action="edit.cgi?sku={}&name={}&type={}" method="post" style="margin-left: 20px; margin-right: 20px;">'.format(sku, name,type))
-    print('<button type="submit" class="button" style="background-color: #25b80b; margin-right: -20px;">Submit</button>')
+    print('<a href="products.cgi" class="pushable" style="background-color: #80857f; text-decoration: none;"><span class="front" style="background: #d6dbd5; color: black;">Cancel</span></a>')
+    print('<a style="margin-right: 40px;"> </a>')
+    print('<button type="submit" class="pushable" style="background-color: #147303;"><span class="front" style="background: #2cc211;">Submit</button>')    
     print('</form>')
-    print('</div>')
 
+    print('</div>')
     print('</form>')
 
 # Execution of the queries

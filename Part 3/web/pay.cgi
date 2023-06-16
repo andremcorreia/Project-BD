@@ -10,14 +10,21 @@ base.Setup()
 
 # Confirmation form
 if not form.getvalue('confirmation'):
-    print('<p style="font-size:30px;">Are you sure you wish to pay order {} from customer {}?</p>'.format(orderID, custID))
+    print('<h3 style="font-size:30px;">Are you sure you wish to pay order {} from customer {}? 💸</h3>'.format(orderID, custID))
 
+    print('<form action="pay.cgi?orderID={}&custID={}&confirmation={}" method="post">'.format(orderID, custID, "yes"))
+    print('<div style="margin-bottom: 30px;"> </div>') 
+
+    # Buttons
     print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
-    print('<a href="orders.cgi" class="button" style="background-color: grey; margin-left: -20px; line-height: 50px;">Cancel</a>')
-    print('<form action="pay.cgi?orderID={}&custID={}&confirmation={}" method="post" style="margin-left: 40px; margin-right: 40px;">'.format(orderID, custID, "yes"))
-    print('<button type="submit" class="button" style="background-color: #25b80b;">Confirm</button>')
+    print('<form action="pay.cgi?orderID={}&custID={}&confirmation={}" method="post" style="margin-left: 20px; margin-right: 20px;">'.format(orderID, custID, "yes"))
+    print('<a href="orders.cgi" class="pushable" style="background-color: #80857f; text-decoration: none;"><span class="front" style="background: #d6dbd5; color: black;">Cancel</span></a>')
+    print('<a style="margin-right: 40px;"> </a>')
+    print('<button type="submit" class="pushable" style="background-color: #147303;"><span class="front" style="background: #2cc211;">Submit</button>')    
     print('</form>')
+
     print('</div>')
+    print('</form>')
 
 # Execution of the queries
 else:
