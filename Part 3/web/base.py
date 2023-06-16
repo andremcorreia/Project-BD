@@ -1,7 +1,4 @@
 #!/usr/bin/python3
-import psycopg2
-import login
-
 def Setup():
     print('Content-type:text/html\n\n')
     print('<html>')
@@ -73,7 +70,7 @@ def Setup():
     print('  border-collapse: collapse;')
     print('  border: none;')
     print('  padding: 3.5pt 10pt;')
-    print('  word-wrap: break-word;') # Prevent text overflow
+    print('  word-wrap: break-word;')
     print('}')
     print('.table-container tr:nth-child(even) td {')
     print('  background-color: #36393e;')
@@ -86,7 +83,6 @@ def Setup():
     print('  background-color: #6b6e70;')
     print('}')
 
-    # Additional styles for table header
     print('.table-container th {')
     print('  border: none;')
     print('  padding: 5pt 10pt;')
@@ -168,8 +164,6 @@ def addTabs(tabID):
         tag = 'div' if i == tabID else 'a href="{}"'.format(tabLinks[i])
         print('<{} class="{}">{}</{}>'.format(tag, tabs[i], tabNames[i], tag.split()[0]))
     print('</div>')
-
-
 
 def finish():
     print('</body>')

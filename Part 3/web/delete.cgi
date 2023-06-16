@@ -6,22 +6,26 @@ form = cgi.FieldStorage()
 table = form.getvalue('table')
 id = form.getvalue('id')
 name = form.getvalue('name')
-# Get the number of suppliers of the product (sku) associated with current supplier
 supp_counter = form.getvalue('supp_count')
 sku = form.getvalue('sku')
 
 base.Setup()
 
+refreshed = False
+
 back = "clients"
-if table == "product":
-    back = "products"
-elif table == "supplier":
+if table == "product" or table == "supplier":
     back = "products"
 
+# Corfirmation form
 if not form.getvalue('confirmation'):
     print('<p style="font-size:30px;">Are you sure you wish to delete {}, {}?</p>'.format(table, name))
 
-    # The form will send the info needed for the SQL query
+    if table == 'supplier':
+        if int(supp_counter) == 1:
+            print('<p style="font-size:30px;">&#9888;&#65039; Warning: This will delete its associated product, as there\'s no more suppliers &#9888;&#65039;</p>')
+
+    # Buttons
     print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
     print('<a href="{}.cgi" class="button" style="background-color: grey; margin-left: -20px; line-height: 50px;">Cancel</a>'.format(back))
     print('<form action="delete.cgi?table={}&id={}&name={}&confirmation={}&supp_count={}&sku={}" method="post" style="margin-left: 40px; margin-right: 40px;">'.format(table, id, name, "yes", supp_counter, sku))
@@ -29,15 +33,16 @@ if not form.getvalue('confirmation'):
     print('</form>')
     print('</div>')
 
+# Execution of the queries
 else:
-
     connection = None
+
     try:
-        # Creating connection
         connection = psycopg2.connect(login.credentials)
         cursor = connection.cursor()
         connection.autocommit = True
 
+        # Delete customer Logic
         if table == 'customer':
             # Get all order_no associated with customer
             sql_get_orders = 'SELECT order_no FROM "order" WHERE cust_no = {};'.format(id)
@@ -55,6 +60,7 @@ else:
             sql_del = "DELETE FROM customer WHERE cust_no = {};".format(id)
             cursor.execute(sql_del)
 
+        # Delete product Logic
         elif table == 'product':
             # Get all TIN (supplier) associated with product
             sql_get_supp = "SELECT TIN FROM supplier WHERE SKU = '{}';".format(id)
@@ -97,38 +103,29 @@ else:
             sql_del = "DELETE FROM product WHERE SKU = '{}';".format(id)
             cursor.execute(sql_del)
         
+        # Delete supplier Logic
         elif table == 'supplier':
-            if supp_counter:
-                supp_counter = int(supp_counter)
+            supp_counter = int(supp_counter)
             if supp_counter > 1:
                 sql_del = "DELETE FROM supplier WHERE TIN = '{}';".format(id)
                 cursor.execute(sql_del)
             else:
+                refreshed = True
                 print('<meta http-equiv="refresh" content="0; url=delete.cgi?table={}&id={}&confirmation={}" />'.format('product', sku, "yes"))
-                #print('<div class="del last supp">')
-                #print('<form action="" method="post">')
-                #print('<input type="hidden" name="table" value="\'product\'">')
-                #print('<input type="hidden" name="id" value="\'{}\'">'.format(sku))
-                #print('<input type="hidden" name="confirmation" value="yes">')
-                #print('</form">')
-                #print('</div>')
 
-        # Commit the update (without this step the database will not change)
         connection.commit()
         connection.autocommit = True
-
-        # Closing connections
         cursor.close()
 
     except Exception as e:
         connection.rollback()
-        print('<h1>{}</h1>'.format(str(e)))
         print('<h1>An error occurred.</h1>')
 
     finally:
         if connection is not None:
             connection.close()
 
-    print('<meta http-equiv="refresh" content="10; url={}.cgi" />'.format(back))
+    if not refreshed:
+        print('<meta http-equiv="refresh" content="0; url={}.cgi" />'.format(back))
 
 base.finish()

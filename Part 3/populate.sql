@@ -1,39 +1,16 @@
 -- Values are only for testing purposes and do not represent a final database --
+-- Tests for ICs are commented as we weren't sure whether or not to include them --
+-- This is not the populate used in web application, it's used to test the queries --
+-- We assumed "order" instead of order in schema.sql due to the errors --
 
 -- Insert sample data into customer table
 INSERT INTO customer (cust_no, name, email, phone, address) 
 VALUES 
-    (1, 'Pobre', 'pobre@mail.com','(351)966666666', 'Chelas Central, 1111-283 Lisboa'),       -- no orders 
-    (2, 'Maria Santos',  'maria.santos@mail.com', '(351)911111111', 'Praca da Liberdade, 1360-490 Porto'),      -- some paid (not top), unpaid excede top
-    (3, 'Rico', 'rico@mail.com', '(351)922222222', 'Avenida da Liberdade, 1660-491 Lisboa'),       -- top by single sale
-    (4, 'Rico V2', 'rico.v2@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),     -- top by multiple sales
-    (5, 'Pedro Pobre', 'pedro.pobre@mail.com', '(351)933333333', 'Estacao Cacem, 3012-420 Sintra'),     -- doesn't pay
-    (6, 'Rico V2', 'rico.v0@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (7, 'testing1', 'testing.v1@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (8, 'testing2', 'testing.v2@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (9, 'testing3', 'testing.v3@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (10, 'testing4', 'testing.v4@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (11, 'testing5', 'testing.v5@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (12, 'testing6', 'testing.v6@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (13, 'testing7', 'testing.v7@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (14, 'testing8', 'testing.v8@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (15, 'testing9', 'testing.v9@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (16, 'testing10', 'testing.v10@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (17, 'testing11', 'testing.v11@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (18, 'testing12', 'testing.v12@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (19, 'testing13', 'testing.v13@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (20, 'testing14', 'testing.v14@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (21, 'testing15', 'testing.v15@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (22, 'testing16', 'testing.v16@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (23, 'testing17', 'testing.v17@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (24, 'testing18', 'testing.v18@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (25, 'testing19', 'testing.v19@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (26, 'testing20', 'testing.v20@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (27, 'testing21', 'testing.v21@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (28, 'testing22', 'testing.v22@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (29, 'testing23', 'testing.v23@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),
-    (30, 'testing24', 'testing.v24@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais');
-    
+    (1, 'Pobre', 'pobre@mail.com','(351)966666666', 'Chelas Central, 1111-283 Lisboa'),                     -- no orders 
+    (2, 'Maria Santos',  'maria.santos@mail.com', '(351)911111111', 'Praca da Liberdade, 1360-490 Porto'),  -- some paid (not top), unpaid excede top
+    (3, 'Rico', 'rico@mail.com', '(351)922222222', 'Avenida da Liberdade, 1660-491 Lisboa'),                -- top by single sale
+    (4, 'Rico V2', 'rico.v2@mail.com', '(351)955555555', 'Casino Estoril, 2060-495 Cascais'),               -- top by multiple sales
+    (5, 'Pedro Pobre', 'pedro.pobre@mail.com', '(351)933333333', 'Estacao Cacem, 3012-420 Sintra');         -- doesn't pay    
 
 -- Insert sample data into product table
 INSERT INTO product (SKU, name, description, price, ean)
@@ -66,9 +43,9 @@ VALUES
 
 COMMIT;	
 
--- Insert sample data into order table (to check IC)
-INSERT INTO "order" (order_no, cust_no, date)
-VALUES (99, 1, '2023-01-01');                -- check not in contains IC
+---- Insert sample data into order table (to check IC)
+--INSERT INTO "order" (order_no, cust_no, date)
+--VALUES (99, 1, '2023-01-01');                               -- to check not in contains IC
 
 -- Insert sample data into sale table
 INSERT INTO pay (order_no, cust_no)
@@ -84,9 +61,9 @@ VALUES
     (100000003, '10003', '1945-09-02', 'Joaquim Passado'),
     (100000004, '10004', '1975-03-23', 'Maria Extra');
 
-INSERT INTO employee (ssn, TIN, bdate, name)
-VALUES 
-    (100000005, '10005', '2022-01-01', 'Joaozinho');        -- check age < 18 IC
+--INSERT INTO employee (ssn, TIN, bdate, name)
+--VALUES 
+--    (100000005, '10005', '2022-01-01', 'Joaozinho');        -- check age < 18 IC
 
 -- Insert sample data into process table
 INSERT INTO process (ssn, order_no)
@@ -103,10 +80,9 @@ INSERT INTO department (name)
 VALUES
     ('Sales'), ('Logistics'), ('IT');
 
--- Insert sample data into wworkplace, office and warehouse tables
+-- Insert sample data into workplace, office and warehouse tables
 START TRANSACTION;
 SET	CONSTRAINTS	ALL	DEFERRED;
-    -- Insert sample data into workplace table
     INSERT INTO workplace (address, lat, long)
     VALUES 
         ('Rua do Poder, 6290-500 PodeVille', 0.000, 45.000),
@@ -116,36 +92,35 @@ SET	CONSTRAINTS	ALL	DEFERRED;
     VALUES
         ('Parque do Tejo, 2340-123 Oeiras');
 
-    -- Insert sample data into warehouse table
     INSERT INTO warehouse (address)
     VALUES
         ('Rua do Poder, 6290-500 PodeVille');
 
 COMMIT;	
 
--- Insert sample data into wworkplace, office and warehouse tables (to check IC)
-START TRANSACTION;
-SET	CONSTRAINTS	ALL	DEFERRED;
-    -- Insert sample data into workplace table
-    INSERT INTO workplace (address, lat, long)
-    VALUES 
-        ('Rua Ambos, 5555-555 AmbosLand', 45.000, 45.000);      -- check both IC
+---- Insert sample data into workplace, office and warehouse tables (to check IC)
+--START TRANSACTION;
+--SET	CONSTRAINTS	ALL	DEFERRED;
+--    -- Insert sample data into workplace table
+--    INSERT INTO workplace (address, lat, long)
+--    VALUES 
+--        ('Rua Ambos, 5555-555 AmbosLand', 45.000, 45.000);      -- check both IC
+--
+--    INSERT INTO office (address)
+--    VALUES
+--        ('Rua Ambos, 5555-555 AmbosLand');                      -- for both IC
+--
+--    -- Insert sample data into warehouse table
+--    INSERT INTO warehouse (address)
+--    VALUES
+--        ('Rua Ambos, 5555-555 AmbosLand');                      -- for both IC
+--
+--COMMIT;	
 
-    INSERT INTO office (address)
-    VALUES
-        ('Rua Ambos, 5555-555 AmbosLand');      -- for both IC
-
-    -- Insert sample data into warehouse table
-    INSERT INTO warehouse (address)
-    VALUES
-        ('Rua Ambos, 5555-555 AmbosLand');      -- for both IC
-
-COMMIT;	
-
--- Insert sample data into workplace table
-INSERT INTO workplace (address, lat, long)
-VALUES 
-    ('Rua do Cafe, 1111-111 CafeLand', 0.000, 0.000);       -- check none IC
+---- Insert sample data into workplace table
+--INSERT INTO workplace (address, lat, long)
+--VALUES 
+--    ('Rua do Cafe, 1111-111 CafeLand', 0.000, 0.000);           -- check none IC
 
 -- Insert sample data into works table
 INSERT INTO works (ssn, name, address)

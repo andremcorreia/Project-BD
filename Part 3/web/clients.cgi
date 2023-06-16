@@ -3,23 +3,22 @@ import psycopg2, cgi, math
 import login
 import base
 
+MAX = 20
+
 form = cgi.FieldStorage()
 current = form.getvalue('current')
 if not current:
     current = 0
 else:
     current = int(current)
-
 if current < 0:
     current = 0
-
-MAX = 20
 
 base.Setup()
 
 connection = None
+
 try:
-    # Creating connection
     connection = psycopg2.connect(login.credentials)
     cursor = connection.cursor()
     base.addTabs(1)
@@ -30,17 +29,16 @@ try:
     result = cursor.fetchall()
     num = len(result)
 
-    # Display Header
     print('<div class="header">')
     print('<div style="text-align:center; margin-top: 60px;">')
     print('<p><b>Customers</b></p>') 
     print('</div>')
 
-    # Displaying results
     print('<div class="table-container">')
     print('<table border="0">')
     print('<thead><tr><th>ID</th><th>Name</th><th>E-mail</th><th>Phone</th><th>Address</th></tr></thead>')
     
+    # Paging Overflow check
     count = len(result)
     if current >= count:
         current = math.floor((count - 1)/MAX)*MAX
@@ -70,14 +68,13 @@ try:
     print('<a href="addCustomer.cgi"><button class="button" style="background-color: #7289da; width: 200px;">{}</button></a>'.format("Add a Client"))
     print('</div>')
 
-    # Closing connection
     cursor.close()
-    base.finish()
 
 except Exception as e:
     print('<h1>An error occurred.</h1>')
-    print('<p>{}</p>'.format(e))
 
 finally:
     if connection is not None:
         connection.close()
+
+base.finish()

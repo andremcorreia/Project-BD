@@ -8,10 +8,10 @@ custID = form.getvalue('custID')
 
 base.Setup()
 
+# Confirmation form
 if not form.getvalue('confirmation'):
     print('<p style="font-size:30px;">Are you sure you wish to pay order {} from customer {}?</p>'.format(orderID, custID))
 
-    # The form will send the info needed for the SQL query
     print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
     print('<a href="orders.cgi" class="button" style="background-color: grey; margin-left: -20px; line-height: 50px;">Cancel</a>')
     print('<form action="pay.cgi?orderID={}&custID={}&confirmation={}" method="post" style="margin-left: 40px; margin-right: 40px;">'.format(orderID, custID, "yes"))
@@ -19,24 +19,20 @@ if not form.getvalue('confirmation'):
     print('</form>')
     print('</div>')
 
+# Execution of the queries
 else:
-
     connection = None
+
     try:
-        # Creating connection
         connection = psycopg2.connect(login.credentials)
         cursor = connection.cursor()
 
-        # Query
         sql = "INSERT INTO pay (order_no, cust_no) VALUES %(param)s;"
         data = {'param': (orderID, custID)}
 
-        # Feed the data to the SQL query as follows to avoid SQL injection
         cursor.execute(sql, data)
 
-        # Commit the update (without this step the database will not change)
         connection.commit()
-        # Closing connection
         cursor.close()
 
     except Exception as e:

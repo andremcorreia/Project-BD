@@ -20,12 +20,11 @@ END;
 $$	LANGUAGE plpgsql;
 
 CREATE CONSTRAINT TRIGGER	tg_check_mandatory_workplace_office_warehouse
-AFTER INSERT ON workplace DEFERRABLE                                                           --Maybe update? maybe after
+AFTER INSERT ON workplace DEFERRABLE                                                         
 FOR EACH ROW EXECUTE FUNCTION check_mandatory_workplace_office_warehouse();
 
 -- IC 3
 
--- Stored Procedure to check order existence in 'Contains'
 CREATE OR REPLACE FUNCTION check_contains_order()
     RETURNS TRIGGER AS
 $$

@@ -1,6 +1,6 @@
 import math, random, string
 
-size = 100
+size = 2000
 
 first_names = [
     "John", "David", "Michael", "Sarah", "Jessica", "Jennifer", "James", "Robert", "Daniel", "Emma",
@@ -746,7 +746,7 @@ INSERT INTO product (SKU, name, description, price, ean)
 VALUES 
 """)
       
-for i in range(1, size):
+for i in range(1, size + 1):
     sku = f"A{i}"
     name = random.choice(products) + generate_brand_name()
     description = "Sample description for " + name

@@ -17,7 +17,7 @@ WHERE t.total_value = (
 -- 2
 SELECT DISTINCT e.name
 FROM employee e
-WHERE NOT EXISTS (
+WHERE NOT EXISTS ( 
     SELECT DISTINCT o.date
     FROM "order" o
     WHERE EXTRACT(YEAR FROM o.date) = 2022
@@ -27,6 +27,9 @@ WHERE NOT EXISTS (
     JOIN "order" o ON p.order_no = o.order_no
     WHERE p.ssn = e.ssn
 );
+-- if there are no dates left after subtracting the dates
+-- in processed orders by this employee, from every date
+-- in orders, then the employee has processed on every day with orders
 
 -- 3
 SELECT EXTRACT(MONTH FROM o.date) AS month, COUNT(*) AS unpaid_orders

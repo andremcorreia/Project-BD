@@ -12,10 +12,10 @@ email = form.getvalue('email')
 phone = form.getvalue('phone')
 address = form.getvalue('address')
 
+# Form
 if not cust_no or not name or not email:
     print('<h3 style="font-size: 24px;">Adding a new customer</h3>')
 
-    # The form will send the info needed for the SQL query
     print('<form action="addCustomer.cgi" method="post">')
     print('<div style="margin-left: -20px;">')
     print('<p>Number:</p> <input type="text" name="cust_no" style="background-color: lightgrey; width: 110%;"/>')
@@ -39,7 +39,7 @@ if not cust_no or not name or not email:
     print('<p>Address (optional):</p> <input type="text" name="address" style="background-color: lightgrey; width: 110%;"/>')
     print('</div>')
 
-    # Add a cancel button to the left of the submit button
+    # Buttons
     print('<div class="confirm-buttons" style="display: flex; justify-content: center; margin-top: 10px;">')
     print('<a href="clients.cgi" class="button" style="background-color: grey; margin-left: -20px; line-height: 50px;">Cancel</a>')
     print('<form action="addCustomer.cgi" method="post" style="margin-left: 20px; margin-right: 20px;">')
@@ -49,28 +49,23 @@ if not cust_no or not name or not email:
 
     print('</form>')
 
+# Execution of the queries
 else:
-
     connection = None
 
     try:
-        # Creating connection
         connection = psycopg2.connect(login.credentials)
         cursor = connection.cursor()
 
-        # Query
         sql = "INSERT INTO customer (cust_no, name, email, phone, address) VALUES %(param)s;"
         data = {'param': (cust_no, name, email, phone, address)}
 
-        # Feed the data to the SQL query as follows to avoid SQL injection
         cursor.execute(sql, data)
 
-        # Commit the update (without this step the database will not change)
         connection.commit()
-        # Closing connection
         cursor.close()
+
     except Exception as e:
-        print('<h1>{}</h1>'.format(str(e)))
         print('<h1>An error occurred.</h1>')
 
     finally:
