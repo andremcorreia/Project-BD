@@ -39,7 +39,7 @@ try:
     print('<div style="text-align:center; margin-top: 60px;">')
     print('<p><b>Orders</b></p>') 
     print('<form action="orders.cgi" method="get">')
-    print('<input type="search" name="query" placeholder="🔍 Search by Customer ID" value="{}" style="padding:5px; font-size:12px; border-radius:5px; border:0px solid #ccc;">'.format(search_query))
+    print('<input type="search" name="query" placeholder="🔍 Search by Customer ID" value="{}" style="padding:5px; font-size:12px; border-radius:5px; border:0px solid #ccc; width: 45%">'.format(search_query))
     print('</form>')
     print('</div>')
 

@@ -33,7 +33,7 @@ try:
 
     print('<div class="header">')
 
-    print('<div style="text-align:center; margin-top: 30px; font-size: 18px;">')
+    print('<div style="text-align:center; margin-top: 60px; font-size: 18px;">')
     print('<p><b>Customers</b></p>')
     print('<form action="clients.cgi" method="get">')
     print('<input type="search" name="query" placeholder="🔍 Search by name" value="{}" style="padding:5px; font-size:12px; border-radius:5px; border:0px solid #ccc;">'.format(search_query))
