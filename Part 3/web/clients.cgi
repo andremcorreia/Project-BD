@@ -8,6 +8,7 @@ MAX = 20
 form = cgi.FieldStorage()
 current = form.getvalue('current')
 search_query = form.getvalue('query', '')
+
 if not current:
     current = 0
 else:
@@ -35,8 +36,9 @@ try:
     print('<div style="text-align:center; margin-top: 30px; font-size: 18px;">')
     print('<p><b>Customers</b></p>')
     print('<form action="clients.cgi" method="get">')
-    print('<input type="search" name="query" placeholder="Search by name" value="{}" style="padding:5px; font-size:12px; border-radius:5px; border:0px solid #ccc;">'.format(search_query))
+    print('<input type="search" name="query" placeholder="🔍 Search by name" value="{}" style="padding:5px; font-size:12px; border-radius:5px; border:0px solid #ccc;">'.format(search_query))
     print('</form>')
+
     print('</div>')
 
     print('<div class="table-container">')

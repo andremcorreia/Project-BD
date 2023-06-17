@@ -26,20 +26,21 @@ def Setup():
     print('  background-position: center;')
     print('}')
 
-    # Buttons
-    print('.button {')
-    print('  text-decoration: none;')
-    print('  height: 50px;')
-    print('  width: 120px;')
-    print('  text-align: center;')
-    print('  font-size: 20px;')
-    print('  color: white;')
-    print('  border-radius: 10px;')
-    print('}')
-    print('.button:hover {')
-    print('  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);')
-    print('}')
+    
+    #print('.button {')
+    #print('  text-decoration: none;')
+    #print('  height: 50px;')
+    #print('  width: 120px;')
+    #print('  text-align: center;')
+    #print('  font-size: 20px;')
+    #print('  color: white;')
+    #print('  border-radius: 10px;')
+    #print('}')
+    #print('.button:hover {')
+    #print('  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);')
+    #print('}')
 
+    # Buttons
     print('.pushable {')
     print('  background: hsl(340deg 100% 32%);')
     print('  border-radius: 12px;')
@@ -61,7 +62,6 @@ def Setup():
     print('.pushable:active .front {')
     print('  transform: translateY(-2px);')
     print('}')
-
 
     # Header
     print('header {')
