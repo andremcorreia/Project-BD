@@ -14,7 +14,7 @@ address = form.getvalue('address')
 date = form.getvalue('date')
 
 # Form
-if not TIN or not name_supplier or not date:
+if (not TIN or not name_supplier or not date) or (address and not base.addressCheck(address)):
     print('<h3 style="font-size: 24px;">Adding a new Supplier for {} 🚚</h3>'.format(prod_name))
 
     print('<form action="addSupplier.cgi?SKU={}&Pname={}" method="post">'.format(sku,prod_name))
@@ -26,6 +26,8 @@ if not TIN or not name_supplier or not date:
     if (TIN or date) and not name_supplier:
         print('<div style="color: #f5473b; font-size: 12px;">Required field</div>')
     print('<p>Address:</p> <input type="text" name="address" style="padding:5px; font-size:12px; border-radius:5px; border:0px solid #ccc; width: 110%;"/>')
+    if address and not base.addressCheck(address):
+        print('<div style="color: #f5473b; font-size: 12px;">Must be of format | street, XXXX-XXX city |</div>')
     print('<p>Contract date:</p> <input type="text" name="date" style="padding:5px; font-size:12px; border-radius:5px; border:0px solid #ccc; width: 110%;"/>')
     if (TIN or name_supplier) and not date:
         print('<div style="color: #f5473b; font-size: 12px;">Required field</div>')

@@ -48,12 +48,12 @@ CREATE CONSTRAINT TRIGGER tg_contains_order
 
 ALTER TABLE customer
 ADD CONSTRAINT check_cust_address
-CHECK (address ~ '^.+,\s\d{4}-\d{3}\s.+$');
+CHECK (address ~ '^.+\s\d{4}-\d{3}\s.+$');
 
 ALTER TABLE supplier
 ADD CONSTRAINT check_supp_address
-CHECK (address ~ '^.+,\s\d{4}-\d{3}\s.+$');
+CHECK (address ~ '^.+\s\d{4}-\d{3}\s.+$');
 
 ALTER TABLE workplace
 ADD CONSTRAINT check_workplace_address
-CHECK (address ~ '^.+,\s\d{4}-\d{3}\s.+$');
+CHECK (address ~ '^.+\s\d{4}-\d{3}\s.+$');

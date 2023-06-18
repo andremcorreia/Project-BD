@@ -192,3 +192,36 @@ def finish():
     print('</body>')
     print('</html>')
 
+def addressCheck(address):
+    i = -1
+    i = address.find("-")
+    if i == -1:
+        return False
+    i -= 4
+
+    if i < 2:
+        return False
+    
+    found = False
+    for char in address[:i]:
+        if char.isalpha() or char.isdigit():
+            found = True
+    if not found:
+        return False
+
+    for n in range(8):
+        if n != 4:
+            if i + n >= len(address) or not address[i + n].isdigit():
+                return False
+
+    found = False       
+    for char in address[i + 8:]:
+        if char.isalpha() or char.isdigit():
+            found = True
+    if not found:
+        return False
+    
+    if address[i - 1] != " " or address[i + 8] != " ":
+        return False
+
+    return True

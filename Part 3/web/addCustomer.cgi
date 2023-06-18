@@ -13,7 +13,7 @@ phone = form.getvalue('phone')
 address = form.getvalue('address')
 
 # Form
-if not cust_no or not name or not email:
+if not cust_no or not name or not email or (address and not base.addressCheck(address)):
     print('<h3 style="font-size: 24px;"> Adding a new customer 👨‍💻</h3>')
 
     print('<form action="addCustomer.cgi" method="post">')
@@ -37,6 +37,8 @@ if not cust_no or not name or not email:
     print('</div>')
     print('<div style="margin-left: -20px;">')
     print('<p>Address (optional):</p> <input type="text" name="address" style="padding:5px; font-size:12px; border-radius:5px; border:0px solid #ccc; width: 110%;"/>')
+    if address and not base.addressCheck(address):
+        print('<div style="color: #f5473b; font-size: 12px;">Must be of format | street, XXXX-XXX city |</div>')
     print('</div>')
 
     print('<div style="margin-bottom: 30px;"> </div>') 
